@@ -321,6 +321,7 @@ Content-Language: en
 HTTP/1.1 200 OK
 Date: Thu, 14 May 2015 18:52:00 GMT
 Content-Encoding: out-of-band
+Content-Type: text/plain
 Content-Length: <x:length-of target="exbody4"/>
 
 <x:span anchor="exbody4">[{
@@ -336,8 +337,36 @@ Content-Length: <x:length-of target="exbody4"/>
   secondary's resource representation)
 </postamble>
 </figure>
+<figure>
+<preamble>Response for secondary resource:</preamble>
+<artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
+HTTP/1.1 200 OK
+Date: Thu, 14 May 2015 18:52:10 GMT
+Content-Type: application/http
+Content-Length: ...
+Cache-Control: private
+
+HTTP/1.1 200 OK
+Content-Length: 31
+Content-Encoding: aesgcm-128
+Encryption: keyid="a1"; salt="ibZx1RNz537h1XNkRcPpjA"
+
+zK3kpG__Z8whjIkG6RYgPz11oUkTKcxPy9WP-VPMfuc</artwork>
+<postamble>(payload body shown in base64 here)</postamble>
+</figure>
+<figure>
+<preamble>Final message after recombining header fields:</preamble>
+<artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
+HTTP/1.1 200 OK
+Date: Thu, 14 May 2015 18:52:00 GMT
+Content-Length: <x:length-of target="exbody8"/>
+Content-Type: text/plain
+
+<x:span anchor="exbody8">I am the walrus</x:span></artwork>
+</figure>
 </section>
 </section>
+
 </section>
 
 <section title="Feature Discovery" anchor="feature.discovery">

@@ -275,6 +275,7 @@ Table of Contents
      HTTP/1.1 200 OK
      Date: Thu, 14 May 2015 18:52:00 GMT
      Content-Encoding: out-of-band
+     Content-Type: text/plain
      Content-Length: 192
 
      [{
@@ -287,6 +288,31 @@ Table of Contents
 
    (note that the Content-Type header field describes the media type of
    the secondary's resource representation)
+
+   Response for secondary resource:
+
+     HTTP/1.1 200 OK
+     Date: Thu, 14 May 2015 18:52:10 GMT
+     Content-Type: application/http
+     Content-Length: ...
+     Cache-Control: private
+
+     HTTP/1.1 200 OK
+     Content-Length: 31
+     Content-Encoding: aesgcm-128
+     Encryption: keyid="a1"; salt="ibZx1RNz537h1XNkRcPpjA"
+
+     zK3kpG__Z8whjIkG6RYgPz11oUkTKcxPy9WP-VPMfuc
+   (payload body shown in base64 here)
+
+   Final message after recombining header fields:
+
+     HTTP/1.1 200 OK
+     Date: Thu, 14 May 2015 18:52:00 GMT
+     Content-Length: 15
+     Content-Type: text/plain
+
+     I am the walrus
 
 4.  Feature Discovery
 
