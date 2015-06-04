@@ -28,7 +28,8 @@ Editorial Note (To be removed by RFC Editor before publication)
    Discussions of the HTTPbis Working Group are archived at
    <http://lists.w3.org/Archives/Public/ietf-http-wg/>.
 
-   XML versions and latest edits for this document are available from
+   XML versions, latest edits, and issue tracking for this document are
+   available from <https://github.com/reschke/oobencoding> and
    <http://greenbytes.de/tech/webdav/#draft-reschke-http-oob-encoding>.
 
 Status of This Memo
