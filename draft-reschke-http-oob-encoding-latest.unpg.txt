@@ -180,17 +180,20 @@ Table of Contents
 
    The client then obtains the original message by:
 
-   1.  Removing any transfer and content codings.  The latter might
-       require additional metadata that could be present in the
-       "metadata" object, such as the "Encryption-Key" header field
-       described in Section 4 of [ENCRYPTENC].
+   1.  Unwrap the encapsulated HTTP message by removing any transfer and
+       content codings.
 
-   2.  Removing any response header fields that are not representation
-       metadata (Section 3.1 of [RFC7231]). [[anchor3: Drawback: makes
-       support for new representation header field hard.]]
+       The latter might require additional metadata that could be
+       present in the "metadata" object, such as the "Encryption-Key"
+       header field described in Section 4 of [ENCRYPTENC].
+
+   2.  Replacing/setting any response header fields from the primary
+       response except for framing-related information such as Content-
+       Length, Transfer-Encoding and Content-Encoding.
 
    3.  Replacing/setting any header fields with those present as members
-       in the "metadata" object.
+       in the "metadata" object. [[anchor3: Do we have a use case for
+       this?]]
 
    Note that although this mechanism causes the inclusion of external
    content, it will not affect the application-level security properties

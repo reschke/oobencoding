@@ -209,22 +209,26 @@
   <list style="numbers">
     <x:lt>
       <t>
-        Removing any transfer and content codings. The latter might require
+        Unwrap the encapsulated HTTP message by removing any transfer and content codings.
+      </t>  
+      <t>
+        The latter might require
         additional metadata that could be present in the "metadata" object,
         such as the "Encryption-Key" header field described in <xref target="ENCRYPTENC" x:sec="4"/>.
       </t>
     </x:lt>
     <x:lt>
       <t>
-        Removing any response header fields that are not representation
-        metadata (<xref target="RFC7231" x:rel="#representation.metadata"/>).
-        <cref>Drawback: makes support for new representation header field hard.</cref>
+        Replacing/setting any response header fields from the primary
+        response except for framing-related information such as
+        Content-Length, Transfer-Encoding and Content-Encoding.
       </t>
     </x:lt>
     <x:lt>
       <t>
         Replacing/setting any header fields with those present as members
         in the "metadata" object.
+        <cref>Do we have a use case for this?</cref>
       </t>
     </x:lt>
   </list>
