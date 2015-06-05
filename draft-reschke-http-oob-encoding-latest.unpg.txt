@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: December 6, 2015                                       Ericsson
-                                                            June 4, 2015
+Expires: December 7, 2015                                       Ericsson
+                                                            June 5, 2015
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -15,7 +15,7 @@ Abstract
 
    This document describes an Hypertext Transfer Protocol (HTTP) content
    coding that can be used to describe the location of a secondary
-   resource that contans the payload.
+   resource that contains the payload.
 
 Editorial Note (To be removed by RFC Editor before publication)
 
@@ -47,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 6, 2015.
+   This Internet-Draft will expire on December 7, 2015.
 
 Copyright Notice
 
@@ -73,7 +73,7 @@ Table of Contents
      3.2.  Definitions
      3.3.  Examples
        3.3.1.  Basic Example
-       3.3.2.  Example involving an encryted resource
+       3.3.2.  Example involving an encrypted resource
    4.  Feature Discovery
    5.  Security Considerations
      5.1.  Use in Requests
@@ -90,7 +90,7 @@ Table of Contents
 
    This document describes an Hypertext Transfer Protocol (HTTP) content
    coding (Section 3.1.2.1 of [RFC7231]) that can be used to describe
-   the location of a secondary resource that contans the payload.
+   the location of a secondary resource that contains the payload.
 
    The primary use case for this content coding is to enable origin
    servers to delegate the delivery of content to a secondary server
@@ -180,8 +180,8 @@ Table of Contents
 
    The client then obtains the original message by:
 
-   1.  Unwrap the encapsulated HTTP message by removing any transfer and
-       content codings.
+   1.  Unwrapping the encapsulated HTTP message by removing any transfer
+       and content codings.
 
        The latter might require additional metadata that could be
        present in the "metadata" object, such as the "Encryption-Key"
@@ -266,7 +266,7 @@ Table of Contents
    In this example, Cache-Control, Content-Length, and Date have been
    set/overwritten with data from the primary resource's representation.
 
-3.3.2.  Example involving an encryted resource
+3.3.2.  Example involving an encrypted resource
 
    Given the example HTTP message from Section 5.4 of [ENCRYPTENC], a
    primary resource could use the "out-of-band" encoding to specify just
@@ -419,8 +419,8 @@ B.1.  Range Requests
 
 Appendix C.  Acknowledgements
 
-   Thanks to Goran Eriksson, Mark Nottingham, and Martin Thomson for
-   feedback on this document.
+   Thanks to Goran Eriksson, Kevin Smith, Mark Nottingham, and Martin
+   Thomson for feedback on this document.
 
 Authors' Addresses
 

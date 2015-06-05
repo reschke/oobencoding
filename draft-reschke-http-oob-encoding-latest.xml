@@ -66,7 +66,7 @@
     <t>
       This document describes an Hypertext Transfer Protocol (HTTP) content
       coding that can be used to describe the location of a secondary resource
-      that contans the payload.
+      that contains the payload.
     </t>
   </abstract>
   
@@ -102,7 +102,7 @@
 <t>
   This document describes an Hypertext Transfer Protocol (HTTP) content
   coding (<xref target="RFC7231" x:rel="#content.codings"/>) that can be used
-  to describe the location of a secondary resource that contans the payload.
+  to describe the location of a secondary resource that contains the payload.
 </t>
 <t>
   The primary use case for this content coding is to enable origin servers
@@ -209,7 +209,7 @@
   <list style="numbers">
     <x:lt>
       <t>
-        Unwrap the encapsulated HTTP message by removing any transfer and content codings.
+        Unwrapping the encapsulated HTTP message by removing any transfer and content codings.
       </t>  
       <t>
         The latter might require
@@ -312,7 +312,7 @@ Content-Language: en
 <postamble>In this example, Cache-Control, Content-Length, and Date have been set/overwritten with data from the primary resource's representation.</postamble>
 </figure>
 </section>
-<section title="Example involving an encryted resource">
+<section title="Example involving an encrypted resource">
 <t>
   Given the example HTTP message from <xref target="ENCRYPTENC" x:sec="5.4"/>,
   a primary resource could use the "out-of-band" encoding to specify just
@@ -524,13 +524,9 @@ Content-Type: text/plain
 <!--<section title="Change Log (to be removed by RFC Editor before publication)" anchor="change.log">
 </section>-->
 
-<!--<section title="Acknowledgements">
-Salvatore, Martin...
-</section>-->
-
 <section title="Acknowledgements" numbered="false">
 <t>
-  Thanks to Goran Eriksson, Mark Nottingham, and Martin Thomson
+  Thanks to Goran Eriksson, Kevin Smith, Mark Nottingham, and Martin Thomson
   for feedback on this document.
 </t>
 </section>
