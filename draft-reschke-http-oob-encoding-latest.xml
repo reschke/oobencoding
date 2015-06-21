@@ -472,6 +472,25 @@ Content-Type: text/plain
 
 <references title="Informative References">
 
+<reference anchor='RFC2017'>
+  <front>
+    <title abbrev='URL Access-Type'>Definition of the URL MIME External-Body Access-Type</title>
+    <author initials='N.' surname='Freed' fullname='Ned Freed'/>
+    <author initials='K.' surname='Moore' fullname='Keith Moore'/>
+    <date year='1996' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='2017' />
+</reference>
+
+<reference anchor='RFC4483'>
+  <front>
+    <title>A Mechanism for Content Indirection in Session Initiation Protocol (SIP) Messages</title>
+    <author initials='E.' surname='Burger' fullname='E. Burger'/>
+    <date year='2006' month='May' />
+  </front>
+  <seriesInfo name='RFC' value='4483' />
+</reference>
+
 <reference anchor="RFC6454">
   <front>
     <title>The Web Origin Concept</title>
@@ -503,9 +522,17 @@ Content-Type: text/plain
     thus some additional signal to opt into this protocol would always be needed.</t>
     <t>In redirect messages, representation metadata (<xref target="RFC7231" x:rel="#representation.metadata"/>),
     namely "Content-Type", applies to the response message, not the redirected-to
-    resource.
-    </t>
+    resource.</t>
+    <t>The origin-preserving nature of using a content coding woudld be lost.</t>
   </list>
+</t>
+<t>
+  Another alternative would be to implement the indirection on the level
+  of the media type using something similar to the type "message/external-body",
+  defined in <xref target="RFC2017"/> and refined for use in the 
+  Session Initiation Protocol (SIP) in <xref target="RFC4483"/>. This approach
+  though would share most of the drawbacks of the status code approach mentioned 
+  above.
 </t>
 </section>
 
@@ -526,8 +553,8 @@ Content-Type: text/plain
 
 <section title="Acknowledgements" numbered="false">
 <t>
-  Thanks to Goran Eriksson, Kevin Smith, Mark Nottingham, and Martin Thomson
-  for feedback on this document.
+  Thanks to Goran Eriksson, Kevin Smith, Mark Nottingham, Martin Thomson,
+  and Roland Zink for feedback on this document.
 </t>
 </section>
 

@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: December 7, 2015                                       Ericsson
-                                                            June 5, 2015
+Expires: December 23, 2015                                      Ericsson
+                                                           June 21, 2015
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -47,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 7, 2015.
+   This Internet-Draft will expire on December 23, 2015.
 
 Copyright Notice
 
@@ -383,6 +383,16 @@ Table of Contents
                  draft-thomson-http-encryption-00 (work in progress),
                  May 2015.
 
+   [RFC2017]     Freed, N. and K. Moore, "Definition of the URL MIME
+                 External-Body Access-Type", RFC 2017, DOI 10.17487/
+                 RFC2017, October 1996,
+                 <http://www.rfc-editor.org/info/rfc2017>.
+
+   [RFC4483]     Burger, E., "A Mechanism for Content Indirection in
+                 Session Initiation Protocol (SIP) Messages", RFC 4483,
+                 DOI 10.17487/RFC4483, May 2006,
+                 <http://www.rfc-editor.org/info/rfc4483>.
+
    [RFC6454]     Barth, A., "The Web Origin Concept", RFC 6454,
                  DOI 10.17487/RFC6454, December 2011,
                  <http://www.rfc-editor.org/info/rfc6454>.
@@ -407,6 +417,16 @@ Appendix A.  Alternatives, or: why not a new Status Code?
       [RFC7231]), namely "Content-Type", applies to the response
       message, not the redirected-to resource.
 
+   o  The origin-preserving nature of using a content coding woudld be
+      lost.
+
+   Another alternative would be to implement the indirection on the
+   level of the media type using something similar to the type "message/
+   external-body", defined in [RFC2017] and refined for use in the
+   Session Initiation Protocol (SIP) in [RFC4483].  This approach though
+   would share most of the drawbacks of the status code approach
+   mentioned above.
+
 Appendix B.  Open Issues
 
 B.1.  Range Requests
@@ -419,8 +439,8 @@ B.1.  Range Requests
 
 Appendix C.  Acknowledgements
 
-   Thanks to Goran Eriksson, Kevin Smith, Mark Nottingham, and Martin
-   Thomson for feedback on this document.
+   Thanks to Goran Eriksson, Kevin Smith, Mark Nottingham, Martin
+   Thomson, and Roland Zink for feedback on this document.
 
 Authors' Addresses
 
