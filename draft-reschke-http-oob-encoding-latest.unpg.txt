@@ -200,6 +200,12 @@ Table of Contents
        in the "metadata" object. [[anchor3: Do we have a use case for
        this?]]
 
+   If the client is unable to retrieve the secondary resource's
+   representation (host can't be reached, non 2xx response status code,
+   etc.), it can choose an alternate secondary resource (if specified),
+   or simply retry the request to the origin server without including
+   "out-of-band" in the Accept-Encoding request header field.
+
    Note that although this mechanism causes the inclusion of external
    content, it will not affect the application-level security properties
    of the reconstructed message, such as its web origin ([RFC6454]).
@@ -447,6 +453,9 @@ Appendix C.  Change Log (to be removed by RFC Editor before publication)
 C.1.  Changes since draft-reschke-http-oob-encoding-00
 
    Mention media type approach.
+
+   Explain that clients can always fall back not to use oob when the
+   secondary resource isn't available.
 
 Appendix D.  Acknowledgements
 
