@@ -88,9 +88,9 @@
       are available from <eref target="https://github.com/reschke/oobencoding"/> and
       <eref target="http://greenbytes.de/tech/webdav/#draft-reschke-http-oob-encoding"/>.
     </t>
-    <!--<t>
+    <t>
       The changes in this draft are summarized in <xref target="changes.since.00"/>.
-    </t>-->
+    </t>
   </note>
 
 
@@ -548,12 +548,17 @@ Content-Type: text/plain
 </section> 
 </section>
 
-<!--<section title="Change Log (to be removed by RFC Editor before publication)" anchor="change.log">
-</section>-->
+<section title="Change Log (to be removed by RFC Editor before publication)" anchor="change.log">
+<section title="Changes since draft-reschke-http-oob-encoding-00" anchor="changes.since.00">
+<t>
+  Mention media type approach.
+</t>
+</section>
+</section>
 
 <section title="Acknowledgements" numbered="false">
 <t>
-  Thanks to Goran Eriksson, Kevin Smith, Mark Nottingham, Martin Thomson,
+  Thanks to Christer Holmberg, Goran Eriksson, Kevin Smith, Mark Nottingham, Martin Thomson,
   and Roland Zink for feedback on this document.
 </t>
 </section>

@@ -32,6 +32,8 @@ Editorial Note (To be removed by RFC Editor before publication)
    available from <https://github.com/reschke/oobencoding> and
    <http://greenbytes.de/tech/webdav/#draft-reschke-http-oob-encoding>.
 
+   The changes in this draft are summarized in Appendix C.1.
+
 Status of This Memo
 
    This Internet-Draft is submitted in full conformance with the
@@ -84,7 +86,10 @@ Table of Contents
    Appendix A.  Alternatives, or: why not a new Status Code?
    Appendix B.  Open Issues
      B.1.  Range Requests
-   Appendix C.  Acknowledgements
+   Appendix C.  Change Log (to be removed by RFC Editor before
+                publication)
+     C.1.  Changes since draft-reschke-http-oob-encoding-00
+   Appendix D.  Acknowledgements
 
 1.  Introduction
 
@@ -437,10 +442,17 @@ B.1.  Range Requests
 
    What about codes other than 200 and 206?
 
-Appendix C.  Acknowledgements
+Appendix C.  Change Log (to be removed by RFC Editor before publication)
 
-   Thanks to Goran Eriksson, Kevin Smith, Mark Nottingham, Martin
-   Thomson, and Roland Zink for feedback on this document.
+C.1.  Changes since draft-reschke-http-oob-encoding-00
+
+   Mention media type approach.
+
+Appendix D.  Acknowledgements
+
+   Thanks to Christer Holmberg, Goran Eriksson, Kevin Smith, Mark
+   Nottingham, Martin Thomson, and Roland Zink for feedback on this
+   document.
 
 Authors' Addresses
 
