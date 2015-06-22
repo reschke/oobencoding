@@ -108,7 +108,7 @@
   The primary use case for this content coding is to enable origin servers
   to delegate the delivery of content to a secondary server that might
   be "closer" to the client (with respect to network topology) and/or
-  able to cache content, leveraging content encrytion, as described in
+  able to cache content, leveraging content encryption, as described in
   <xref target="ENCRYPTENC"/>.
 </t>
 </section>  
@@ -569,7 +569,7 @@ Content-Type: text/plain
 
 <section title="Acknowledgements" numbered="false">
 <t>
-  Thanks to Christer Holmberg, Goran Eriksson, Kevin Smith, Mark Nottingham, Martin Thomson,
+  Thanks to Christer Holmberg, Goran Eriksson, John Mattsson, Kevin Smith, Mark Nottingham, Martin Thomson,
   and Roland Zink for feedback on this document.
 </t>
 </section>

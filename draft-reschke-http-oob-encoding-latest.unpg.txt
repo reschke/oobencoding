@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: December 23, 2015                                      Ericsson
-                                                           June 21, 2015
+Expires: December 24, 2015                                      Ericsson
+                                                           June 22, 2015
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 23, 2015.
+   This Internet-Draft will expire on December 24, 2015.
 
 Copyright Notice
 
@@ -100,8 +100,8 @@ Table of Contents
    The primary use case for this content coding is to enable origin
    servers to delegate the delivery of content to a secondary server
    that might be "closer" to the client (with respect to network
-   topology) and/or able to cache content, leveraging content encrytion,
-   as described in [ENCRYPTENC].
+   topology) and/or able to cache content, leveraging content
+   encryption, as described in [ENCRYPTENC].
 
 2.  Notational Conventions
 
@@ -459,9 +459,9 @@ C.1.  Changes since draft-reschke-http-oob-encoding-00
 
 Appendix D.  Acknowledgements
 
-   Thanks to Christer Holmberg, Goran Eriksson, Kevin Smith, Mark
-   Nottingham, Martin Thomson, and Roland Zink for feedback on this
-   document.
+   Thanks to Christer Holmberg, Goran Eriksson, John Mattsson, Kevin
+   Smith, Mark Nottingham, Martin Thomson, and Roland Zink for feedback
+   on this document.
 
 Authors' Addresses
 
