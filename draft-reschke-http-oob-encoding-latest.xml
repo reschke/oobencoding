@@ -248,7 +248,14 @@
 <t>
   The cacheability of the response for the secondary resource does not affect 
   the cacheability of the reconstructed response message, which is the same as
-  for the origin server's response.</t>
+  for the origin server's response.
+</t>
+<t>
+  Note that because the server's response depends on the request's Accept-Encoding
+  header field, the response usually will need to be declared to vary on that. See
+  <xref target="RFC7231" x:fmt="of" x:rel="#header.vary"/> and
+  <xref target="RFC7232" x:fmt="of" x:rel="#header.etag"/> for details.
+</t>
 </section>
 <section title="Examples">
 <section title="Basic Example">
@@ -269,6 +276,7 @@ Content-Type: text/plain
 Cache-Control: max-age=10, public
 Content-Encoding: out-of-band
 Content-Length: <x:length-of target="exbody"/>
+Vary: Accept-Encoding
 
 <x:span anchor="exbody">[{
   "URI": "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
@@ -334,6 +342,7 @@ Date: Thu, 14 May 2015 18:52:00 GMT
 Content-Encoding: out-of-band
 Content-Type: text/plain
 Content-Length: <x:length-of target="exbody4"/>
+Vary: Accept-Encoding
 
 <x:span anchor="exbody4">[{
   "URI": "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
@@ -507,6 +516,17 @@ Content-Type: text/plain
   <seriesInfo name="RFC" value="6454"/>
 </reference>
 
+<reference anchor="RFC7232">
+  <front>
+    <title>Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests</title>
+    <author initials="R." surname="Fielding" fullname="Roy T. Fielding" role="editor"/>
+    <author initials="J. F." surname="Reschke" fullname="Julian F. Reschke" role="editor"/>
+    <date month="June" year="2014"/>
+  </front>
+  <seriesInfo name="RFC" value="7232"/>
+  <x:source href="refs/rfc7232.xml" basename="rfc7232"/>
+</reference>
+
 <reference anchor='ENCRYPTENC'>
   <front>
     <title>Encrypted Content-Encoding for HTTP</title>
@@ -563,6 +583,11 @@ Content-Type: text/plain
 <t>
   Explain that clients can always fall back not to use oob when the secondary
   resource isn't available.
+</t>
+<t>
+  Add Vary response header field to examples and mention that it'll
+  usually be needed
+  (<eref target="https://github.com/reschke/oobencoding/issues/6"/>).
 </t>
 </section>
 </section>

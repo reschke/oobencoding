@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: December 24, 2015                                      Ericsson
-                                                           June 22, 2015
+Expires: March 11, 2016                                         Ericsson
+                                                       September 8, 2015
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 24, 2015.
+   This Internet-Draft will expire on March 11, 2016.
 
 Copyright Notice
 
@@ -214,6 +214,11 @@ Table of Contents
    affect the cacheability of the reconstructed response message, which
    is the same as for the origin server's response.
 
+   Note that because the server's response depends on the request's
+   Accept-Encoding header field, the response usually will need to be
+   declared to vary on that.  See Section 7.1.4 of [RFC7231] and Section
+   2.3 of [RFC7232] for details.
+
 3.3.  Examples
 
 3.3.1.  Basic Example
@@ -233,6 +238,7 @@ Table of Contents
      Cache-Control: max-age=10, public
      Content-Encoding: out-of-band
      Content-Length: 76
+     Vary: Accept-Encoding
 
      [{
        "URI": "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
@@ -291,6 +297,7 @@ Table of Contents
      Content-Encoding: out-of-band
      Content-Type: text/plain
      Content-Length: 192
+     Vary: Accept-Encoding
 
      [{
        "URI": "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
@@ -408,6 +415,11 @@ Table of Contents
                  DOI 10.17487/RFC6454, December 2011,
                  <http://www.rfc-editor.org/info/rfc6454>.
 
+   [RFC7232]     Fielding, R., Ed. and J. Reschke, Ed., "Hypertext
+                 Transfer Protocol (HTTP/1.1): Conditional Requests",
+                 RFC 7232, DOI 10.17487/RFC7232, June 2014,
+                 <http://www.rfc-editor.org/info/rfc7232>.
+
 URIs
 
    [1]  <mailto:ietf-http-wg@w3.org>
@@ -456,6 +468,10 @@ C.1.  Changes since draft-reschke-http-oob-encoding-00
 
    Explain that clients can always fall back not to use oob when the
    secondary resource isn't available.
+
+   Add Vary response header field to examples and mention that it'll
+   usually be needed
+   (<https://github.com/reschke/oobencoding/issues/6>).
 
 Appendix D.  Acknowledgements
 
