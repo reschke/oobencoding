@@ -748,7 +748,7 @@
 
 <xsl:template match="abstract">
   <xsl:call-template name="check-no-text-content"/>
-  <h1 id="{$anchor-prefix}.abstract"><a href="#{$anchor-prefix}.abstract">Abstract</a></h1>
+  <h2 id="{$anchor-prefix}.abstract"><a href="#{$anchor-prefix}.abstract">Abstract</a></h2>
   <xsl:apply-templates />
 </xsl:template>
 
@@ -1279,10 +1279,10 @@
     </table>
   </xsl:if>
 
-  <p class="title" id="{$anchor-prefix}.title">
+  <div id="{$anchor-prefix}.title">
     <!-- main title -->
 
-    <xsl:apply-templates select="title"/>
+    <h1><xsl:apply-templates select="title"/></h1>
     <xsl:if test="/rfc/@docName">
     
       <xsl:variable name="docname" select="/rfc/@docName"/>
@@ -1294,8 +1294,7 @@
           </xsl:call-template>
         </xsl:when>
         <xsl:otherwise>
-          <br/>
-          <span class="filename"><xsl:value-of select="$docname"/></span>
+          <p class="filename"><xsl:value-of select="$docname"/></p>
         </xsl:otherwise>
       </xsl:choose>
       
@@ -1320,7 +1319,6 @@
           <xsl:with-param name="msg">The @docName attribute '<xsl:value-of select="$docname"/>' should not contain the character '<xsl:value-of select="substring($offending,1,1)"/>'.</xsl:with-param>
         </xsl:call-template>
       </xsl:if>
-
 
       <xsl:if test="contains($docname,'--')">
         <xsl:call-template name="warning">
@@ -1356,7 +1354,7 @@
       </xsl:if>
 
     </xsl:if>
-  </p>
+  </div>
 
   <!-- insert notice about update -->
   <xsl:variable name="published-as" select="/*/x:link[@rel='Alternate' and starts-with(@title,'RFC')]"/>
@@ -1892,12 +1890,12 @@
 <xsl:template match="note">
   <xsl:call-template name="check-no-text-content"/>
   <xsl:variable name="num"><xsl:number/></xsl:variable>
-    <h1 id="{$anchor-prefix}.note.{$num}">
+    <h2 id="{$anchor-prefix}.note.{$num}">
       <xsl:call-template name="insertInsDelClass"/>
       <a href="#{$anchor-prefix}.note.{$num}">
         <xsl:value-of select="@title" />
       </a>
-    </h1>
+    </h2>
   <xsl:apply-templates />
 </xsl:template>
 
@@ -2148,6 +2146,9 @@
             <xsl:variable name="displayname">
               <!-- surname/initials is reversed for last author except when it's the only one -->
               <xsl:choose>
+                <xsl:when test="$truncated-initials='' and @surname">
+                  <xsl:value-of select="@surname"/>
+                </xsl:when>
                 <xsl:when test="position()=last() and position()!=1">
                   <xsl:value-of select="concat($truncated-initials,' ',@surname)" />
                 </xsl:when>
@@ -2341,7 +2342,7 @@
   <!-- insert pseudo section when needed -->
   <xsl:if test="not(preceding::references) and $refseccount!=1">
     <xsl:call-template name="insert-conditional-hrule"/>
-    <h1 id="{$anchor-prefix}.references">
+    <h2 id="{$anchor-prefix}.references">
       <xsl:call-template name="insert-conditional-pagebreak"/>
       <xsl:variable name="sectionNumber">
         <xsl:call-template name="get-references-section-number"/>
@@ -2353,13 +2354,13 @@
       </a>
       <xsl:text> </xsl:text>
       <xsl:value-of select="$xml2rfc-refparent"/>
-    </h1>
+    </h2>
   </xsl:if>
 
   <xsl:variable name="elemtype">
     <xsl:choose>
-      <xsl:when test="$refseccount!=1">h2</xsl:when>
-      <xsl:otherwise>h1</xsl:otherwise>
+      <xsl:when test="$refseccount!=1">h3</xsl:when>
+      <xsl:otherwise>h2</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
 
@@ -2556,30 +2557,38 @@
       <xsl:if test="front/abstract">
         <meta name="description" content="{normalize-space(front/abstract)}" />
       </xsl:if>
-
     </head>
-    <body>
-      <xsl:variable name="onload">
-        <xsl:if test="$xml2rfc-ext-insert-metadata='yes' and /rfc/@number">getMeta(<xsl:value-of select="/rfc/@number"/>,"rfc.meta");</xsl:if>
-        <xsl:if test="/rfc/x:feedback">initFeedback();</xsl:if>
-        <xsl:if test="$xml2rfc-ext-refresh-from!=''">RfcRefresh.initRefresh()</xsl:if>
-      </xsl:variable>
-      <xsl:if test="$onload!=''">
-        <xsl:attribute name="onload">
-          <xsl:value-of select="$onload"/>
-        </xsl:attribute>
-      </xsl:if>
 
-      <!-- insert diagnostics -->
-      <xsl:call-template name="insert-diagnostics"/>
-
-      <xsl:apply-templates select="front" />
-      <xsl:apply-templates select="middle" />
-      <xsl:call-template name="back" />
-    </body>
+    <xsl:call-template name="body" />
   </html>
 </xsl:template>
 
+<xsl:template name="body">
+  <body>
+    <!-- insert onload scripts, when required -->
+    <xsl:variable name="onload">
+      <xsl:if test="$xml2rfc-ext-insert-metadata='yes' and /rfc/@number">getMeta(<xsl:value-of select="/rfc/@number"/>,"rfc.meta");</xsl:if>
+      <xsl:if test="/rfc/x:feedback">initFeedback();</xsl:if>
+      <xsl:if test="$xml2rfc-ext-refresh-from!=''">RfcRefresh.initRefresh()</xsl:if>
+    </xsl:variable>
+    <xsl:if test="$onload!=''">
+      <xsl:attribute name="onload">
+        <xsl:value-of select="$onload"/>
+      </xsl:attribute>
+    </xsl:if>
+
+    <xsl:call-template name="add-start-material" />
+
+    <!-- insert diagnostics -->
+    <xsl:call-template name="insert-diagnostics"/>
+
+    <xsl:apply-templates select="front" />
+    <xsl:apply-templates select="middle" />
+    <xsl:call-template name="back" />
+
+    <xsl:call-template name="add-end-material" />
+  </body>
+</xsl:template>
 
 <xsl:template match="t">
   <xsl:param name="inherited-self-link"/>
@@ -2795,7 +2804,7 @@
 
   <xsl:variable name="elemtype">
     <xsl:choose>
-      <xsl:when test="count(ancestor::section) &lt;= 4">h<xsl:value-of select="1 + count(ancestor::section)"/></xsl:when>
+      <xsl:when test="count(ancestor::section) &lt;= 3">h<xsl:value-of select="2 + count(ancestor::section)"/></xsl:when>
       <xsl:otherwise>h6</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -3651,16 +3660,24 @@
     <xsl:for-each select="/rfc/front/area">
       <xsl:variable name="area" select="normalize-space(.)"/>
       <xsl:variable name="rallowed">
-        <ed:v>Applications</ed:v>
-        <ed:v>app</ed:v>
+        <xsl:if test="$pub-yearmonth &lt; 201509">
+          <ed:v>Applications</ed:v>
+          <ed:v>app</ed:v>
+        </xsl:if>
+        <xsl:if test="$pub-yearmonth &gt; 201505">
+          <ed:v>Applications and Real-Time</ed:v>
+          <ed:v>art</ed:v>
+        </xsl:if>
         <ed:v>General</ed:v>
         <ed:v>gen</ed:v>
         <ed:v>Internet</ed:v>
         <ed:v>int</ed:v>
         <ed:v>Operations and Management</ed:v>
         <ed:v>ops</ed:v>
-        <ed:v>Real-time Applications and Infrastructure</ed:v>
-        <ed:v>rai</ed:v>
+        <xsl:if test="$pub-yearmonth &lt; 201509">
+          <ed:v>Real-time Applications and Infrastructure</ed:v>
+          <ed:v>rai</ed:v>
+        </xsl:if>
         <ed:v>Routing</ed:v>
         <ed:v>rtg</ed:v>
         <ed:v>Security</ed:v>
@@ -3684,6 +3701,9 @@
                 <xsl:text>, </xsl:text>
               </xsl:if>
             </xsl:for-each>
+            <xsl:text> (as of the publication date of </xsl:text>
+            <xsl:value-of select="$pub-yearmonth"/>
+            <xsl:text>)</xsl:text>
             </xsl:with-param>
           </xsl:call-template>
         </xsl:otherwise>
@@ -4007,14 +4027,14 @@
     <xsl:call-template name="insert-conditional-hrule"/>
 
     <div class="avoidbreakinside">
-      <h1 id="{$anchor-prefix}.authors">
+      <h2 id="{$anchor-prefix}.authors">
         <xsl:call-template name="insert-conditional-pagebreak"/>
         <xsl:if test="$number != ''">
           <a href="#{$anchor-prefix}.section.{$number}" id="{$anchor-prefix}.section.{$number}"><xsl:value-of select="$number"/>.</a>
           <xsl:text> </xsl:text>
         </xsl:if>
         <a href="#{$anchor-prefix}.authors"><xsl:call-template name="get-authors-section-title"/></a>
-      </h1>
+      </h2>
 
       <xsl:apply-templates select="/rfc/front/author" />
     </div>
@@ -4694,23 +4714,32 @@ dl p {
   margin-left: 0em;
 }
 h1 {
+  color: green;
+  font-size: 150%;
+  line-height: 18pt;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 36pt;
+  margin-bottom: 0pt;
+}
+h2 {
   font-size: 130%;
   line-height: 21pt;
   page-break-after: avoid;
 }
-h1.np {
+h2.np {
   page-break-before: always;
 }
-h2 {
+h3 {
   font-size: 120%;
   line-height: 15pt;
   page-break-after: avoid;
 }
-h3 {
+h4 {
   font-size: 110%;
   page-break-after: avoid;
 }
-h4, h5, h6 {
+h5, h6 {
   page-break-after: avoid;
 }
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -4905,7 +4934,7 @@ li.excluded {
 ul p {
   margin-left: 0em;
 }
-.title, .filename, h1, h2, h3, h4 {
+.filename, h1, h2, h3, h4 {
   font-family: candara, calibri, segoe, optima, arial, sans-serif;
 }
 <xsl:if test="$has-index">ul.ind, ul.ind ul {
@@ -4959,10 +4988,11 @@ blockquote > * .bcp14 {
 }
 .filename {
   color: #333333;
-  font-size: 75%;
+  font-size: 112%;
   font-weight: bold;
   line-height: 21pt;
   text-align: center;
+  margin-top: 0pt;
 }
 .fn {
   font-weight: bold;
@@ -4972,14 +5002,6 @@ blockquote > * .bcp14 {
 }
 .right {
   text-align: right;
-}
-.title {
-  color: green;
-  font-size: 150%;
-  line-height: 18pt;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 36pt;
 }
 .warning {
   font-size: 130%;
@@ -5336,10 +5358,10 @@ dd, li, p {
 
   <xsl:call-template name="insert-conditional-hrule"/>
 
-  <h1 id="{$anchor-prefix}.index">
+  <h2 id="{$anchor-prefix}.index">
     <xsl:call-template name="insert-conditional-pagebreak"/>
     <a href="#{$anchor-prefix}.index">Index</a>
-  </h1>
+  </h2>
 
   <!-- generate navigation links to index subsections -->
   <p class="{$css-noprint}">
@@ -6148,9 +6170,9 @@ dd, li, p {
   <hr class="{$css-noprint}"/>
 
   <div id="{$anchor-prefix}.toc">
-    <h1 class="np"> <!-- this pagebreak occurs always -->
+    <h2 class="np"> <!-- this pagebreak occurs always -->
       <a href="#{$anchor-prefix}.toc">Table of Contents</a>
-    </h1>
+    </h2>
   
     <ul class="toc">
       <xsl:apply-templates mode="toc" />
@@ -7867,10 +7889,10 @@ dd, li, p {
 
   <xsl:call-template name="insert-conditional-hrule"/>
 
-  <h1>
+  <h2>
     <xsl:call-template name="insert-conditional-pagebreak"/>
     <a id="{$anchor-prefix}.comments" href="#{$anchor-prefix}.comments">Editorial Comments</a>
-  </h1>
+  </h2>
 
   <dl>
     <xsl:for-each select="//cref">
@@ -8036,11 +8058,11 @@ dd, li, p {
   <xsl:variable name="gen">
     <xsl:text>http://greenbytes.de/tech/webdav/rfc2629.xslt, </xsl:text>
     <!-- when RCS keyword substitution in place, add version info -->
-    <xsl:if test="contains('$Revision: 1.734 $',':')">
-      <xsl:value-of select="concat('Revision ',normalize-space(translate(substring-after('$Revision: 1.734 $', 'Revision: '),'$','')),', ')" />
+    <xsl:if test="contains('$Revision: 1.739 $',':')">
+      <xsl:value-of select="concat('Revision ',normalize-space(translate(substring-after('$Revision: 1.739 $', 'Revision: '),'$','')),', ')" />
     </xsl:if>
-    <xsl:if test="contains('$Date: 2015/06/02 05:22:03 $',':')">
-      <xsl:value-of select="concat(normalize-space(translate(substring-after('$Date: 2015/06/02 05:22:03 $', 'Date: '),'$','')),', ')" />
+    <xsl:if test="contains('$Date: 2015/09/06 15:45:25 $',':')">
+      <xsl:value-of select="concat(normalize-space(translate(substring-after('$Date: 2015/09/06 15:45:25 $', 'Date: '),'$','')),', ')" />
     </xsl:if>
     <xsl:value-of select="concat('XSLT vendor: ',system-property('xsl:vendor'),' ',system-property('xsl:vendor-url'))" />
   </xsl:variable>
@@ -8177,19 +8199,28 @@ dd, li, p {
 
 <!-- reformat contents of author/@initials -->
 <xsl:template name="format-initials">
-  <xsl:variable name="r">
-    <xsl:call-template name="t-format-initials">
-      <xsl:with-param name="remainder" select="normalize-space(@initials)"/>
-    </xsl:call-template>
-  </xsl:variable>
+  <xsl:variable name="normalized" select="normalize-space(@initials)"/>
 
-  <xsl:if test="$r!=@initials">
-    <xsl:call-template name="warning">
-      <xsl:with-param name="msg">@initials '<xsl:value-of select="@initials"/>': did you mean '<xsl:value-of select="$r"/>'?</xsl:with-param>
-    </xsl:call-template>
-  </xsl:if>
-
-  <xsl:value-of select="$r"/>
+  <xsl:choose>
+    <xsl:when test="$normalized=''">
+      <!-- nothing to do -->
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:variable name="r">
+        <xsl:call-template name="t-format-initials">
+          <xsl:with-param name="remainder" select="$normalized"/>
+        </xsl:call-template>
+      </xsl:variable>
+    
+      <xsl:if test="$r!=@initials">
+        <xsl:call-template name="warning">
+          <xsl:with-param name="msg">@initials '<xsl:value-of select="@initials"/>': did you mean '<xsl:value-of select="$r"/>'?</xsl:with-param>
+        </xsl:call-template>
+      </xsl:if>
+    
+      <xsl:value-of select="$r"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template name="t-format-initials">
@@ -8247,6 +8278,7 @@ prev: <xsl:value-of select="$prev"/>
 <xsl:template name="truncate-initials">
   <xsl:param name="initials"/>
   <xsl:choose>
+    <xsl:when test="normalize-space($initials)=''"/>
     <xsl:when test="$xml2rfc-multiple-initials='yes'">
       <xsl:value-of select="$initials"/>
     </xsl:when>
@@ -8865,11 +8897,13 @@ prev: <xsl:value-of select="$prev"/>
 </xsl:template>
 
 <xsl:template name="check-no-text-content">
-  <xsl:if test="normalize-space(text())!=''">
-    <xsl:call-template name="warning">
-      <xsl:with-param name="msg">No text content allowed inside &lt;<xsl:value-of select="name(.)"/>&gt;, but found: <xsl:value-of select="text()"/></xsl:with-param>
-    </xsl:call-template>
-  </xsl:if>
+  <xsl:for-each select="text()">
+    <xsl:if test="normalize-space(.)!=''">
+      <xsl:call-template name="warning">
+        <xsl:with-param name="msg">No text content allowed inside &lt;<xsl:value-of select="local-name(..)"/>&gt;, but found: <xsl:value-of select="."/></xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:for-each>
 </xsl:template>
 
 <!-- clean up links from HTML -->
@@ -8887,5 +8921,9 @@ prev: <xsl:value-of select="$prev"/>
 <xsl:template match="a|xhtml:a" mode="strip-links" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 	<xsl:apply-templates select="node()" mode="strip-links" />
 </xsl:template>
+
+<!-- customization: these templates can be overridden in an XSLT that imports from this one -->
+<xsl:template name="add-start-material"/>
+<xsl:template name="add-end-material"/>
 
 </xsl:transform>
