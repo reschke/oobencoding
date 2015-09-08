@@ -550,9 +550,9 @@ C.1.  Changes since draft-reschke-http-oob-encoding-00
 
 Appendix D.  Acknowledgements
 
-   Thanks to Christer Holmberg, Goran Eriksson, John Mattsson, Kevin
-   Smith, Mark Nottingham, Martin Thomson, and Roland Zink for feedback
-   on this document.
+   Thanks to Christer Holmberg, Daniel Lindstrom, Goran Eriksson, John
+   Mattsson, Kevin Smith, Mark Nottingham, Martin Thomson, and Roland
+   Zink for feedback on this document.
 
 Authors' Addresses
 
