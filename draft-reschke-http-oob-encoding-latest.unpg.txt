@@ -73,9 +73,14 @@ Table of Contents
    3.  'Out-Of-Band' Content Coding
      3.1.  Overview
      3.2.  Definitions
-     3.3.  Examples
-       3.3.1.  Basic Example
-       3.3.2.  Example involving an encrypted resource
+     3.3.  Problem Reporting
+       3.3.1.  Server Not Reachable
+       3.3.2.  Resource Not Found
+       3.3.3.  Payload Unusable
+     3.4.  Examples
+       3.4.1.  Basic Example
+       3.4.2.  Example involving an encrypted resource
+       3.4.3.  Example For Problem Reporting
    4.  Feature Discovery
    5.  Security Considerations
      5.1.  Use in Requests
@@ -202,9 +207,12 @@ Table of Contents
 
    If the client is unable to retrieve the secondary resource's
    representation (host can't be reached, non 2xx response status code,
-   etc.), it can choose an alternate secondary resource (if specified),
-   or simply retry the request to the origin server without including
-   "out-of-band" in the Accept-Encoding request header field.
+   payload failing integrity check, etc.), it can choose an alternate
+   secondary resource (if specified), or simply retry the request to the
+   origin server without including "out-of-band" in the Accept-Encoding
+   request header field.  In the latter case, it can be useful to inform
+   the origin server about what problems were encountered when trying to
+   access the secondary resource; see Section 3.3 for details.
 
    Note that although this mechanism causes the inclusion of external
    content, it will not affect the application-level security properties
@@ -219,9 +227,45 @@ Table of Contents
    declared to vary on that.  See Section 7.1.4 of [RFC7231] and Section
    2.3 of [RFC7232] for details.
 
-3.3.  Examples
+3.3.  Problem Reporting
 
-3.3.1.  Basic Example
+   When the client fails to obtain the secondary resource, it can be
+   useful to inform the origin server about the condition.  This can be
+   accomplished by adding a "Link" header field ([RFC5988]) to a
+   subsequent request to the origin server, detailing the URI of the
+   secondary resource and the failure reason.
+
+   The following link extension relations are defined:
+
+3.3.1.  Server Not Reachable
+
+   Used in case the server was not reachable.
+
+   Link relation:
+
+   http://purl.org/NET/linkrel/not-reachable
+
+3.3.2.  Resource Not Found
+
+   Used in case the server responded, but the object could not be
+   obtained.
+
+   Link relation:
+
+   http://purl.org/NET/linkrel/resource-not-found
+
+3.3.3.  Payload Unusable
+
+   Used in case the the payload could be obtained, but wasn't usable
+   (for instance, because integrity checks failed).
+
+   Link relation:
+
+   http://purl.org/NET/linkrel/payload-unusable
+
+3.4.  Examples
+
+3.4.1.  Basic Example
 
    Client request of primary resource:
 
@@ -283,7 +327,7 @@ Table of Contents
    In this example, Cache-Control, Content-Length, and Date have been
    set/overwritten with data from the primary resource's representation.
 
-3.3.2.  Example involving an encrypted resource
+3.4.2.  Example involving an encrypted resource
 
    Given the example HTTP message from Section 5.4 of [ENCRYPTENC], a
    primary resource could use the "out-of-band" encoding to specify just
@@ -335,6 +379,30 @@ Table of Contents
 
      I am the walrus
 
+3.4.3.  Example For Problem Reporting
+
+   Client requests primary resource as in Section 3.4.1, but the attempt
+   to access the secondary resource fails.
+
+   Response:
+
+     HTTP/1.1 404 Not Found
+     Date: Thu, 08 September 2015 16:49:00 GMT
+     Content-Type: text/plain
+     Content-Length: 20
+
+     Resource Not Found
+
+   Client retries with the origin server and includes Link header field
+   reporting the problem:
+
+     GET /test HTTP/1.1
+     Host: www.example.com
+     Accept-Encoding: gzip, out-of-band
+     Link: <http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
+           rel="http://purl.org/NET/linkrel/resource-not-found"
+
+
 4.  Feature Discovery
 
    New content codings can be deployed easily, as the client can use the
@@ -380,6 +448,10 @@ Table of Contents
                  "Uniform Resource Identifier (URI): Generic Syntax",
                  STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005,
                  <http://www.rfc-editor.org/info/rfc3986>.
+
+   [RFC5988]     Nottingham, M., "Web Linking", RFC 5988, DOI 10.17487/
+                 RFC5988, October 2010,
+                 <http://www.rfc-editor.org/info/rfc5988>.
 
    [RFC7159]     Bray, T., "The JavaScript Object Notation (JSON) Data
                  Interchange Format", RFC 7159, DOI 10.17487/RFC7159,
@@ -472,6 +544,9 @@ C.1.  Changes since draft-reschke-http-oob-encoding-00
    Add Vary response header field to examples and mention that it'll
    usually be needed
    (<https://github.com/reschke/oobencoding/issues/6>).
+
+   Experimentally add problem reporting using piggy-backed Link header
+   fields (<https://github.com/reschke/oobencoding/issues/7>).
 
 Appendix D.  Acknowledgements
 

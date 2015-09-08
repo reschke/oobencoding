@@ -235,10 +235,14 @@
 </t>
 <t>
   If the client is unable to retrieve the secondary resource's representation
-  (host can't be reached, non 2xx response status code, etc.), it can choose
+  (host can't be reached, non 2xx response status code, payload failing
+  integrity check, etc.), it can choose
   an alternate secondary resource (if specified), or simply retry the
   request to the origin server without including "out-of-band" in the
-  Accept-Encoding request header field.
+  Accept-Encoding request header field. In the latter case, it can be useful
+  to inform the origin server about what problems were encountered
+  when trying to access the secondary resource; see <xref target="problem.reporting"/>
+  for details.
 </t>
 <t>
   Note that although this mechanism causes the inclusion of external
@@ -257,8 +261,56 @@
   <xref target="RFC7232" x:fmt="of" x:rel="#header.etag"/> for details.
 </t>
 </section>
+
+<section title="Problem Reporting" anchor="problem.reporting">
+<t>
+  When the client fails to obtain the secondary resource, it can be useful
+  to inform the origin server about the condition. This can be accomplished
+  by adding a "Link" header field (<xref target="RFC5988"/>) to a subsequent request to the origin server,
+  detailing the URI of the secondary resource and the failure reason.
+</t>
+<t>
+  The following link extension relations are defined:
+</t>
+
+<section title="Server Not Reachable" anchor="rel-not-reachable">
+<t>
+  Used in case the server was not reachable.
+</t>
+<figure>
+<preamble>Link relation:</preamble>
+<artwork type="example">
+http://purl.org/NET/linkrel/not-reachable</artwork>
+</figure>
+</section>
+
+<section title="Resource Not Found" anchor="rel-resource-not-found">
+<t>
+  Used in case the server responded, but the object could not be obtained.
+</t>
+<figure>
+<preamble>Link relation:</preamble>
+<artwork type="example">
+http://purl.org/NET/linkrel/resource-not-found</artwork>
+</figure>
+</section>
+
+<section title="Payload Unusable" anchor="rel-payload-unusable">
+<t>
+  Used in case the the payload could be obtained, but wasn't usable
+  (for instance, because integrity checks failed).
+</t>
+<figure>
+<preamble>Link relation:</preamble>
+<artwork type="example">
+http://purl.org/NET/linkrel/payload-unusable</artwork>
+</figure>
+</section>
+
+</section>
+
 <section title="Examples">
-<section title="Basic Example">
+<section title="Basic Example" anchor="basic.example">
 <figure>
 <preamble>Client request of primary resource:</preamble>
 <artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
@@ -385,8 +437,36 @@ Content-Type: text/plain
 <x:span anchor="exbody8">I am the walrus</x:span></artwork>
 </figure>
 </section>
-</section>
 
+<section title="Example For Problem Reporting">
+<t>
+  Client requests primary resource as in <xref target="basic.example"/>, but the
+  attempt to access the secondary resource fails.
+</t>
+<figure>
+<preamble>Response:</preamble>
+<artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
+HTTP/1.1 404 Not Found
+Date: Thu, 08 September 2015 16:49:00 GMT
+Content-Type: text/plain
+Content-Length: <x:length-of target="exbody404"/>
+
+<x:span anchor="exbody404">Resource Not Found
+</x:span></artwork>
+</figure>
+<figure>
+<preamble>Client retries with the origin server and includes Link
+header field reporting the problem:</preamble>
+<artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
+GET /test HTTP/1.1
+Host: www.example.com
+Accept-Encoding: gzip, out-of-band
+Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
+      rel="http://purl.org/NET/linkrel/resource-not-found"
+
+</artwork></figure>
+</section>
+</section>
 </section>
 
 <section title="Feature Discovery" anchor="feature.discovery">
@@ -451,6 +531,15 @@ Content-Type: text/plain
  </front>
  <seriesInfo name="STD" value="66"/>
  <seriesInfo name="RFC" value="3986"/>
+</reference>
+
+<reference anchor='RFC5988'>
+  <front>
+    <title>Web Linking</title>
+    <author initials='M.' surname='Nottingham' fullname='M. Nottingham'/>
+    <date year='2010' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='5988'/>
 </reference>
 
 <reference anchor='RFC7159'>
@@ -588,6 +677,10 @@ Content-Type: text/plain
   Add Vary response header field to examples and mention that it'll
   usually be needed
   (<eref target="https://github.com/reschke/oobencoding/issues/6"/>).
+</t>
+<t>
+  Experimentally add problem reporting using piggy-backed Link header fields
+  (<eref target="https://github.com/reschke/oobencoding/issues/7"/>).
 </t>
 </section>
 </section>
