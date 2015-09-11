@@ -83,7 +83,8 @@ Table of Contents
        3.4.3.  Example For Problem Reporting
    4.  Feature Discovery
    5.  Security Considerations
-     5.1.  Use in Requests
+     5.1.  Content Modifications
+     5.2.  Use in Requests
    6.  IANA Considerations
    7.  References
      7.1.  Normative References
@@ -411,10 +412,14 @@ Table of Contents
 
 5.  Security Considerations
 
-   [[tbd.security: Such as: how is the secondary resource safe from
-   being modified without knowledge of the primary resource?]]
+5.1.  Content Modifications
 
-5.1.  Use in Requests
+   This specification does not define means to verify that the payload
+   obtained from the secondary resource really is what the origin server
+   expects it to be.  Content signatures can address this concern (see
+   [CONTENTSIG]).
+
+5.2.  Use in Requests
 
    In general, content codings can be used in both requests and
    responses.  This particular content coding has been designed for
@@ -468,6 +473,10 @@ Table of Contents
                  <http://www.rfc-editor.org/info/rfc7231>.
 
 7.2.  Informative References
+
+   [CONTENTSIG]  Thomson, M., "Content-Signature Header Field for HTTP",
+                 draft-thomson-http-content-signature-00 (work in
+                 progress), July 2015.
 
    [ENCRYPTENC]  Thomson, M., "Encrypted Content-Encoding for HTTP",
                  draft-thomson-http-encryption-01 (work in progress),

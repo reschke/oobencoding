@@ -478,9 +478,14 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </section>
 
 <section title="Security Considerations" anchor="security.considerations">
+<section title="Content Modifications">
 <t>
-  <cref anchor="tbd.security">Such as: how is the secondary resource safe from being modified without knowledge of the primary resource?</cref>
-</t>
+  This specification does not define means to verify that the payload
+  obtained from the secondary resource really is what the origin server
+  expects it to be. Content signatures can address this concern
+  (see <xref target="CONTENTSIG"/>).
+</t>  
+</section>
 <section title="Use in Requests">
 <t>
   In general, content codings can be used in both requests and responses. This particular
@@ -623,6 +628,15 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
     <date month="July" year="2015"/>
   </front>
   <seriesInfo name="Internet-Draft" value="draft-thomson-http-encryption-01"/>
+</reference>
+
+<reference anchor='CONTENTSIG'>
+  <front>
+    <title>Content-Signature Header Field for HTTP</title>
+    <author initials="M." surname="Thomson" fullname="Martin Thomson"/>
+    <date month="July" year="2015"/>
+  </front>
+  <seriesInfo name="Internet-Draft" value="draft-thomson-http-content-signature-00"/>
 </reference>
 </references>
 
