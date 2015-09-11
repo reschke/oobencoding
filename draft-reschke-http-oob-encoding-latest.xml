@@ -420,7 +420,7 @@ Cache-Control: private
 
 HTTP/1.1 200 OK
 Content-Length: 31
-Content-Encoding: aesgcm-128
+Content-Encoding: aesgcm128
 Encryption: keyid="a1"; salt="ibZx1RNz537h1XNkRcPpjA"
 
 zK3kpG__Z8whjIkG6RYgPz11oUkTKcxPy9WP-VPMfuc</artwork>
@@ -620,9 +620,9 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   <front>
     <title>Encrypted Content-Encoding for HTTP</title>
     <author initials="M." surname="Thomson" fullname="Martin Thomson"/>
-    <date month="May" year="2015"/>
+    <date month="July" year="2015"/>
   </front>
-  <seriesInfo name="Internet-Draft" value="draft-thomson-http-encryption-00"/>
+  <seriesInfo name="Internet-Draft" value="draft-thomson-http-encryption-01"/>
 </reference>
 </references>
 
