@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: April 8, 2016                                          Ericsson
-                                                         October 6, 2015
+Expires: April 9, 2016                                          Ericsson
+                                                         October 7, 2015
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 8, 2016.
+   This Internet-Draft will expire on April 9, 2016.
 
 Copyright Notice
 
@@ -92,6 +92,7 @@ Table of Contents
    Appendix A.  Alternatives, or: why not a new Status Code?
    Appendix B.  Open Issues
      B.1.  Range Requests
+     B.2.  Accessing the Secondary Resource Too Early
    Appendix C.  Change Log (to be removed by RFC Editor before
                 publication)
      C.1.  Changes since draft-reschke-http-oob-encoding-00
@@ -540,6 +541,35 @@ B.1.  Range Requests
    resource?
 
    What about codes other than 200 and 206?
+
+B.2.  Accessing the Secondary Resource Too Early
+
+   One use-case for this protocol is to enable a system of "blind
+   caches", which would serve the secondary resources.  These caches
+   might only be populated on demand, thus it could happen that whatever
+   mechanism is used to populate the cache hasn't finished when the
+   client hits it (maybe due to race conditions, or because the cache is
+   behind a middlebox which doesn't allow the origin server to push
+   content to it).
+
+   In this particular case, it can be useful if the client was able to
+   "piggyback" the URI of the primary resource, giving the secondary
+   server a means by which it could obtain the payload itself.  This
+   information could be provided in yet another Link header field:
+
+     GET bae27c36-fa6a-11e4-ae5d-00059a3c7a00 HTTP/1.1
+     Host: example.net
+     Link: <http://example.com/test>;
+           rel="http://purl.org/NET/linkrel/primary-resource"
+
+
+   (continuing the example from Section 3.4.1)
+
+   What's unclear is whether it's ok for the client to reveal the URI if
+   the primary resource, and under which conditions it's ok for the
+   secondary server to access it.  All it needs is the potentially
+   encrypted payload, so maybe yet another URI on the origin server is
+   needed.
 
 Appendix C.  Change Log (to be removed by RFC Editor before publication)
 

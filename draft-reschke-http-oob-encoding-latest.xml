@@ -675,7 +675,42 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 <t>
   What about codes other than 200 and 206?
 </t>
-</section> 
+</section>
+
+<section title="Accessing the Secondary Resource Too Early">
+<t>
+  One use-case for this protocol is to enable a system of "blind caches",
+  which would serve the secondary resources. These caches might only be populated
+  on demand, thus it could happen that whatever mechanism is used to populate
+  the cache hasn't finished when the client hits it (maybe due to race
+  conditions, or because the cache is behind a middlebox which doesn't allow
+  the origin server to push content to it).
+</t>
+<t>
+  In this particular case, it can be useful if the client was able to 
+  "piggyback" the URI of the primary resource, giving the secondary server
+  a means by which it could obtain the payload itself. This information could
+  be provided in yet another Link header field:
+</t>
+<figure>
+<artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
+GET bae27c36-fa6a-11e4-ae5d-00059a3c7a00 HTTP/1.1
+Host: example.net
+Link: &lt;http://example.com/test>;
+      rel="http://purl.org/NET/linkrel/primary-resource"
+
+</artwork>
+<postamble>
+(continuing the example from <xref target="basic.example"/>)
+</postamble>
+</figure>
+<t>
+  What's unclear is whether it's ok for the client to reveal the URI
+  if the primary resource, and under which conditions it's ok for the secondary
+  server to access it. All it needs is the potentially encrypted payload,
+  so maybe yet another URI on the origin server is needed.
+</t>
+</section>
 </section>
 
 <section title="Change Log (to be removed by RFC Editor before publication)" anchor="change.log">
