@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: April 9, 2016                                          Ericsson
-                                                         October 7, 2015
+Expires: April 22, 2016                                         Ericsson
+                                                        October 20, 2015
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 9, 2016.
+   This Internet-Draft will expire on April 22, 2016.
 
 Copyright Notice
 
@@ -342,14 +342,14 @@ Table of Contents
      Date: Thu, 14 May 2015 18:52:00 GMT
      Content-Encoding: out-of-band
      Content-Type: text/plain
-     Content-Length: 192
+     Content-Length: 198
      Vary: Accept-Encoding
 
      [{
        "URI": "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
        "metadata": {
          "encryption-key": "keyid=\"a1\";
-                            key=\"9Z57YCb3dK95dSsdFJbkag\""
+                            aesgcm128=\"9Z57YCb3dK95dSsdFJbkag\""
        }
      }]
 
@@ -480,8 +480,8 @@ Table of Contents
                  progress), July 2015.
 
    [ENCRYPTENC]  Thomson, M., "Encrypted Content-Encoding for HTTP",
-                 draft-thomson-http-encryption-01 (work in progress),
-                 July 2015.
+                 draft-thomson-http-encryption-02 (work in progress),
+                 October 2015.
 
    [RFC2017]     Freed, N. and K. Moore, "Definition of the URL MIME
                  External-Body Access-Type", RFC 2017, DOI 10.17487/

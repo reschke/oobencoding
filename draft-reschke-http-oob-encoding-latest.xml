@@ -400,7 +400,7 @@ Vary: Accept-Encoding
   "URI": "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
   "metadata": {
     "encryption-key": "keyid=\"a1\";
-                       key=\"9Z57YCb3dK95dSsdFJbkag\""
+                       aesgcm128=\"9Z57YCb3dK95dSsdFJbkag\""
   }
 }]
 </x:span></artwork>
@@ -625,9 +625,9 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   <front>
     <title>Encrypted Content-Encoding for HTTP</title>
     <author initials="M." surname="Thomson" fullname="Martin Thomson"/>
-    <date month="July" year="2015"/>
+    <date month="October" year="2015"/>
   </front>
-  <seriesInfo name="Internet-Draft" value="draft-thomson-http-encryption-01"/>
+  <seriesInfo name="Internet-Draft" value="draft-thomson-http-encryption-02"/>
 </reference>
 
 <reference anchor='CONTENTSIG'>
