@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: April 22, 2016                                         Ericsson
-                                                        October 20, 2015
+Expires: July 2, 2016                                           Ericsson
+                                                       December 30, 2015
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -32,7 +32,7 @@ Editorial Note (To be removed by RFC Editor before publication)
    available from <https://github.com/reschke/oobencoding> and
    <http://greenbytes.de/tech/webdav/#draft-reschke-http-oob-encoding>.
 
-   The changes in this draft are summarized in Appendix C.1.
+   The changes in this draft are summarized in Appendix C.2.
 
 Status of This Memo
 
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 22, 2016.
+   This Internet-Draft will expire on July 2, 2016.
 
 Copyright Notice
 
@@ -96,6 +96,7 @@ Table of Contents
    Appendix C.  Change Log (to be removed by RFC Editor before
                 publication)
      C.1.  Changes since draft-reschke-http-oob-encoding-00
+     C.2.  Changes since draft-reschke-http-oob-encoding-01
    Appendix D.  Acknowledgements
 
 1.  Introduction
@@ -196,8 +197,8 @@ Table of Contents
        and content codings.
 
        The latter might require additional metadata that could be
-       present in the "metadata" object, such as the "Encryption-Key"
-       header field described in Section 4 of [ENCRYPTENC].
+       present in the "metadata" object, such as the "Crypto-Key" header
+       field described in Section 4 of [ENCRYPTENC].
 
    2.  Replacing/setting any response header fields from the primary
        response except for framing-related information such as Content-
@@ -334,7 +335,7 @@ Table of Contents
    Given the example HTTP message from Section 5.4 of [ENCRYPTENC], a
    primary resource could use the "out-of-band" encoding to specify just
    the location of the secondary resource plus the contents of the
-   "Encryption-Key" header field needed to decrypt the payload:
+   "Crypto-Key" header field needed to decrypt the payload:
 
    Response:
 
@@ -342,14 +343,14 @@ Table of Contents
      Date: Thu, 14 May 2015 18:52:00 GMT
      Content-Encoding: out-of-band
      Content-Type: text/plain
-     Content-Length: 198
+     Content-Length: 194
      Vary: Accept-Encoding
 
      [{
        "URI": "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
        "metadata": {
-         "encryption-key": "keyid=\"a1\";
-                            aesgcm128=\"9Z57YCb3dK95dSsdFJbkag\""
+         "crypto-key": "keyid=\"a1\";
+                            aesgcm128=\"csPJEXBYA5U-Tal9EdJi-w\""
        }
      }]
 
@@ -365,11 +366,11 @@ Table of Contents
      Cache-Control: private
 
      HTTP/1.1 200 OK
-     Content-Length: 31
+     Content-Length: 32
      Content-Encoding: aesgcm128
-     Encryption: keyid="a1"; salt="ibZx1RNz537h1XNkRcPpjA"
+     Encryption: keyid="a1"; salt="vr0o6Uq3w_KDWeatc27mUg"
 
-     zK3kpG__Z8whjIkG6RYgPz11oUkTKcxPy9WP-VPMfuc
+     fuag8ThIRIazSHKUqJ5OduR75UgEUuM76J8UFwadEvg
    (payload body shown in base64 here)
 
    Final message after recombining header fields:
@@ -480,8 +481,8 @@ Table of Contents
                  progress), July 2015.
 
    [ENCRYPTENC]  Thomson, M., "Encrypted Content-Encoding for HTTP",
-                 draft-thomson-http-encryption-02 (work in progress),
-                 October 2015.
+                 draft-ietf-httpbis-encryption-encoding-00 (work in
+                 progress), December 2015.
 
    [RFC2017]     Freed, N. and K. Moore, "Definition of the URL MIME
                  External-Body Access-Type", RFC 2017, DOI 10.17487/
@@ -586,6 +587,10 @@ C.1.  Changes since draft-reschke-http-oob-encoding-00
 
    Experimentally add problem reporting using piggy-backed Link header
    fields (<https://github.com/reschke/oobencoding/issues/7>).
+
+C.2.  Changes since draft-reschke-http-oob-encoding-01
+
+   Updated ENCRYPTENC reference.
 
 Appendix D.  Acknowledgements
 
