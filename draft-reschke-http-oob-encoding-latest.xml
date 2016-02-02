@@ -135,7 +135,7 @@
 </t>
 <t>
   <list style="numbers">
-    <t anchor="flow.get.request">Client performs GET request</t>
+    <t anchor="flow.get.request">Client performs a request</t>
     <t anchor="flow.get.response">Received response specifies the 'out-of-band' content coding; the payload
     of the response contains additional meta data, plus the location of the secondary
     resource</t>

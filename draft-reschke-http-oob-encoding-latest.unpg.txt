@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: July 27, 2016                                          Ericsson
-                                                        January 24, 2016
+Expires: August 5, 2016                                         Ericsson
+                                                        February 2, 2016
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 27, 2016.
+   This Internet-Draft will expire on August 5, 2016.
 
 Copyright Notice
 
@@ -130,7 +130,7 @@ Table of Contents
    retrieve the actual message representation (Section 3 of [RFC7231])
    from a secondary resource, such as a public cache:
 
-   1.  Client performs GET request
+   1.  Client performs a request
 
    2.  Received response specifies the 'out-of-band' content coding; the
        payload of the response contains additional meta data, plus the
