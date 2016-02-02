@@ -38,8 +38,8 @@
         <city>Muenster</city><region>NW</region><code>48155</code>
         <country>Germany</country>
       </postal>
-      <email>julian.reschke@greenbytes.de</email>	
-      <uri>http://greenbytes.de/tech/webdav/</uri>	
+      <email>julian.reschke@greenbytes.de</email>
+      <uri>http://greenbytes.de/tech/webdav/</uri>
     </address>
   </author>
   <author initials="S." surname="Loreto" fullname="Salvatore Loreto">
@@ -47,8 +47,8 @@
     <address>
         <postal>
         <street>Hirsalantie 11</street>
-        <code>02420</code> 
-          <city>Jorvas</city> 
+        <code>02420</code>
+          <city>Jorvas</city>
           <country>Finland</country>
         </postal>
         <email>salvatore.loreto@ericsson.com</email>
@@ -56,7 +56,7 @@
   </author>
 
   <date year="2016"/>
-  
+
   <area>Applications and Real-Time</area>
   <keyword>HTTP</keyword>
   <keyword>content coding</keyword>
@@ -69,7 +69,6 @@
       that contains the payload.
     </t>
   </abstract>
-  
 
   <note title="Editorial Note (To be removed by RFC Editor before publication)">
     <t>
@@ -82,7 +81,7 @@
     <t>
       Discussions of the HTTPbis Working Group are archived at
       <eref target="http://lists.w3.org/Archives/Public/ietf-http-wg/"/>.               
-    </t> 
+    </t>
     <t>
       XML versions, latest edits, and issue tracking for this document
       are available from <eref target="https://github.com/reschke/oobencoding"/> and
@@ -92,7 +91,6 @@
       The changes in this draft are summarized in <xref target="changes.since.02"/>.
     </t>
   </note>
-
 
   </front>
 
@@ -111,7 +109,7 @@
   able to cache content, leveraging content encryption, as described in
   <xref target="ENCRYPTENC"/>.
 </t>
-</section>  
+</section>
 
 <section title="Notational Conventions" anchor="notational.conventions">
 <t>
@@ -210,7 +208,7 @@
     <x:lt>
       <t>
         Unwrapping the encapsulated HTTP message by removing any transfer and content codings.
-      </t>  
+      </t>
       <t>
         The latter might require
         additional metadata that could be present in the "metadata" object,
@@ -484,7 +482,7 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   obtained from the secondary resource really is what the origin server
   expects it to be. Content signatures can address this concern
   (see <xref target="CONTENTSIG"/>).
-</t>  
+</t>
 </section>
 <section title="Use in Requests">
 <t>
@@ -513,7 +511,7 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 
   </middle>
   <back>
-  
+
 <references title="Normative References">
 
 <reference anchor="RFC2119">
