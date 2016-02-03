@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: August 5, 2016                                         Ericsson
-                                                        February 2, 2016
+Expires: August 6, 2016                                         Ericsson
+                                                        February 3, 2016
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 5, 2016.
+   This Internet-Draft will expire on August 6, 2016.
 
 Copyright Notice
 
@@ -420,7 +420,7 @@ Table of Contents
    This specification does not define means to verify that the payload
    obtained from the secondary resource really is what the origin server
    expects it to be.  Content signatures can address this concern (see
-   [CONTENTSIG]).
+   [CONTENTSIG] and [MICE]).
 
 5.2.  Use in Requests
 
@@ -484,6 +484,10 @@ Table of Contents
    [ENCRYPTENC]  Thomson, M., "Encrypted Content-Encoding for HTTP",
                  draft-ietf-httpbis-encryption-encoding-00 (work in
                  progress), December 2015.
+
+   [MICE]        Thomson, M., "Merkle Integrity Content Encoding",
+                 draft-thomson-http-mice-00 (work in progress),
+                 January 2016.
 
    [RFC2017]     Freed, N. and K. Moore, "Definition of the URL MIME
                  External-Body Access-Type", RFC 2017, DOI 10.17487/
@@ -595,7 +599,7 @@ C.2.  Changes since draft-reschke-http-oob-encoding-01
 
 C.3.  Changes since draft-reschke-http-oob-encoding-02
 
-   None yet.
+   Add MICE reference.
 
 Appendix D.  Acknowledgements
 

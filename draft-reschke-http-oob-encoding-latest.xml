@@ -481,7 +481,7 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   This specification does not define means to verify that the payload
   obtained from the secondary resource really is what the origin server
   expects it to be. Content signatures can address this concern
-  (see <xref target="CONTENTSIG"/>).
+  (see <xref target="CONTENTSIG"/> and <xref target="MICE"/>).
 </t>
 </section>
 <section title="Use in Requests">
@@ -636,6 +636,15 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   </front>
   <seriesInfo name="Internet-Draft" value="draft-thomson-http-content-signature-00"/>
 </reference>
+
+<reference anchor='MICE'>
+  <front>
+    <title>Merkle Integrity Content Encoding</title>
+    <author initials="M." surname="Thomson" fullname="Martin Thomson"/>
+    <date month="January" year="2016"/>
+  </front>
+  <seriesInfo name="Internet-Draft" value="draft-thomson-http-mice-00"/>
+</reference>
 </references>
 
 <section title="Alternatives, or: why not a new Status Code?" anchor="alternatives">
@@ -737,7 +746,7 @@ Link: &lt;http://example.com/test>;
 </section>
 <section title="Changes since draft-reschke-http-oob-encoding-02" anchor="changes.since.02">
 <t>
-  None yet.
+  Add MICE reference.
 </t>
 </section>
 </section>
