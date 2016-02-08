@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: August 6, 2016                                         Ericsson
-                                                        February 3, 2016
+Expires: August 11, 2016                                        Ericsson
+                                                        February 8, 2016
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 6, 2016.
+   This Internet-Draft will expire on August 11, 2016.
 
 Copyright Notice
 
@@ -139,12 +139,9 @@ Table of Contents
    3.  Client performs GET request on secondary resource (usually again
        via HTTP(s))
 
-   4.  Secondary server provides wrapped HTTP message
+   4.  Secondary server provides payload
 
-   5.  Client unwraps that representation (obtaining a full HTTP
-       message)
-
-   6.  Client combines above representation with additional
+   5.  Client combines above representation with additional
        representation metadata obtained from the primary resource
 
 
@@ -157,11 +154,11 @@ Table of Contents
 
         GET to secondary server
    (3) |---------------------------\
-              wrapped HTTP message |
+                           payload |
    (4) <---------------------------/
 
-   (5, 6)
-      Client and combines HTTP message received in (4)
+   (5)
+      Client and combines payload received in (4)
       with metadata received in (2).
 
 3.2.  Definitions
@@ -176,11 +173,10 @@ Table of Contents
       [RFC3986]) of the secondary resource.
 
    'metadata'  An OPTIONAL object containing additional members,
-      representing header field values to be recombined with the
-      metadata from the secondary resource and which can not appear as
-      header fields in the response message itself (header fields that
-      occur multiple times need to be combined into a single field value
-      as per Section 3.2.2 of [RFC7230]; header field names are lower-
+      representing header field values which can not appear as header
+      fields in the response message itself (header fields that occur
+      multiple times need to be combined into a single field value as
+      per Section 3.2.2 of [RFC7230]; header field names are lower-
       cased).
 
    The payload format uses a JSON array so that the origin server can
@@ -188,18 +184,10 @@ Table of Contents
    response containing multiple entries, it is free to choose which of
    these to use.
 
-   The representation of the secondary resource needs to use a media
-   type capable of representing a full HTTP message.  For now the only
-   supported type is "application/http" (Section 8.3.2 of [RFC7230]).
-
    The client then obtains the original message by:
 
    1.  Unwrapping the encapsulated HTTP message by removing any transfer
        and content codings.
-
-       The latter might require additional metadata that could be
-       present in the "metadata" object, such as the "Crypto-Key" header
-       field described in Section 4 of [ENCRYPTENC].
 
    2.  Replacing/setting any response header fields from the primary
        response except for framing-related information such as Content-
@@ -305,17 +293,13 @@ Table of Contents
 
      HTTP/1.1 200 OK
      Date: Thu, 14 May 2015 18:52:10 GMT
-     Content-Type: application/http
      Cache-Control: private
-     Content-Length: 115
-
-     HTTP/1.1 200 OK
-     Date: Thu, 14 May 2015 17:00:00 GMT
      Content-Length: 15
-     Content-Language: en
 
      Hello, world.
 
+   (Note no Content-Type header field is present here because the
+   secondary server truly does not know the media type of the payload)
 
    Final message after recombining header fields:
 
@@ -324,12 +308,8 @@ Table of Contents
      Content-Length: 15
      Cache-Control: max-age=10, public
      Content-Type: text/plain
-     Content-Language: en
 
      Hello, world.
-
-   In this example, Cache-Control, Content-Length, and Date have been
-   set/overwritten with data from the primary resource's representation.
 
 3.4.2.  Example involving an encrypted resource
 
@@ -342,17 +322,15 @@ Table of Contents
 
      HTTP/1.1 200 OK
      Date: Thu, 14 May 2015 18:52:00 GMT
-     Content-Encoding: out-of-band
+     Content-Encoding: aesgcm128, out-of-band
      Content-Type: text/plain
-     Content-Length: 194
+     Encryption: keyid="a1"; salt="vr0o6Uq3w_KDWeatc27mUg"
+     Crypto-Key: keyid="a1"; aesgcm128="csPJEXBYA5U-Tal9EdJi-w"
+     Content-Length: 76
      Vary: Accept-Encoding
 
      [{
        "URI": "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
-       "metadata": {
-         "crypto-key": "keyid=\"a1\";
-                            aesgcm128=\"csPJEXBYA5U-Tal9EdJi-w\""
-       }
      }]
 
    (note that the Content-Type header field describes the media type of
@@ -362,19 +340,13 @@ Table of Contents
 
      HTTP/1.1 200 OK
      Date: Thu, 14 May 2015 18:52:10 GMT
-     Content-Type: application/http
      Content-Length: ...
      Cache-Control: private
-
-     HTTP/1.1 200 OK
-     Content-Length: 32
-     Content-Encoding: aesgcm128
-     Encryption: keyid="a1"; salt="vr0o6Uq3w_KDWeatc27mUg"
 
      fuag8ThIRIazSHKUqJ5OduR75UgEUuM76J8UFwadEvg
    (payload body shown in base64 here)
 
-   Final message after recombining header fields:
+   Final message undoing all content codings:
 
      HTTP/1.1 200 OK
      Date: Thu, 14 May 2015 18:52:00 GMT
@@ -382,6 +354,11 @@ Table of Contents
      Content-Type: text/plain
 
      I am the walrus
+
+      Note: in this case, the ability to undo the "aescgm128" is needed
+      to process the response.  If "aescgm128" wasn't listed as
+      acceptable content encoding in the request, the origin server
+      wouldn't be able to use the "out-of-band" mechanism.
 
 3.4.3.  Example For Problem Reporting
 
@@ -600,6 +577,9 @@ C.2.  Changes since draft-reschke-http-oob-encoding-01
 C.3.  Changes since draft-reschke-http-oob-encoding-02
 
    Add MICE reference.
+
+   Remove the ability of the secondary resource to contain anything but
+   the payload (<https://github.com/reschke/oobencoding/issues/11>).
 
 Appendix D.  Acknowledgements
 

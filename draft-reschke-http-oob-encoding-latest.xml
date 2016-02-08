@@ -138,8 +138,7 @@
     of the response contains additional meta data, plus the location of the secondary
     resource</t>
     <t anchor="flow.get.request2">Client performs GET request on secondary resource (usually again via HTTP(s))</t>
-    <t anchor="flow.get.response2">Secondary server provides wrapped HTTP message</t>
-    <t anchor="flow.unwrap">Client unwraps that representation (obtaining a full HTTP message)</t>
+    <t anchor="flow.get.response2">Secondary server provides payload</t>
     <t anchor="flow.combine">Client combines above representation with additional representation metadata
     obtained from the primary resource</t>
   </list>
@@ -157,12 +156,12 @@
      GET to secondary server
 (<xref target="flow.get.request2" format="counter"
 />) |---------------------------\
-           wrapped HTTP message |
+                        payload |
 (<xref target="flow.get.response2" format="counter"
 />) &lt;---------------------------/
 
-(<xref target="flow.unwrap" format="counter"/>, <xref target="flow.combine" format="counter"/>)
-   Client and combines HTTP message received in (<xref target="flow.get.response2" format="counter"
+(<xref target="flow.combine" format="counter"/>)
+   Client and combines payload received in (<xref target="flow.get.response2" format="counter"
 />)
    with metadata received in (<xref target="flow.get.response" format="counter"
 />).</artwork></figure>
@@ -183,8 +182,7 @@
     </t>
     <t hangText="'metadata'">
       An &OPTIONAL; object containing additional members, representing header field values
-      to be recombined with the metadata from the secondary resource 
-      and which can not appear as header fields in the response message itself 
+      which can not appear as header fields in the response message itself 
       (header fields that occur multiple times need to be combined into a single field value as
       per <xref target="RFC7230" x:rel="#field.order"/>; header field names are lower-cased).
     </t>
@@ -196,11 +194,6 @@
   multiple entries, it is free to choose which of these to use.
 </t>
 <t>
-  The representation of the secondary resource needs to use a media type
-  capable of representing a full HTTP message. For now the only supported
-  type is "application/http" (<xref target="RFC7230" x:rel="#internet.media.type.application.http"/>).
-</t>
-<t>
   The client then obtains the original message by:
 </t>
 <t>
@@ -208,11 +201,6 @@
     <x:lt>
       <t>
         Unwrapping the encapsulated HTTP message by removing any transfer and content codings.
-      </t>
-      <t>
-        The latter might require
-        additional metadata that could be present in the "metadata" object,
-        such as the "Crypto-Key" header field described in <xref target="ENCRYPTENC" x:sec="4"/>.
       </t>
     </x:lt>
     <x:lt>
@@ -349,32 +337,25 @@ Host: example.net
 <artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
 HTTP/1.1 200 OK
 Date: Thu, 14 May 2015 18:52:10 GMT
-Content-Type: application/http
 Cache-Control: private
 Content-Length: <x:length-of target="exbody2"/>
 
-<x:span anchor="exbody2">HTTP/1.1 200 OK
-Date: Thu, 14 May 2015 17:00:00 GMT
-Content-Length: <x:length-of target="exbody3"/>
-Content-Language: en
-
-<x:span anchor="exbody3">Hello, world.
-</x:span>
+<x:span anchor="exbody2">Hello, world.
 </x:span></artwork>
+<postamble>(Note no Content-Type header field is present here because the 
+secondary server truly does not know the media type of the payload)</postamble>
 </figure>
 <figure>
 <preamble>Final message after recombining header fields:</preamble>
 <artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
 HTTP/1.1 200 OK
-<x:highlight>Date: Thu, 14 May 2015 18:52:00 GMT</x:highlight>
+Date: Thu, 14 May 2015 18:52:00 GMT
 Content-Length: <x:length-of target="exbody5"/>
-<x:highlight>Cache-Control: max-age=10, public</x:highlight>
-<x:highlight>Content-Type: text/plain</x:highlight>
-Content-Language: en
+Cache-Control: max-age=10, public
+Content-Type: text/plain
 
 <x:span anchor="exbody5">Hello, world.
 </x:span></artwork>
-<postamble>In this example, Cache-Control, Content-Length, and Date have been set/overwritten with data from the primary resource's representation.</postamble>
 </figure>
 </section>
 <section title="Example involving an encrypted resource">
@@ -389,17 +370,15 @@ Content-Language: en
 <artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
 HTTP/1.1 200 OK
 Date: Thu, 14 May 2015 18:52:00 GMT
-Content-Encoding: out-of-band
+Content-Encoding: aesgcm128, out-of-band
 Content-Type: text/plain
+Encryption: keyid="a1"; salt="vr0o6Uq3w_KDWeatc27mUg"
+Crypto-Key: keyid="a1"; aesgcm128="csPJEXBYA5U-Tal9EdJi-w"
 Content-Length: <x:length-of target="exbody4"/>
 Vary: Accept-Encoding
 
 <x:span anchor="exbody4">[{
   "URI": "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
-  "metadata": {
-    "crypto-key": "keyid=\"a1\";
-                       aesgcm128=\"csPJEXBYA5U-Tal9EdJi-w\""
-  }
 }]
 </x:span></artwork>
 <postamble>
@@ -412,20 +391,14 @@ Vary: Accept-Encoding
 <artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
 HTTP/1.1 200 OK
 Date: Thu, 14 May 2015 18:52:10 GMT
-Content-Type: application/http
 Content-Length: ...
 Cache-Control: private
-
-HTTP/1.1 200 OK
-Content-Length: 32
-Content-Encoding: aesgcm128
-Encryption: keyid="a1"; salt="vr0o6Uq3w_KDWeatc27mUg"
 
 fuag8ThIRIazSHKUqJ5OduR75UgEUuM76J8UFwadEvg</artwork>
 <postamble>(payload body shown in base64 here)</postamble>
 </figure>
 <figure>
-<preamble>Final message after recombining header fields:</preamble>
+<preamble>Final message undoing all content codings:</preamble>
 <artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
 HTTP/1.1 200 OK
 Date: Thu, 14 May 2015 18:52:00 GMT
@@ -434,6 +407,14 @@ Content-Type: text/plain
 
 <x:span anchor="exbody8">I am the walrus</x:span></artwork>
 </figure>
+<x:note>
+<t>
+  <x:h>Note:</x:h> in this case, the ability to undo the "aescgm128" is needed
+  to process the response. If "aescgm128" wasn't listed as acceptable content encoding
+  in the request, the origin server wouldn't be able to use the "out-of-band"
+  mechanism.
+</t>
+</x:note>
 </section>
 
 <section title="Example For Problem Reporting">
@@ -747,6 +728,10 @@ Link: &lt;http://example.com/test>;
 <section title="Changes since draft-reschke-http-oob-encoding-02" anchor="changes.since.02">
 <t>
   Add MICE reference.
+</t>
+<t>
+  Remove the ability of the secondary resource to contain anything but the
+  payload (<eref target="https://github.com/reschke/oobencoding/issues/11"/>).
 </t>
 </section>
 </section>
