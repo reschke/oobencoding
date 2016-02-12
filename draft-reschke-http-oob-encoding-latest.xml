@@ -131,18 +131,16 @@
   actual message representation (<xref target="RFC7231" x:rel="#representations"/>)
   from a secondary resource, such as a public cache:
 </t>
-<t>
-  <list style="numbers">
-    <t anchor="flow.get.request">Client performs a request</t>
-    <t anchor="flow.get.response">Received response specifies the 'out-of-band' content coding; the payload
-    of the response contains additional meta data, plus the location of the secondary
-    resource</t>
-    <t anchor="flow.get.request2">Client performs GET request on secondary resource (usually again via HTTP(s))</t>
-    <t anchor="flow.get.response2">Secondary server provides payload</t>
-    <t anchor="flow.combine">Client combines above representation with additional representation metadata
-    obtained from the primary resource</t>
-  </list>
-</t>
+<ol>
+  <li anchor="flow.get.request">Client performs a request</li>
+  <li anchor="flow.get.response">Received response specifies the 'out-of-band' content coding; the payload
+  of the response contains additional meta data, plus the location of the secondary
+  resource</li>
+  <li anchor="flow.get.request2">Client performs GET request on secondary resource (usually again via HTTP(s))</li>
+  <li anchor="flow.get.response2">Secondary server provides payload</li>
+  <li anchor="flow.combine">Client combines above representation with additional representation metadata
+  obtained from the primary resource</li>
+</ol>
 <figure><artwork type="drawing">
   Client                  Secondary Server           Origin Server
 
@@ -175,19 +173,19 @@
   describing an array of objects describing secondary resources, each containing
   some of the members below:
 </t>
-<t>
-  <list style="hanging">
-    <t hangText="'URI'">
-      A &REQUIRED; string containing the URI reference (<xref target="RFC3986" x:sec="4.1"/>) of the secondary resource.
-    </t>
-    <t hangText="'metadata'">
-      An &OPTIONAL; object containing additional members, representing header field values
-      which can not appear as header fields in the response message itself 
-      (header fields that occur multiple times need to be combined into a single field value as
-      per <xref target="RFC7230" x:rel="#field.order"/>; header field names are lower-cased).
-    </t>
-  </list>
-</t>
+<dl>
+  <dt>'URI'</dt>
+  <dd>
+    A &REQUIRED; string containing the URI reference (<xref target="RFC3986" x:sec="4.1"/>) of the secondary resource.
+  </dd>
+  <dt>'metadata'</dt>
+  <dd>
+    An &OPTIONAL; object containing additional members, representing header field values
+    which can not appear as header fields in the response message itself 
+    (header fields that occur multiple times need to be combined into a single field value as
+    per <xref target="RFC7230" x:rel="#field.order"/>; header field names are lower-cased).
+  </dd>
+</dl>
 <t>
   The payload format uses a JSON array so that the origin server can specify
   multiple secondary resources. When a client receives a response containing
@@ -196,29 +194,21 @@
 <t>
   The client then obtains the original message by:
 </t>
-<t>
-  <list style="numbers">
-    <x:lt>
-      <t>
-        Unwrapping the encapsulated HTTP message by removing any transfer and content codings.
-      </t>
-    </x:lt>
-    <x:lt>
-      <t>
-        Replacing/setting any response header fields from the primary
-        response except for framing-related information such as
-        Content-Length, Transfer-Encoding and Content-Encoding.
-      </t>
-    </x:lt>
-    <x:lt>
-      <t>
-        Replacing/setting any header fields with those present as members
-        in the "metadata" object.
-        <cref>Do we have a use case for this?</cref>
-      </t>
-    </x:lt>
-  </list>
-</t>
+<ol>
+  <li>
+    Unwrapping the encapsulated HTTP message by removing any transfer and content codings.
+  </li>
+  <li>
+    Replacing/setting any response header fields from the primary
+    response except for framing-related information such as
+    Content-Length, Transfer-Encoding and Content-Encoding.
+  </li>
+  <li>
+    Replacing/setting any header fields with those present as members
+    in the "metadata" object.
+    <cref>Do we have a use case for this?</cref>
+  </li>
+</ol>
 <t>
   If the client is unable to retrieve the secondary resource's representation
   (host can't be reached, non 2xx response status code, payload failing
@@ -481,13 +471,20 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   The IANA "HTTP Content Coding Registry", located at <eref target="http://www.iana.org/assignments/http-parameters"/>,
   needs to be updated with the registration below:
 </t>
-<t>
-  <list style="hanging">
-    <t hangText="Name:">out-of-band</t>
-    <t hangText="Description:">Payload needs to be retrieved from a secondary resource</t>
-    <t hangText="Reference:"><xref target="ouf-of-band.content.coding"/> of this document</t>
-  </list>
-</t>
+<dl>
+  <dt>Name:</dt>
+  <dd>
+    out-of-band
+  </dd>
+  <dt>Description:</dt>
+  <dd>
+    Payload needs to be retrieved from a secondary resource
+  </dd>
+  <dt>Reference:</dt>
+  <dd>
+    <xref target="ouf-of-band.content.coding"/> of this document
+  </dd>
+</dl>
 </section>
 
   </middle>
@@ -634,16 +631,14 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   up, using a new redirect status code (<xref target="RFC7231" x:rel="#status.3xx"/>). However, 
   this would have several drawbacks:
 </t>
-<t>
-  <list style="symbols">
-    <t>Servers will need to know whether a client understands the new status code;
-    thus some additional signal to opt into this protocol would always be needed.</t>
-    <t>In redirect messages, representation metadata (<xref target="RFC7231" x:rel="#representation.metadata"/>),
-    namely "Content-Type", applies to the response message, not the redirected-to
-    resource.</t>
-    <t>The origin-preserving nature of using a content coding woudld be lost.</t>
-  </list>
-</t>
+<ul>
+  <li>Servers will need to know whether a client understands the new status code;
+  thus some additional signal to opt into this protocol would always be needed.</li>
+  <li>In redirect messages, representation metadata (<xref target="RFC7231" x:rel="#representation.metadata"/>),
+  namely "Content-Type", applies to the response message, not the redirected-to
+  resource.</li>
+  <li>The origin-preserving nature of using a content coding woudld be lost.</li>
+</ul>
 <t>
   Another alternative would be to implement the indirection on the level
   of the media type using something similar to the type "message/external-body",
