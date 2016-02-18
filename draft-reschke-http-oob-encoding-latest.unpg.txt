@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: August 18, 2016                                        Ericsson
-                                                       February 15, 2016
+Expires: August 21, 2016                                        Ericsson
+                                                       February 18, 2016
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 18, 2016.
+   This Internet-Draft will expire on August 21, 2016.
 
 Copyright Notice
 
@@ -166,11 +166,16 @@ Table of Contents
    The name of the content coding is "out-of-band".
 
    The payload format uses JavaScript Object Notation (JSON, [RFC7159]),
-   describing an array of objects describing secondary resources, each
-   containing some of the members below:
+   describing an object describing secondary resources plus OPTIONAL
+   additional metadata:
 
-   'URI'  A REQUIRED string containing the URI reference (Section 4.1 of
-      [RFC3986]) of the secondary resource.
+   'URIs'  A REQUIRED string array containing at least one URI reference
+      (Section 4.1 of [RFC3986]) of a secondary resource.
+
+   'fallback'  An OPTIONAL string containing a URI reference of a
+      fallback resource (see Appendix B.2).  This URI reference, after
+      resolution against the URI of the primary resource, MUST identify
+      a resource on the same server as the primary resource.
 
    'metadata'  An OPTIONAL object containing additional members,
       representing header field values which can not appear as header
@@ -181,7 +186,7 @@ Table of Contents
 
    The payload format uses a JSON array so that the origin server can
    specify multiple secondary resources.  When a client receives a
-   response containing multiple entries, it is free to choose which of
+   response containing multiple URIs, it is free to choose which of
    these to use.
 
    The client then obtains the original message by:
@@ -200,11 +205,12 @@ Table of Contents
    If the client is unable to retrieve the secondary resource's
    representation (host can't be reached, non 2xx response status code,
    payload failing integrity check, etc.), it can choose an alternate
-   secondary resource (if specified), or simply retry the request to the
-   origin server without including "out-of-band" in the Accept-Encoding
-   request header field.  In the latter case, it can be useful to inform
-   the origin server about what problems were encountered when trying to
-   access the secondary resource; see Section 3.3 for details.
+   secondary resource (if specified), try the fallback URI (if given),
+   or simply retry the request to the origin server without including
+   "out-of-band" in the Accept-Encoding request header field.  In the
+   latter case, it can be useful to inform the origin server about what
+   problems were encountered when trying to access the secondary
+   resource; see Section 3.3 for details.
 
    Note that although this mechanism causes the inclusion of external
    content, it will not affect the application-level security properties
@@ -273,15 +279,19 @@ Table of Contents
      Content-Type: text/plain
      Cache-Control: max-age=10, public
      Content-Encoding: out-of-band
-     Content-Length: 76
+     Content-Length: 145
      Vary: Accept-Encoding
 
-     [{
-       "URI": "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
-     }]
+     {
+       "URIs": [
+         "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
+       ],
+       "fallback": "/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
+     }
 
    (note that the Content-Type header field describes the media type of
-   the secondary's resource representation)
+   the secondary's resource representation, and the origin server
+   supplied a fallback URI)
 
    Client request for secondary resource:
 
@@ -326,12 +336,14 @@ Table of Contents
      Content-Type: text/plain
      Encryption: keyid="a1"; salt="vr0o6Uq3w_KDWeatc27mUg"
      Crypto-Key: keyid="a1"; aesgcm128="csPJEXBYA5U-Tal9EdJi-w"
-     Content-Length: 76
+     Content-Length: 87
      Vary: Accept-Encoding
 
-     [{
-       "URI": "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
-     }]
+     {
+       "URIs": [
+         "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
+       ]
+     }
 
    (note that the Content-Type header field describes the media type of
    the secondary's resource representation)
@@ -536,23 +548,18 @@ B.2.  Accessing the Secondary Resource Too Early
    content to it).
 
    In this particular case, it can be useful if the client was able to
-   "piggyback" the URI of the primary resource, giving the secondary
-   server a means by which it could obtain the payload itself.  This
-   information could be provided in yet another Link header field:
+   "piggyback" the URI of the fallkack for the primary resource, giving
+   the secondary server a means by which it could obtain the payload
+   itself.  This information could be provided in yet another Link
+   header field:
 
      GET bae27c36-fa6a-11e4-ae5d-00059a3c7a00 HTTP/1.1
      Host: example.net
-     Link: <http://example.com/test>;
+     Link: <http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
            rel="http://purl.org/NET/linkrel/primary-resource"
 
 
    (continuing the example from Section 3.4.1)
-
-   What's unclear is whether it's ok for the client to reveal the URI if
-   the primary resource, and under which conditions it's ok for the
-   secondary server to access it.  All it needs is the potentially
-   encrypted payload, so maybe yet another URI on the origin server is
-   needed.
 
 Appendix C.  Change Log (to be removed by RFC Editor before publication)
 
@@ -580,6 +587,10 @@ C.3.  Changes since draft-reschke-http-oob-encoding-02
 
    Remove the ability of the secondary resource to contain anything but
    the payload (<https://github.com/reschke/oobencoding/issues/11>).
+
+   Changed JSON payload to be an object containing an array of URIs plus
+   additional members.  Specify "fallback" as one of these additional
+   members, and update Appendix B.2 accordingly).
 
 Appendix D.  Acknowledgements
 
