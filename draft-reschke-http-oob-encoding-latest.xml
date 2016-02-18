@@ -199,6 +199,11 @@
   multiple URIs, it is free to choose which of these to use.
 </t>
 <t>
+  New specifications can define new &OPTIONAL; header fields, thus clients
+  &MUST; ignore unkniwn fields. Extension specifications will have to update this
+  specification. <cref>or we define a registry</cref>
+</t>
+<t>
   The client then obtains the original message by:
 </t>
 <ol>
@@ -740,6 +745,9 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   Changed JSON payload to be an object containing an array of URIs plus
   additional members. Specify "fallback" as one of these additional members,
   and update <xref target="fallback"/> accordingly).
+</t>
+<t>
+  Discuss extensibility a bit.
 </t>
 </section>
 </section>

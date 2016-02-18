@@ -189,6 +189,11 @@ Table of Contents
    response containing multiple URIs, it is free to choose which of
    these to use.
 
+   New specifications can define new OPTIONAL header fields, thus
+   clients MUST ignore unkniwn fields.  Extension specifications will
+   have to update this specification. [[anchor3: or we define a
+   registry]]
+
    The client then obtains the original message by:
 
    1.  Unwrapping the encapsulated HTTP message by removing any transfer
@@ -199,7 +204,7 @@ Table of Contents
        Length, Transfer-Encoding and Content-Encoding.
 
    3.  Replacing/setting any header fields with those present as members
-       in the "metadata" object. [[anchor3: Do we have a use case for
+       in the "metadata" object. [[anchor4: Do we have a use case for
        this?]]
 
    If the client is unable to retrieve the secondary resource's
@@ -591,6 +596,8 @@ C.3.  Changes since draft-reschke-http-oob-encoding-02
    Changed JSON payload to be an object containing an array of URIs plus
    additional members.  Specify "fallback" as one of these additional
    members, and update Appendix B.2 accordingly).
+
+   Discuss extensibility a bit.
 
 Appendix D.  Acknowledgements
 
