@@ -200,7 +200,7 @@
 </t>
 <t>
   New specifications can define new &OPTIONAL; header fields, thus clients
-  &MUST; ignore unkniwn fields. Extension specifications will have to update this
+  &MUST; ignore unknown fields. Extension specifications will have to update this
   specification. <cref>or we define a registry</cref>
 </t>
 <t>

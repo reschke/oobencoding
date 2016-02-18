@@ -190,7 +190,7 @@ Table of Contents
    these to use.
 
    New specifications can define new OPTIONAL header fields, thus
-   clients MUST ignore unkniwn fields.  Extension specifications will
+   clients MUST ignore unknown fields.  Extension specifications will
    have to update this specification. [[anchor3: or we define a
    registry]]
 
