@@ -1,7 +1,7 @@
 <!--
     Strip rfc2629.xslt extensions, generating XML input for MTR's xml2rfc
 
-    Copyright (c) 2006-2015, Julian Reschke (julian.reschke@greenbytes.de)
+    Copyright (c) 2006-2016, Julian Reschke (julian.reschke@greenbytes.de)
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
@@ -34,9 +34,10 @@
                 xmlns:ed="http://greenbytes.de/2002/rfcedit"
                 xmlns:grddl="http://www.w3.org/2003/g/data-view#"
                 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:svg="http://www.w3.org/2000/svg"
                 xmlns:x="http://purl.org/net/xml2rfc/ext"
                 xmlns:xhtml="http://www.w3.org/1999/xhtml"
-                exclude-result-prefixes="ed grddl rdf x xhtml"
+                exclude-result-prefixes="ed grddl rdf svg x xhtml"
 >
 
 <!-- re-use some of the default RFC2629.xslt rules -->
@@ -662,6 +663,14 @@
 <xsl:template name="insert-end-code"/>
 <xsl:template match="@x:is-code-component" mode="cleanup"/>
 
+<xsl:template match="artwork[svg:svg]" mode="cleanup">
+<xsl:call-template name="warning">
+  <xsl:with-param name="inline" select="'no'"/>
+  <xsl:with-param name="msg">SVG image removed.</xsl:with-param>
+</xsl:call-template>
+<artwork>(see SVG image in HTML version)</artwork>
+</xsl:template>
+
 <xsl:template match="artwork" mode="cleanup">
   <xsl:variable name="content2"><xsl:apply-templates select="."/></xsl:variable>
   <xsl:variable name="content" select="translate($content2,'&#160;&#x2500;&#x2502;&#x2508;&#x250c;&#x2510;&#x2514;&#x2518;&#x251c;&#x2524;',' -|+++++++')"/>
@@ -694,6 +703,7 @@
 </xsl:template>
 
 <xsl:template match="@x:indent-with" mode="cleanup"/>
+<xsl:template match="@x:lang" mode="cleanup"/>
 
 <xsl:template name="indent">
   <xsl:param name="content"/>
@@ -1088,6 +1098,42 @@
       </xsl:otherwise>
     </xsl:choose>
   </t>
+</xsl:template>
+
+<!-- Source Code -->
+<xsl:template match="sourcecode" mode="cleanup">
+  <xsl:choose>
+    <xsl:when test="parent::figure">
+      <artwork>
+        <xsl:copy-of select="@anchor|@type"/>
+        <xsl:apply-templates mode="cleanup"/>
+      </artwork>
+    </xsl:when>
+    <xsl:otherwise>
+      <figure>
+        <artwork>
+          <xsl:copy-of select="@anchor|@type"/>
+          <xsl:apply-templates mode="cleanup"/>
+        </artwork>
+      </figure>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<!-- date formats -->
+<xsl:template match="/rfc/front/date/@month" mode="cleanup">
+  <xsl:attribute name="month">
+    <xsl:choose>
+      <xsl:when test="string(number(.))!='NaN' and number(.)&gt;0 and number(.)&lt;13">
+        <xsl:call-template name="get-month-as-name">
+          <xsl:with-param name="month" select="."/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="."/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:attribute>
 </xsl:template>
 
 <!-- Display names for references -->
