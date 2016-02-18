@@ -707,6 +707,32 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </postamble>
 </figure>
 </section>
+
+<section title="Resource maps" anchor="resource.maps">
+<t>
+  When out-of-band encoding is used as part of a caching solution, the additional
+  round trips to the origin server can be a significant performance problem;
+  in particular, when many small resources need to be loaded (such as 
+  scripts, images, or video fragments). In cases like these, it could be 
+  useful for the origin server to provide a "resource map", allowing
+  to skip the round trips to the origin server for these mapped resources.
+  Plausible ways to transmit the resource map could be: 
+</t>
+<ul>
+  <li>
+    as extension in the out-of-band encoding JSON payload, or
+  </li>
+  <li>
+    as separate resource identified by a "Link" response header field.
+  </li>
+</ul>
+<t>
+  This specification does not define a format, nor a mechanism to transport
+  the map, but it's a given that some specification using "out-of-band"
+  encoding will do.
+</t>
+</section>
+
 </section>
 
 <section title="Change Log (to be removed by RFC Editor before publication)" anchor="change.log">

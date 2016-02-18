@@ -93,6 +93,7 @@ Table of Contents
    Appendix B.  Open Issues
      B.1.  Range Requests
      B.2.  Accessing the Secondary Resource Too Early
+     B.3.  Resource maps
    Appendix C.  Change Log (to be removed by RFC Editor before
                 publication)
      C.1.  Changes since draft-reschke-http-oob-encoding-00
@@ -565,6 +566,25 @@ B.2.  Accessing the Secondary Resource Too Early
 
 
    (continuing the example from Section 3.4.1)
+
+B.3.  Resource maps
+
+   When out-of-band encoding is used as part of a caching solution, the
+   additional round trips to the origin server can be a significant
+   performance problem; in particular, when many small resources need to
+   be loaded (such as scripts, images, or video fragments).  In cases
+   like these, it could be useful for the origin server to provide a
+   "resource map", allowing to skip the round trips to the origin server
+   for these mapped resources.  Plausible ways to transmit the resource
+   map could be:
+
+   o  as extension in the out-of-band encoding JSON payload, or
+
+   o  as separate resource identified by a "Link" response header field.
+
+   This specification does not define a format, nor a mechanism to
+   transport the map, but it's a given that some specification using
+   "out-of-band" encoding will do.
 
 Appendix C.  Change Log (to be removed by RFC Editor before publication)
 
