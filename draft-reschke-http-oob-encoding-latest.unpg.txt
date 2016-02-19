@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: August 21, 2016                                        Ericsson
-                                                       February 18, 2016
+Expires: August 22, 2016                                        Ericsson
+                                                       February 19, 2016
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 21, 2016.
+   This Internet-Draft will expire on August 22, 2016.
 
 Copyright Notice
 
@@ -554,7 +554,7 @@ B.2.  Accessing the Secondary Resource Too Early
    content to it).
 
    In this particular case, it can be useful if the client was able to
-   "piggyback" the URI of the fallkack for the primary resource, giving
+   "piggyback" the URI of the fallback for the primary resource, giving
    the secondary server a means by which it could obtain the payload
    itself.  This information could be provided in yet another Link
    header field:
