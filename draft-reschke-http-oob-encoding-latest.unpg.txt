@@ -32,7 +32,7 @@ Editorial Note (To be removed by RFC Editor before publication)
    available from <https://github.com/reschke/oobencoding> and
    <http://greenbytes.de/tech/webdav/#draft-reschke-http-oob-encoding>.
 
-   The changes in this draft are summarized in Appendix C.3.
+   The changes in this draft are summarized in Appendix C.4.
 
 Status of This Memo
 
@@ -99,6 +99,7 @@ Table of Contents
      C.1.  Changes since draft-reschke-http-oob-encoding-00
      C.2.  Changes since draft-reschke-http-oob-encoding-01
      C.3.  Changes since draft-reschke-http-oob-encoding-02
+     C.4.  Changes since draft-reschke-http-oob-encoding-03
    Appendix D.  Acknowledgements
 
 1.  Introduction
@@ -618,6 +619,10 @@ C.3.  Changes since draft-reschke-http-oob-encoding-02
    members, and update Appendix B.2 accordingly).
 
    Discuss extensibility a bit.
+
+C.4.  Changes since draft-reschke-http-oob-encoding-03
+
+   None yet.
 
 Appendix D.  Acknowledgements
 
