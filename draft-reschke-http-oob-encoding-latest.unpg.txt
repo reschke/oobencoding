@@ -84,7 +84,8 @@ Table of Contents
    4.  Feature Discovery
    5.  Security Considerations
      5.1.  Content Modifications
-     5.2.  Use in Requests
+     5.2.  Content Stealing
+     5.3.  Use in Requests
    6.  IANA Considerations
    7.  References
      7.1.  Normative References
@@ -418,7 +419,24 @@ Table of Contents
    expects it to be.  Content signatures can address this concern (see
    [CONTENTSIG] and [MICE]).
 
-5.2.  Use in Requests
+5.2.  Content Stealing
+
+   The Out-Of-Band content coding could be used to circumvent the same-
+   origin policy ([RFC6454], Section 3) of user agents: an attacking
+   site which knows the URI of a secondary resource would use the out-
+   of-band coding to trick the user agent to read the contents of the
+   secondary resource, which then, due to the security properties of
+   out-of-band codings, would be handled is if it originated from the
+   origin's resource.
+
+   This problem is not yet addressed by this specification.  Possible
+   defenses would be to rely on signatures and encryption, or to add an
+   indication to the secondary resource's response that would prevent
+   further processing in responses from "bad" origins (not unlike the
+   "Access-Control-Allow-Origin" header field defined in Section 5.1 of
+   [CORS]).
+
+5.3.  Use in Requests
 
    In general, content codings can be used in both requests and
    responses.  This particular content coding has been designed for
@@ -476,6 +494,13 @@ Table of Contents
    [CONTENTSIG]  Thomson, M., "Content-Signature Header Field for HTTP",
                  draft-thomson-http-content-signature-00 (work in
                  progress), July 2015.
+
+   [CORS]        van Kesteren, A., "Cross-Origin Resource Sharing", W3C
+                 Recommendation REC-cors-20140116, January 2014,
+                 <http://www.w3.org/TR/2014/REC-cors-20140116/>.
+
+                 Latest version available at
+                 <http://www.w3.org/TR/cors/>.
 
    [ENCRYPTENC]  Thomson, M., "Encrypted Content-Encoding for HTTP",
                  draft-ietf-httpbis-encryption-encoding-00 (work in
@@ -627,8 +652,8 @@ C.4.  Changes since draft-reschke-http-oob-encoding-03
 Appendix D.  Acknowledgements
 
    Thanks to Christer Holmberg, Daniel Lindstrom, Goran Eriksson, John
-   Mattsson, Kevin Smith, Mark Nottingham, Martin Thomson, and Roland
-   Zink for feedback on this document.
+   Mattsson, Kevin Smith, Magnus Westerlund, Mark Nottingham, Martin
+   Thomson, and Roland Zink for feedback on this document.
 
 Authors' Addresses
 
