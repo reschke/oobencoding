@@ -647,7 +647,7 @@ C.3.  Changes since draft-reschke-http-oob-encoding-02
 
 C.4.  Changes since draft-reschke-http-oob-encoding-03
 
-   None yet.
+   Mention "Content Stealing" thread.
 
 Appendix D.  Acknowledgements
 
