@@ -765,6 +765,15 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </t>
 </section>
 
+<section title="Padding" anchor="padding">
+<t>
+  It might be a good idea to allow padding in the secondary resource's payload,
+  in order to even hide the precise content length. This could be accomplished
+  by adding range information to the out-of-band metadata, allowing the client
+  to throw away parts of the payload when reconstructing the response body.
+</t>
+</section>
+
 </section>
 
 <section title="Change Log (to be removed by RFC Editor before publication)" anchor="change.log">
@@ -811,6 +820,9 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 <section title="Changes since draft-reschke-http-oob-encoding-03" anchor="changes.since.03">
 <t>
   Mention "Content Stealing" thread.
+</t>
+<t>
+  Mention padding.
 </t>
 </section>
 </section>
