@@ -481,7 +481,7 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   attacking site which knows the URI of a secondary resource would use the
   out-of-band coding to trick the user agent to read the contents of the secondary resource,
   which then, due to the security properties of out-of-band codings, would be
-  handled is if it originated from the origin's resource.
+  handled as if it originated from the origin's resource.
 </t>
 <t>
   This problem is not yet addressed by this specification. Possible defenses
