@@ -112,10 +112,10 @@ Table of Contents
    the location of a secondary resource that contains the payload.
 
    The primary use case for this content coding is to enable origin
-   servers to delegate the delivery of content to a secondary server
-   that might be "closer" to the client (with respect to network
-   topology) and/or able to cache content, leveraging content
-   encryption, as described in [ENCRYPTENC].
+   servers to securely delegate the delivery of content to a secondary
+   server that might be "closer" to the client (with respect to network
+   topology) and/or able to cache content ([SCD]), leveraging content
+   encryption ([ENCRYPTENC]).
 
 2.  Notational Conventions
 
@@ -531,6 +531,11 @@ Table of Contents
                  RFC 7232, DOI 10.17487/RFC7232, June 2014,
                  <http://www.rfc-editor.org/info/rfc7232>.
 
+   [SCD]         Thomson, M., Eriksson, G., and C. Holmberg, "An
+                 Architecture for Secure Content Delegation using HTTP",
+                 draft-thomson-http-scd-00 (work in progress),
+                 March 2016.
+
 URIs
 
    [1]  <mailto:ietf-http-wg@w3.org>
@@ -663,7 +668,7 @@ C.4.  Changes since draft-reschke-http-oob-encoding-03
 
 C.5.  Changes since draft-reschke-http-oob-encoding-04
 
-   Update references.
+   Update ENCRYPTENC reference, add SCD reference.
 
 Appendix D.  Acknowledgements
 

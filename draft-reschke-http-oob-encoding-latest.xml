@@ -105,10 +105,10 @@
 </t>
 <t>
   The primary use case for this content coding is to enable origin servers
-  to delegate the delivery of content to a secondary server that might
+  to securely delegate the delivery of content to a secondary server that might
   be "closer" to the client (with respect to network topology) and/or
-  able to cache content, leveraging content encryption, as described in
-  <xref target="ENCRYPTENC"/>.
+  able to cache content (<xref target="SCD"/>), leveraging content encryption
+  (<xref target="ENCRYPTENC"/>).
 </t>
 </section>
 
@@ -660,6 +660,17 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   <seriesInfo name="Internet-Draft" value="draft-thomson-http-mice-00"/>
 </reference>
 
+<reference anchor='SCD'>
+  <front>
+    <title>An Architecture for Secure Content Delegation using HTTP</title>
+    <author initials='M.' surname='Thomson' fullname='Martin Thomson'/>
+    <author initials='G.' surname='Eriksson' fullname='Goran Eriksson'/>
+    <author initials='C.' surname='Holmberg' fullname='Christer Holmberg'/>
+    <date month='March' day='21' year='2016' />  
+  </front>
+  <seriesInfo name='Internet-Draft' value='draft-thomson-http-scd-00' />
+</reference>
+
 <reference anchor='CORS'
            target='http://www.w3.org/TR/2014/REC-cors-20140116/'>
   <front>
@@ -827,7 +838,7 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </section>
 <section title="Changes since draft-reschke-http-oob-encoding-04" anchor="changes.since.04">
 <t>
-  Update references.
+  Update ENCRYPTENC reference, add SCD reference.
 </t>
 </section>
 </section>
