@@ -505,8 +505,8 @@ Table of Contents
                  <http://www.w3.org/TR/cors/>.
 
    [ENCRYPTENC]  Thomson, M., "Encrypted Content-Encoding for HTTP",
-                 draft-ietf-httpbis-encryption-encoding-00 (work in
-                 progress), December 2015.
+                 draft-ietf-httpbis-encryption-encoding-01 (work in
+                 progress), March 2016.
 
    [MICE]        Thomson, M., "Merkle Integrity Content Encoding",
                  draft-thomson-http-mice-00 (work in progress),
@@ -663,7 +663,7 @@ C.4.  Changes since draft-reschke-http-oob-encoding-03
 
 C.5.  Changes since draft-reschke-http-oob-encoding-04
 
-   None yet.
+   Update references.
 
 Appendix D.  Acknowledgements
 

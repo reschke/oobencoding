@@ -637,9 +637,9 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   <front>
     <title>Encrypted Content-Encoding for HTTP</title>
     <author initials="M." surname="Thomson" fullname="Martin Thomson"/>
-    <date month="December" year="2015"/>
+    <date month="March" year="2016"/>
   </front>
-  <seriesInfo name="Internet-Draft" value="draft-ietf-httpbis-encryption-encoding-00"/>
+  <seriesInfo name="Internet-Draft" value="draft-ietf-httpbis-encryption-encoding-01"/>
 </reference>
 
 <reference anchor='CONTENTSIG'>
@@ -827,7 +827,7 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </section>
 <section title="Changes since draft-reschke-http-oob-encoding-04" anchor="changes.since.04">
 <t>
-  None yet.
+  Update references.
 </t>
 </section>
 </section>
