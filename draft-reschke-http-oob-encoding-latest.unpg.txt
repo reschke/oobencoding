@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: September 18, 2016                                     Ericsson
-                                                          March 17, 2016
+Expires: September 30, 2016                                     Ericsson
+                                                          March 29, 2016
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -32,7 +32,7 @@ Editorial Note (To be removed by RFC Editor before publication)
    available from <https://github.com/reschke/oobencoding> and
    <http://greenbytes.de/tech/webdav/#draft-reschke-http-oob-encoding>.
 
-   The changes in this draft are summarized in Appendix C.4.
+   The changes in this draft are summarized in Appendix C.5.
 
 Status of This Memo
 
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 18, 2016.
+   This Internet-Draft will expire on September 30, 2016.
 
 Copyright Notice
 
@@ -102,6 +102,7 @@ Table of Contents
      C.2.  Changes since draft-reschke-http-oob-encoding-01
      C.3.  Changes since draft-reschke-http-oob-encoding-02
      C.4.  Changes since draft-reschke-http-oob-encoding-03
+     C.5.  Changes since draft-reschke-http-oob-encoding-04
    Appendix D.  Acknowledgements
 
 1.  Introduction
@@ -659,6 +660,10 @@ C.4.  Changes since draft-reschke-http-oob-encoding-03
    Mention "Content Stealing" thread.
 
    Mention padding.
+
+C.5.  Changes since draft-reschke-http-oob-encoding-04
+
+   None yet.
 
 Appendix D.  Acknowledgements
 
