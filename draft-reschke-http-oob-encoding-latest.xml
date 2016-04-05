@@ -488,7 +488,11 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   would be to rely on signatures and encryption, or to add an indication to
   the secondary resource's response that would prevent further processing
   in responses from "bad" origins (not unlike the "Access-Control-Allow-Origin"
-  header field defined in <xref target="CORS" x:sec="5.1" x:rel="#access-control-allow-origin-response-header"/>).
+  header field defined in <xref target="CORS" x:sec="5.1" x:rel="#access-control-allow-origin-response-header"/>,
+  or by mandating that the request to the secondary resource includes an "Origin" header
+  field (<xref target="RFC6454" x:fmt="of" x:sec="7"/>), allowing the secondary server
+  to reject any request initiated from an origin which is not supposed to access
+  the secondary resource.
 </t>
 </section>
 <section title="Use in Requests">
@@ -855,6 +859,9 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </t>
 <t>
   Mention fragmentation feature.
+</t>
+<t>
+  Mention "Origin" + server check on secondary resource as defense to content stealing.
 </t>
 </section>
 </section>
