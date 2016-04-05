@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: September 30, 2016                                     Ericsson
-                                                          March 29, 2016
+Expires: October 7, 2016                                        Ericsson
+                                                           April 5, 2016
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 30, 2016.
+   This Internet-Draft will expire on October 7, 2016.
 
 Copyright Notice
 
@@ -96,6 +96,7 @@ Table of Contents
      B.2.  Accessing the Secondary Resource Too Early
      B.3.  Resource maps
      B.4.  Padding
+     B.5.  Fragmenting
    Appendix C.  Change Log (to be removed by RFC Editor before
                 publication)
      C.1.  Changes since draft-reschke-http-oob-encoding-00
@@ -627,6 +628,21 @@ B.4.  Padding
    metadata, allowing the client to throw away parts of the payload when
    reconstructing the response body.
 
+B.5.  Fragmenting
+
+   It might be interesting to fragment the original resource into
+   fragments, each of which being mapped to a distinct secondary
+   resource.  This would allow to not store the full payload of a
+   resource in a single cache, thus
+
+   o  distribute load,
+
+   o  caching different parts of the resource with different
+      characteristics (such as only distribute the first minutes of a
+      long video), or
+
+   o  hide information from the secondary server.
+
 Appendix C.  Change Log (to be removed by RFC Editor before publication)
 
 C.1.  Changes since draft-reschke-http-oob-encoding-00
@@ -670,11 +686,14 @@ C.5.  Changes since draft-reschke-http-oob-encoding-04
 
    Update ENCRYPTENC reference, add SCD reference.
 
+   Mention fragmentation feature.
+
 Appendix D.  Acknowledgements
 
-   Thanks to Christer Holmberg, Daniel Lindstrom, Goran Eriksson, John
-   Mattsson, Kevin Smith, Magnus Westerlund, Mark Nottingham, Martin
-   Thomson, and Roland Zink for feedback on this document.
+   Thanks to Christer Holmberg, Daniel Lindstrom, Erik Nygren, Goran
+   Eriksson, John Mattsson, Kevin Smith, Magnus Westerlund, Mark
+   Nottingham, Martin Thomson, and Roland Zink for feedback on this
+   document.
 
 Authors' Addresses
 

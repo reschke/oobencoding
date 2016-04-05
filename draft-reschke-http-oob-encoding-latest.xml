@@ -785,6 +785,19 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </t>
 </section>
 
+<section title="Fragmenting">
+<t>
+  It might be interesting to fragment the original resource into fragments,
+  each of which being mapped to a distinct secondary resource. This would
+  allow to not store the full payload of a resource in a single cache, thus
+</t>
+<ul>
+  <li>distribute load,</li>
+  <li>caching different parts of the resource with different characteristics (such as only distribute the first minutes of a long video), or</li>
+  <li>hide information from the secondary server.</li>
+</ul>
+</section>
+
 </section>
 
 <section title="Change Log (to be removed by RFC Editor before publication)" anchor="change.log">
@@ -840,12 +853,15 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 <t>
   Update ENCRYPTENC reference, add SCD reference.
 </t>
+<t>
+  Mention fragmentation feature.
+</t>
 </section>
 </section>
 
 <section title="Acknowledgements" numbered="false">
 <t>
-  Thanks to Christer Holmberg, Daniel Lindstrom, Goran Eriksson, John Mattsson, Kevin Smith, Magnus Westerlund, Mark Nottingham, Martin Thomson,
+  Thanks to Christer Holmberg, Daniel Lindstrom, Erik Nygren, Goran Eriksson, John Mattsson, Kevin Smith, Magnus Westerlund, Mark Nottingham, Martin Thomson,
   and Roland Zink for feedback on this document.
 </t>
 </section>
