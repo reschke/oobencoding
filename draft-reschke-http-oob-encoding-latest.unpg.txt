@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: October 7, 2016                                        Ericsson
-                                                           April 5, 2016
+Expires: October 9, 2016                                        Ericsson
+                                                           April 7, 2016
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 7, 2016.
+   This Internet-Draft will expire on October 9, 2016.
 
 Copyright Notice
 
@@ -73,14 +73,15 @@ Table of Contents
    3.  'Out-Of-Band' Content Coding
      3.1.  Overview
      3.2.  Definitions
-     3.3.  Problem Reporting
-       3.3.1.  Server Not Reachable
-       3.3.2.  Resource Not Found
-       3.3.3.  Payload Unusable
-     3.4.  Examples
-       3.4.1.  Basic Example
-       3.4.2.  Example involving an encrypted resource
-       3.4.3.  Example For Problem Reporting
+     3.3.  Processing Steps
+     3.4.  Problem Reporting
+       3.4.1.  Server Not Reachable
+       3.4.2.  Resource Not Found
+       3.4.3.  Payload Unusable
+     3.5.  Examples
+       3.5.1.  Basic Example
+       3.5.2.  Example involving an encrypted resource
+       3.5.3.  Example For Problem Reporting
    4.  Feature Discovery
    5.  Security Considerations
      5.1.  Content Modifications
@@ -200,7 +201,14 @@ Table of Contents
    have to update this specification. [[anchor3: or we define a
    registry]]
 
-   The client then obtains the original message by:
+3.3.  Processing Steps
+
+   Upon receipt of an out-of-band encoded response, a client first needs
+   to obtain the secondary resource's presentation.  This is done using
+   an HTTP GET request (independantly of the original request method).
+
+   After receipt of the secondary resource's payload, the client then
+   reconstructs the original message by:
 
    1.  Unwrapping the encapsulated HTTP message by removing any transfer
        and content codings.
@@ -221,7 +229,7 @@ Table of Contents
    "out-of-band" in the Accept-Encoding request header field.  In the
    latter case, it can be useful to inform the origin server about what
    problems were encountered when trying to access the secondary
-   resource; see Section 3.3 for details.
+   resource; see Section 3.4 for details.
 
    Note that although this mechanism causes the inclusion of external
    content, it will not affect the application-level security properties
@@ -236,7 +244,7 @@ Table of Contents
    declared to vary on that.  See Section 7.1.4 of [RFC7231] and Section
    2.3 of [RFC7232] for details.
 
-3.3.  Problem Reporting
+3.4.  Problem Reporting
 
    When the client fails to obtain the secondary resource, it can be
    useful to inform the origin server about the condition.  This can be
@@ -246,7 +254,7 @@ Table of Contents
 
    The following link extension relations are defined:
 
-3.3.1.  Server Not Reachable
+3.4.1.  Server Not Reachable
 
    Used in case the server was not reachable.
 
@@ -254,7 +262,7 @@ Table of Contents
 
    http://purl.org/NET/linkrel/not-reachable
 
-3.3.2.  Resource Not Found
+3.4.2.  Resource Not Found
 
    Used in case the server responded, but the object could not be
    obtained.
@@ -263,7 +271,7 @@ Table of Contents
 
    http://purl.org/NET/linkrel/resource-not-found
 
-3.3.3.  Payload Unusable
+3.4.3.  Payload Unusable
 
    Used in case the the payload could be obtained, but wasn't usable
    (for instance, because integrity checks failed).
@@ -272,9 +280,9 @@ Table of Contents
 
    http://purl.org/NET/linkrel/payload-unusable
 
-3.4.  Examples
+3.5.  Examples
 
-3.4.1.  Basic Example
+3.5.1.  Basic Example
 
    Client request of primary resource:
 
@@ -332,7 +340,7 @@ Table of Contents
 
      Hello, world.
 
-3.4.2.  Example involving an encrypted resource
+3.5.2.  Example involving an encrypted resource
 
    Given the example HTTP message from Section 5.4 of [ENCRYPTENC], a
    primary resource could use the "out-of-band" encoding to specify just
@@ -383,9 +391,9 @@ Table of Contents
       acceptable content encoding in the request, the origin server
       wouldn't be able to use the "out-of-band" mechanism.
 
-3.4.3.  Example For Problem Reporting
+3.5.3.  Example For Problem Reporting
 
-   Client requests primary resource as in Section 3.4.1, but the attempt
+   Client requests primary resource as in Section 3.5.1, but the attempt
    to access the secondary resource fails.
 
    Response:
@@ -602,7 +610,7 @@ B.2.  Accessing the Secondary Resource Too Early
            rel="http://purl.org/NET/linkrel/primary-resource"
 
 
-   (continuing the example from Section 3.4.1)
+   (continuing the example from Section 3.5.1)
 
 B.3.  Resource maps
 

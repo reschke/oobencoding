@@ -203,8 +203,16 @@
   &MUST; ignore unknown fields. Extension specifications will have to update this
   specification. <cref>or we define a registry</cref>
 </t>
+</section>
+<section title="Processing Steps" anchor="processing">
 <t>
-  The client then obtains the original message by:
+  Upon receipt of an out-of-band encoded response, a client first needs to
+  obtain the secondary resource's presentation. This is done using
+  an HTTP GET request (independantly of the original request method).
+</t>
+<t>
+  After receipt of the secondary resource's payload, the client then 
+  reconstructs the original message by:
 </t>
 <ol>
   <li>
