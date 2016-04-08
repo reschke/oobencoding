@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: October 9, 2016                                        Ericsson
-                                                           April 7, 2016
+Expires: October 10, 2016                                       Ericsson
+                                                           April 8, 2016
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 9, 2016.
+   This Internet-Draft will expire on October 10, 2016.
 
 Copyright Notice
 
@@ -207,6 +207,17 @@ Table of Contents
    to obtain the secondary resource's presentation.  This is done using
    an HTTP GET request (independantly of the original request method).
 
+   In order to prevent any leakage of information, the GET request for
+   the secondary resource MUST NOT contain any information provided by
+   origins other than the secondary server itself, namely HTTP
+   authentication credentials ([RFC7235]) and cookies ([RFC6265]).
+
+   Furthermore, the request MUST include an "Origin" header field
+   indicating the origin of the original resource ([RFC6454], Section
+   7).  The secondary server MUST verify that the specified origin is
+   authorized to retrieve the given payload (or otherwise return an
+   appropriate 4xx status code).
+
    After receipt of the secondary resource's payload, the client then
    reconstructs the original message by:
 
@@ -284,7 +295,7 @@ Table of Contents
 
 3.5.1.  Basic Example
 
-   Client request of primary resource:
+   Client request of primary resource at https://www.example.com/test:
 
      GET /test HTTP/1.1
      Host: www.example.com
@@ -324,6 +335,7 @@ Table of Contents
      Date: Thu, 14 May 2015 18:52:10 GMT
      Cache-Control: private
      Content-Length: 15
+     Origin: https://www.example.com
 
      Hello, world.
 
@@ -357,6 +369,7 @@ Table of Contents
      Crypto-Key: keyid="a1"; aesgcm128="csPJEXBYA5U-Tal9EdJi-w"
      Content-Length: 87
      Vary: Accept-Encoding
+     Origin: https://www.example.com
 
      {
        "URIs": [
@@ -448,7 +461,8 @@ Table of Contents
    [CORS], or by mandating that the request to the secondary resource
    includes an "Origin" header field (Section 7 of [RFC6454]), allowing
    the secondary server to reject any request initiated from an origin
-   which is not supposed to access the secondary resource.
+   which is not supposed to access the secondary resource.[[anchor10:
+   Rewrite this based on the defenses we added.]]
 
 5.3.  Use in Requests
 
@@ -489,6 +503,10 @@ Table of Contents
                  RFC5988, October 2010,
                  <http://www.rfc-editor.org/info/rfc5988>.
 
+   [RFC6265]     Barth, A., "HTTP State Management Mechanism", RFC 6265,
+                 DOI 10.17487/RFC6265, April 2011,
+                 <http://www.rfc-editor.org/info/rfc6265>.
+
    [RFC7159]     Bray, T., "The JavaScript Object Notation (JSON) Data
                  Interchange Format", RFC 7159, DOI 10.17487/RFC7159,
                  March 2014, <http://www.rfc-editor.org/info/rfc7159>.
@@ -502,6 +520,11 @@ Table of Contents
                  Transfer Protocol (HTTP/1.1): Semantics and Content",
                  RFC 7231, DOI 10.17487/RFC7231, June 2014,
                  <http://www.rfc-editor.org/info/rfc7231>.
+
+   [RFC7235]     Fielding, R., Ed. and J. Reschke, Ed., "Hypertext
+                 Transfer Protocol (HTTP/1.1): Authentication",
+                 RFC 7235, DOI 10.17487/RFC7235, June 2014,
+                 <http://www.rfc-editor.org/info/rfc7235>.
 
 7.2.  Informative References
 
@@ -701,6 +724,11 @@ C.5.  Changes since draft-reschke-http-oob-encoding-04
 
    Mention "Origin" + server check on secondary resource as defense to
    content stealing.
+
+   Reduce information leakage by disallowing ambient authority
+   information being sent to the secondary resource.  Require "Origin"
+   to be included in request to secondary resource, and require seconday
+   server to check it.
 
 Appendix D.  Acknowledgements
 

@@ -211,6 +211,19 @@
   an HTTP GET request (independantly of the original request method).
 </t>
 <t>
+  In order to prevent any leakage of information, the GET request for
+  the secondary resource &MUST-NOT; contain any information provided by
+  origins other than the secondary server itself, namely HTTP authentication
+  credentials (<xref target="RFC7235"/>) and cookies (<xref target="RFC6265"/>).
+</t>
+<t>
+  Furthermore, the request &MUST; include an "Origin" header field indicating
+  the origin of the original resource (<xref target="RFC6454" x:fmt="," x:sec="7"/>).
+  The secondary server &MUST; verify that the specified origin is
+  authorized to retrieve the given payload (or otherwise return an 
+  appropriate 4xx status code).
+</t>
+<t>
   After receipt of the secondary resource's payload, the client then 
   reconstructs the original message by:
 </t>
@@ -309,7 +322,7 @@ http://purl.org/NET/linkrel/payload-unusable</artwork>
 <section title="Examples">
 <section title="Basic Example" anchor="basic.example">
 <figure>
-<preamble>Client request of primary resource:</preamble>
+<preamble>Client request of primary resource at https://www.example.com/test:</preamble>
 <artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
 GET /test HTTP/1.1
 Host: www.example.com
@@ -354,6 +367,7 @@ HTTP/1.1 200 OK
 Date: Thu, 14 May 2015 18:52:10 GMT
 Cache-Control: private
 Content-Length: <x:length-of target="exbody2"/>
+Origin: https://www.example.com
 
 <x:span anchor="exbody2">Hello, world.
 </x:span></artwork>
@@ -391,6 +405,7 @@ Encryption: keyid="a1"; salt="vr0o6Uq3w_KDWeatc27mUg"
 Crypto-Key: keyid="a1"; aesgcm128="csPJEXBYA5U-Tal9EdJi-w"
 Content-Length: <x:length-of target="exbody4"/>
 Vary: Accept-Encoding
+Origin: https://www.example.com
 
 <x:span anchor="exbody4" x:lang="">{
   "URIs": [
@@ -500,7 +515,7 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   or by mandating that the request to the secondary resource includes an "Origin" header
   field (<xref target="RFC6454" x:fmt="of" x:sec="7"/>), allowing the secondary server
   to reject any request initiated from an origin which is not supposed to access
-  the secondary resource.
+  the secondary resource.<cref>Rewrite this based on the defenses we added.</cref>
 </t>
 </section>
 <section title="Use in Requests">
@@ -571,6 +586,15 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   <seriesInfo name='RFC' value='5988'/>
 </reference>
 
+<reference anchor="RFC6265">
+  <front>
+    <title>HTTP State Management Mechanism</title>
+    <author initials="A." surname="Barth" fullname="Adam Barth"/>
+    <date year="2011" month="April" />
+  </front>
+  <seriesInfo name="RFC" value="6265"/>
+</reference>
+
 <reference anchor='RFC7159'>
   <front>
     <title>The JavaScript Object Notation (JSON) Data Interchange Format</title>
@@ -600,6 +624,17 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   </front>
   <seriesInfo name="RFC" value="7231"/>
   <x:source href="refs/rfc7231.xml" basename="rfc7231"/>
+</reference>
+
+<reference anchor="RFC7235">
+  <front>
+    <title>Hypertext Transfer Protocol (HTTP/1.1): Authentication</title>
+    <author initials="R." surname="Fielding" fullname="Roy T. Fielding" role="editor"/>
+    <author initials="J. F." surname="Reschke" fullname="Julian F. Reschke" role="editor"/>
+    <date month="June" year="2014"/>
+  </front>
+  <seriesInfo name="RFC" value="7235"/>
+  <x:source href="rfc7235.xml" basename="rfc7235"/>
 </reference>
 
 </references>
@@ -870,6 +905,11 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </t>
 <t>
   Mention "Origin" + server check on secondary resource as defense to content stealing.
+</t>
+<t>
+  Reduce information leakage by disallowing ambient authority information
+  being sent to the secondary resource. Require "Origin" to be included
+  in request to secondary resource, and require seconday server to check it.
 </t>
 </section>
 </section>
