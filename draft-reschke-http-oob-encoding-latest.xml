@@ -382,6 +382,7 @@ Date: Thu, 14 May 2015 18:52:00 GMT
 Content-Length: <x:length-of target="exbody5"/>
 Cache-Control: max-age=10, public
 Content-Type: text/plain
+Origin: https://www.example.com
 
 <x:span anchor="exbody5">Hello, world.
 </x:span></artwork>
@@ -405,7 +406,6 @@ Encryption: keyid="a1"; salt="vr0o6Uq3w_KDWeatc27mUg"
 Crypto-Key: keyid="a1"; aesgcm128="csPJEXBYA5U-Tal9EdJi-w"
 Content-Length: <x:length-of target="exbody4"/>
 Vary: Accept-Encoding
-Origin: https://www.example.com
 
 <x:span anchor="exbody4" x:lang="">{
   "URIs": [
