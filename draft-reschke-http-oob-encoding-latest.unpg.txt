@@ -327,6 +327,7 @@ Table of Contents
 
      GET /bae27c36-fa6a-11e4-ae5d-00059a3c7a00 HTTP/1.1
      Host: example.net
+     Origin: https://www.example.com
 
 
    Response:
@@ -335,7 +336,6 @@ Table of Contents
      Date: Thu, 14 May 2015 18:52:10 GMT
      Cache-Control: private
      Content-Length: 15
-     Origin: https://www.example.com
 
      Hello, world.
 
@@ -349,7 +349,6 @@ Table of Contents
      Content-Length: 15
      Cache-Control: max-age=10, public
      Content-Type: text/plain
-     Origin: https://www.example.com
 
      Hello, world.
 

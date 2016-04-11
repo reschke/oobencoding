@@ -358,6 +358,7 @@ Vary: Accept-Encoding
 <artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
 GET /bae27c36-fa6a-11e4-ae5d-00059a3c7a00 HTTP/1.1
 Host: example.net
+Origin: https://www.example.com
 
 </artwork></figure>
 <figure>
@@ -367,7 +368,6 @@ HTTP/1.1 200 OK
 Date: Thu, 14 May 2015 18:52:10 GMT
 Cache-Control: private
 Content-Length: <x:length-of target="exbody2"/>
-Origin: https://www.example.com
 
 <x:span anchor="exbody2">Hello, world.
 </x:span></artwork>
@@ -382,12 +382,12 @@ Date: Thu, 14 May 2015 18:52:00 GMT
 Content-Length: <x:length-of target="exbody5"/>
 Cache-Control: max-age=10, public
 Content-Type: text/plain
-Origin: https://www.example.com
 
 <x:span anchor="exbody5">Hello, world.
 </x:span></artwork>
 </figure>
 </section>
+
 <section title="Example involving an encrypted resource">
 <t>
   Given the example HTTP message from <xref target="ENCRYPTENC" x:sec="5.4"/>,
