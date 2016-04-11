@@ -80,8 +80,10 @@ Table of Contents
        3.4.3.  Payload Unusable
      3.5.  Examples
        3.5.1.  Basic Example
-       3.5.2.  Example involving an encrypted resource
-       3.5.3.  Example For Problem Reporting
+       3.5.2.  Example for an attempt to use out-of-band
+               cross-origin
+       3.5.3.  Example involving an encrypted resource
+       3.5.4.  Example For Problem Reporting
    4.  Feature Discovery
    5.  Security Considerations
      5.1.  Content Modifications
@@ -352,7 +354,34 @@ Table of Contents
 
      Hello, world.
 
-3.5.2.  Example involving an encrypted resource
+3.5.2.  Example for an attempt to use out-of-band cross-origin
+
+   Section 3.3 requires the client to include an "Origin" header field
+   in the request to a secondary server.  The example below shows how
+   the server for the secondary resource would respond to a request
+   which contains an "Origin" header field identifying an unauthorized
+   origin.
+
+   Continuing with the example from Section 3.5.1, and a secondary
+   server that is configured to allow only access for requests initiated
+   by "https://www.example.org":
+
+   Client request for secondary resource:
+
+     GET /bae27c36-fa6a-11e4-ae5d-00059a3c7a00 HTTP/1.1
+     Host: example.net
+     Origin: https://www.example.com
+
+
+   Response:
+
+     HTTP/1.1 403 Forbidden
+     Date: Thu, 14 May 2015 18:52:10 GMT
+
+
+   [[anchor7: Any reason why to *mandate* a specific 4xx code?]]
+
+3.5.3.  Example involving an encrypted resource
 
    Given the example HTTP message from Section 5.4 of [ENCRYPTENC], a
    primary resource could use the "out-of-band" encoding to specify just
@@ -403,7 +432,7 @@ Table of Contents
       acceptable content encoding in the request, the origin server
       wouldn't be able to use the "out-of-band" mechanism.
 
-3.5.3.  Example For Problem Reporting
+3.5.4.  Example For Problem Reporting
 
    Client requests primary resource as in Section 3.5.1, but the attempt
    to access the secondary resource fails.
@@ -460,7 +489,7 @@ Table of Contents
    [CORS], or by mandating that the request to the secondary resource
    includes an "Origin" header field (Section 7 of [RFC6454]), allowing
    the secondary server to reject any request initiated from an origin
-   which is not supposed to access the secondary resource.[[anchor10:
+   which is not supposed to access the secondary resource.[[anchor12:
    Rewrite this based on the defenses we added.]]
 
 5.3.  Use in Requests

@@ -388,6 +388,39 @@ Content-Type: text/plain
 </figure>
 </section>
 
+<section title="Example for an attempt to use out-of-band cross-origin">
+<t>
+  <xref target="processing"/> requires the client to include an "Origin"
+  header field in the request to a secondary server. The example below
+  shows how the server for the secondary resource would respond to a request
+  which contains an "Origin" header field identifying an unauthorized origin.
+</t>
+<figure>
+  <preamble>Continuing with the example from <xref target="basic.example"/>,
+  and a secondary server that is configured to allow only access for requests 
+  initiated by "https://www.example.org":</preamble>
+  <artwork></artwork>
+</figure>
+<figure>
+<preamble>Client request for secondary resource:</preamble>
+<artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
+GET /bae27c36-fa6a-11e4-ae5d-00059a3c7a00 HTTP/1.1
+Host: example.net
+Origin: https://www.example.com
+
+</artwork></figure>
+<figure>
+<preamble>Response:</preamble>
+<artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
+HTTP/1.1 403 Forbidden
+Date: Thu, 14 May 2015 18:52:10 GMT
+
+</artwork></figure>
+<t>
+  <cref>Any reason why to *mandate* a specific 4xx code?</cref>
+</t>
+</section>
+
 <section title="Example involving an encrypted resource">
 <t>
   Given the example HTTP message from <xref target="ENCRYPTENC" x:sec="5.4"/>,
