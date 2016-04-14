@@ -415,7 +415,11 @@ Origin: https://www.example.com
 HTTP/1.1 403 Forbidden
 Date: Thu, 14 May 2015 18:52:10 GMT
 
-</artwork></figure>
+</artwork>
+<postamble>Note that a request missing the "Origin" header field would be
+treated the same way.
+</postamble>
+</figure>
 <t>
   <cref>Any reason why to *mandate* a specific 4xx code?</cref>
 </t>

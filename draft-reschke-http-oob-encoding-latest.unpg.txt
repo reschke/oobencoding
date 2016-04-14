@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: October 13, 2016                                       Ericsson
-                                                          April 11, 2016
+Expires: October 16, 2016                                       Ericsson
+                                                          April 14, 2016
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 13, 2016.
+   This Internet-Draft will expire on October 16, 2016.
 
 Copyright Notice
 
@@ -378,6 +378,9 @@ Table of Contents
      HTTP/1.1 403 Forbidden
      Date: Thu, 14 May 2015 18:52:10 GMT
 
+
+   Note that a request missing the "Origin" header field would be
+   treated the same way.
 
    [[anchor7: Any reason why to *mandate* a specific 4xx code?]]
 
