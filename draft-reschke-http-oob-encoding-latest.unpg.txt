@@ -84,22 +84,22 @@ Table of Contents
                cross-origin
        3.5.3.  Example involving an encrypted resource
        3.5.4.  Example For Problem Reporting
-   4.  Feature Discovery
-   5.  Security Considerations
-     5.1.  Content Modifications
-     5.2.  Content Stealing
-     5.3.  Use in Requests
-   6.  IANA Considerations
-   7.  References
-     7.1.  Normative References
-     7.2.  Informative References
+   4.  Content Codings and Range Requests
+   5.  Feature Discovery
+   6.  Security Considerations
+     6.1.  Content Modifications
+     6.2.  Content Stealing
+     6.3.  Use in Requests
+   7.  IANA Considerations
+   8.  References
+     8.1.  Normative References
+     8.2.  Informative References
    Appendix A.  Alternatives, or: why not a new Status Code?
    Appendix B.  Open Issues
-     B.1.  Range Requests
-     B.2.  Accessing the Secondary Resource Too Early
-     B.3.  Resource maps
-     B.4.  Padding
-     B.5.  Fragmenting
+     B.1.  Accessing the Secondary Resource Too Early
+     B.2.  Resource maps
+     B.3.  Padding
+     B.4.  Fragmenting
    Appendix C.  Change Log (to be removed by RFC Editor before
                 publication)
      C.1.  Changes since draft-reschke-http-oob-encoding-00
@@ -182,7 +182,7 @@ Table of Contents
       (Section 4.1 of [RFC3986]) of a secondary resource.
 
    'fallback'  An OPTIONAL string containing a URI reference of a
-      fallback resource (see Appendix B.2).  This URI reference, after
+      fallback resource (see Appendix B.1).  This URI reference, after
       resolution against the URI of the primary resource, MUST identify
       a resource on the same server as the primary resource.
 
@@ -459,22 +459,66 @@ Table of Contents
            rel="http://purl.org/NET/linkrel/resource-not-found"
 
 
-4.  Feature Discovery
+4.  Content Codings and Range Requests
+
+   The combination of content codings ([RFC7231], Section 3.1.2 with
+   range requests ([RFC7233]) can lead to surprising results, as
+   applying the range request happens after applying content codings.
+
+   Thus, for a request for the bytes starting at position 100000 of a
+   video:
+
+     GET /test.mp4 HTTP/1.1
+     Host: www.example.com
+     Range: bytes=100000-
+     Accept-Encoding: identity
+
+
+   ...a successful response would use status code 206 (Partial Content)
+   and have a payload containing the octets starting at position 100000.
+
+     HTTP/1.1 206 Partial Content
+     Date: Thu, 08 September 2015 16:49:00 GMT
+     Content-Type: video/mp4
+     Content-Length: 134567
+     Content-Range: bytes 100000-234566/234567
+
+     (binary data)
+
+   However, if the request would have allowed the use of out-of-band
+   encoding:
+
+     GET /test.mp4 HTTP/1.1
+     Host: www.example.com
+     Range: bytes=100000-
+     Accept-Encoding: out-of-band
+
+
+   ...a server might return an empty payload (if the out-of-band encoded
+   response body would be shorter than 100000 bytes, as would be usually
+   the case).
+
+   Thus, in order to avoid unnecessary network traffic, servers SHOULD
+   NOT apply range request processing to responses using ouf-of-band
+   content coding (or, in other words: ignore "Range" request header
+   fields in this case).
+
+5.  Feature Discovery
 
    New content codings can be deployed easily, as the client can use the
    "Accept-Encoding" header field (Section 5.3.4 of [RFC7231]) to signal
    which content codings are supported.
 
-5.  Security Considerations
+6.  Security Considerations
 
-5.1.  Content Modifications
+6.1.  Content Modifications
 
    This specification does not define means to verify that the payload
    obtained from the secondary resource really is what the origin server
    expects it to be.  Content signatures can address this concern (see
    [CONTENTSIG] and [MICE]).
 
-5.2.  Content Stealing
+6.2.  Content Stealing
 
    The Out-Of-Band content coding could be used to circumvent the same-
    origin policy ([RFC6454], Section 3) of user agents: an attacking
@@ -494,7 +538,7 @@ Table of Contents
    Requiring the secondary resource's payload to be encrypted
    ([ENCRYPTENC]) is an additional mitigation.
 
-5.3.  Use in Requests
+6.3.  Use in Requests
 
    In general, content codings can be used in both requests and
    responses.  This particular content coding has been designed for
@@ -503,7 +547,7 @@ Table of Contents
    content that the client might not have access to otherwise (such as
    HTTP resources behind a firewall).
 
-6.  IANA Considerations
+7.  IANA Considerations
 
    The IANA "HTTP Content Coding Registry", located at
    <http://www.iana.org/assignments/http-parameters>, needs to be
@@ -515,9 +559,9 @@ Table of Contents
 
    Reference:  Section 3 of this document
 
-7.  References
+8.  References
 
-7.1.  Normative References
+8.1.  Normative References
 
    [RFC2119]     Bradner, S., "Key words for use in RFCs to Indicate
                  Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/
@@ -556,7 +600,7 @@ Table of Contents
                  RFC 7235, DOI 10.17487/RFC7235, June 2014,
                  <http://www.rfc-editor.org/info/rfc7235>.
 
-7.2.  Informative References
+8.2.  Informative References
 
    [CONTENTSIG]  Thomson, M., "Content-Signature Header Field for HTTP",
                  draft-thomson-http-content-signature-00 (work in
@@ -596,6 +640,11 @@ Table of Contents
                  RFC 7232, DOI 10.17487/RFC7232, June 2014,
                  <http://www.rfc-editor.org/info/rfc7232>.
 
+   [RFC7233]     Fielding, R., Ed., Lafon, Y., Ed., and J. Reschke, Ed.,
+                 "Hypertext Transfer Protocol (HTTP/1.1): Range
+                 Requests", RFC 7233, DOI 10.17487/RFC7233, June 2014,
+                 <http://www.rfc-editor.org/info/rfc7233>.
+
    [SCD]         Thomson, M., Eriksson, G., and C. Holmberg, "An
                  Architecture for Secure Content Delegation using HTTP",
                  draft-thomson-http-scd-00 (work in progress),
@@ -633,15 +682,7 @@ Appendix A.  Alternatives, or: why not a new Status Code?
 
 Appendix B.  Open Issues
 
-B.1.  Range Requests
-
-   We probably need to handle Range Requests.  How would this work?
-   Passing down the Range request header field to the secondary
-   resource?
-
-   What about codes other than 200 and 206?
-
-B.2.  Accessing the Secondary Resource Too Early
+B.1.  Accessing the Secondary Resource Too Early
 
    One use-case for this protocol is to enable a system of "blind
    caches", which would serve the secondary resources.  These caches
@@ -665,7 +706,7 @@ B.2.  Accessing the Secondary Resource Too Early
 
    (continuing the example from Section 3.5.1)
 
-B.3.  Resource maps
+B.2.  Resource maps
 
    When out-of-band encoding is used as part of a caching solution, the
    additional round trips to the origin server can be a significant
@@ -684,7 +725,7 @@ B.3.  Resource maps
    transport the map, but it's a given that some specification using
    "out-of-band" encoding will do.
 
-B.4.  Padding
+B.3.  Padding
 
    It might be a good idea to allow padding in the secondary resource's
    payload, in order to even hide the precise content length.  This
@@ -692,7 +733,7 @@ B.4.  Padding
    metadata, allowing the client to throw away parts of the payload when
    reconstructing the response body.
 
-B.5.  Fragmenting
+B.4.  Fragmenting
 
    It might be interesting to divide the original resource's payload
    into fragments, each of which being mapped to a distinct secondary
@@ -742,7 +783,7 @@ C.3.  Changes since draft-reschke-http-oob-encoding-02
 
    Changed JSON payload to be an object containing an array of URIs plus
    additional members.  Specify "fallback" as one of these additional
-   members, and update Appendix B.2 accordingly).
+   members, and update Appendix B.1 accordingly).
 
    Discuss extensibility a bit.
 
@@ -765,6 +806,8 @@ C.5.  Changes since draft-reschke-http-oob-encoding-04
    Update ENCRYPTENC reference, add SCD reference.
 
    Mention fragmentation feature.
+
+   Discuss relation with range requests.
 
 Appendix D.  Acknowledgements
 

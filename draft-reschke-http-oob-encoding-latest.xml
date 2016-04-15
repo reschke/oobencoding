@@ -516,6 +516,58 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </section>
 </section>
 
+<section title="Content Codings and Range Requests">
+<t>
+  The combination of content codings (<xref target="RFC7231" x:fmt="," x:rel="#data.encoding"/> with
+  range requests (<xref target="RFC7233"/>) can lead to surprising results, as
+  applying the range request happens after applying content codings.
+</t>
+<figure>
+<preamble>
+  Thus, for a request for the bytes starting at position 100000 of a video:
+</preamble>
+<artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
+GET /test.mp4 HTTP/1.1
+Host: www.example.com
+Range: bytes=100000-
+Accept-Encoding: identity
+
+</artwork></figure>
+<figure>
+<preamble>
+  ...a successful response would use status code 206 (Partial Content) and
+  have a payload containing the octets starting at position 100000.
+</preamble>
+<artwork type="message/http; msgtype=&#34;response&#34;" x:indent-with="  ">
+HTTP/1.1 206 Partial Content
+Date: Thu, 08 September 2015 16:49:00 GMT
+Content-Type: video/mp4
+Content-Length: 134567
+Content-Range: bytes 100000-234566/234567
+
+<em>(binary data)</em></artwork>
+</figure>
+<figure>
+<preamble>
+  However, if the request would have allowed the use of out-of-band encoding:
+</preamble>
+<artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
+GET /test.mp4 HTTP/1.1
+Host: www.example.com
+Range: bytes=100000-
+Accept-Encoding: out-of-band
+
+</artwork>
+<postamble>...a server might return an empty payload (if the out-of-band
+encoded response body would be shorter than 100000 bytes, as would be usually the case).</postamble>
+</figure>
+<t>
+  Thus, in order to avoid unnecessary network traffic, servers &SHOULD-NOT;
+  apply range request processing to responses using ouf-of-band content coding
+  (or, in other words: ignore "Range" request header fields in this case).
+</t>
+</section>
+
 <section title="Feature Discovery" anchor="feature.discovery">
 <t>
   New content codings can be deployed easily, as the client can use
@@ -652,7 +704,7 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
     <date month="June" year="2014"/>
   </front>
   <seriesInfo name="RFC" value="7230"/>
-  <x:source href="refs/rfc7230.xml" basename="rfc7230"/>
+  <x:source href="rfc7230.xml" basename="rfc7230"/>
 </reference>
 
 <reference anchor="RFC7231">
@@ -663,7 +715,7 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
     <date month="June" year="2014"/>
   </front>
   <seriesInfo name="RFC" value="7231"/>
-  <x:source href="refs/rfc7231.xml" basename="rfc7231"/>
+  <x:source href="rfc7231.xml" basename="rfc7231"/>
 </reference>
 
 <reference anchor="RFC7235">
@@ -717,7 +769,19 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
     <date month="June" year="2014"/>
   </front>
   <seriesInfo name="RFC" value="7232"/>
-  <x:source href="refs/rfc7232.xml" basename="rfc7232"/>
+  <x:source href="rfc7232.xml" basename="rfc7232"/>
+</reference>
+
+<reference anchor="RFC7233">
+  <front>
+    <title>Hypertext Transfer Protocol (HTTP/1.1): Range Requests</title>
+    <author initials="R." surname="Fielding" fullname="Roy T. Fielding" role="editor"/>
+    <author initials="Y." surname="Lafon" fullname="Yves Lafon" role="editor"/>
+    <author initials="J. F." surname="Reschke" fullname="Julian F. Reschke" role="editor"/>
+    <date month="June" year="2014"/>
+  </front>
+  <seriesInfo name="RFC" value="7233"/>
+  <x:source href="rfc7233.xml" basename="rfc7233"/>
 </reference>
 
 <reference anchor='ENCRYPTENC'>
@@ -799,16 +863,6 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </section>
 
 <section title="Open Issues">
-<section title="Range Requests">
-<t>
-  We probably need to handle Range Requests. How would this work? Passing down
-  the Range request header field to the secondary resource?
-</t>
-<t>
-  What about codes other than 200 and 206?
-</t>
-</section>
-
 <section title="Accessing the Secondary Resource Too Early" anchor="fallback">
 <t>
   One use-case for this protocol is to enable a system of "blind caches",
@@ -956,6 +1010,9 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </t>
 <t>
   Mention fragmentation feature.
+</t>
+<t>
+  Discuss relation with range requests.
 </t>
 </section>
 </section>
