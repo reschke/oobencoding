@@ -694,8 +694,8 @@ B.4.  Padding
 
 B.5.  Fragmenting
 
-   It might be interesting to fragment the original resource into
-   fragments, each of which being mapped to a distinct secondary
+   It might be interesting to divide the original resource's payload
+   into fragments, each of which being mapped to a distinct secondary
    resource.  This would allow to not store the full payload of a
    resource in a single cache, thus
 
@@ -706,6 +706,12 @@ B.5.  Fragmenting
       long video), or
 
    o  hide information from the secondary server.
+
+   Another benefit might be that it would allow the origin server to
+   only serve the first part of a resource itself (reducing time to play
+   of a media resource), while delegating the remainder to a cache
+   (however, this might require further adjustments of the out-of-band
+   payload format).
 
 Appendix C.  Change Log (to be removed by RFC Editor before publication)
 
