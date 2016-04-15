@@ -754,17 +754,17 @@ C.4.  Changes since draft-reschke-http-oob-encoding-03
 
 C.5.  Changes since draft-reschke-http-oob-encoding-04
 
-   Update ENCRYPTENC reference, add SCD reference.
-
-   Mention fragmentation feature.
-
-   Mention "Origin" + server check on secondary resource as defense to
-   content stealing.
-
    Reduce information leakage by disallowing ambient authority
    information being sent to the secondary resource.  Require "Origin"
    to be included in request to secondary resource, and require seconday
    server to check it.
+
+   Mention "Origin" + server check on secondary resource as defense to
+   content stealing.
+
+   Update ENCRYPTENC reference, add SCD reference.
+
+   Mention fragmentation feature.
 
 Appendix D.  Acknowledgements
 

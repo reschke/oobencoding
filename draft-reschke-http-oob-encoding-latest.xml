@@ -944,18 +944,18 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </section>
 <section title="Changes since draft-reschke-http-oob-encoding-04" anchor="changes.since.04">
 <t>
-  Update ENCRYPTENC reference, add SCD reference.
-</t>
-<t>
-  Mention fragmentation feature.
+  Reduce information leakage by disallowing ambient authority information
+  being sent to the secondary resource. Require "Origin" to be included
+  in request to secondary resource, and require seconday server to check it.
 </t>
 <t>
   Mention "Origin" + server check on secondary resource as defense to content stealing.
 </t>
 <t>
-  Reduce information leakage by disallowing ambient authority information
-  being sent to the secondary resource. Require "Origin" to be included
-  in request to secondary resource, and require seconday server to check it.
+  Update ENCRYPTENC reference, add SCD reference.
+</t>
+<t>
+  Mention fragmentation feature.
 </t>
 </section>
 </section>
