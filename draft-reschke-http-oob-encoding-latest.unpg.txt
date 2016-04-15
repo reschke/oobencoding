@@ -489,7 +489,7 @@ Table of Contents
    that the request was initiated by an authorized origin.
 
       Note: similarities with the "Cross-Origin Resource Sharing"
-      ([CORS]) are intentional.
+      protocol ([CORS]) are intentional.
 
    Requiring the secondary resource's payload to be encrypted
    ([ENCRYPTENC]) is an additional mitigation.
