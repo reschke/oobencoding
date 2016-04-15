@@ -484,16 +484,15 @@ Table of Contents
    out-of-band codings, would be handled as if it originated from the
    origin's resource.
 
-   This problem is not yet addressed by this specification.  Possible
-   defenses would be to rely on signatures and encryption, or to add an
-   indication to the secondary resource's response that would prevent
-   further processing in responses from "bad" origins (not unlike the
-   "Access-Control-Allow-Origin" header field defined in Section 5.1 of
-   [CORS], or by mandating that the request to the secondary resource
-   includes an "Origin" header field (Section 7 of [RFC6454]), allowing
-   the secondary server to reject any request initiated from an origin
-   which is not supposed to access the secondary resource.[[anchor12:
-   Rewrite this based on the defenses we added.]]
+   This scenario is addressed by the client requirement to include the
+   "Origin" request header field and the server requirement to verify
+   that the request was initiated by an authorized origin.
+
+      Note: similarities with the "Cross-Origin Resource Sharing"
+      ([CORS]) are intentional.
+
+   Requiring the secondary resource's payload to be encrypted
+   ([ENCRYPTENC]) is an additional mitigation.
 
 5.3.  Use in Requests
 
