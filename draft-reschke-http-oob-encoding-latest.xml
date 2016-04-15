@@ -395,12 +395,11 @@ Content-Type: text/plain
   shows how the server for the secondary resource would respond to a request
   which contains an "Origin" header field identifying an unauthorized origin.
 </t>
-<figure>
-  <preamble>Continuing with the example from <xref target="basic.example"/>,
+<t>
+  Continuing with the example from <xref target="basic.example"/>,
   and a secondary server that is configured to allow only access for requests 
-  initiated by "https://www.example.org":</preamble>
-  <artwork></artwork>
-</figure>
+  initiated by "https://www.example.org":
+</t>
 <figure>
 <preamble>Client request for secondary resource:</preamble>
 <artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
