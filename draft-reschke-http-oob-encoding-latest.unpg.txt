@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: October 17, 2016                                       Ericsson
-                                                          April 15, 2016
+Expires: October 22, 2016                                       Ericsson
+                                                          April 20, 2016
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 17, 2016.
+   This Internet-Draft will expire on October 22, 2016.
 
 Copyright Notice
 
@@ -98,8 +98,7 @@ Table of Contents
    Appendix B.  Open Issues
      B.1.  Accessing the Secondary Resource Too Early
      B.2.  Resource maps
-     B.3.  Padding
-     B.4.  Fragmenting
+     B.3.  Fragmenting
    Appendix C.  Change Log (to be removed by RFC Editor before
                 publication)
      C.1.  Changes since draft-reschke-http-oob-encoding-00
@@ -726,15 +725,7 @@ B.2.  Resource maps
    transport the map, but it's a given that some specification using
    "out-of-band" encoding will do.
 
-B.3.  Padding
-
-   It might be a good idea to allow padding in the secondary resource's
-   payload, in order to even hide the precise content length.  This
-   could be accomplished by adding range information to the out-of-band
-   metadata, allowing the client to throw away parts of the payload when
-   reconstructing the response body.
-
-B.4.  Fragmenting
+B.3.  Fragmenting
 
    It might be interesting to divide the original resource's payload
    into fragments, each of which being mapped to a distinct secondary
