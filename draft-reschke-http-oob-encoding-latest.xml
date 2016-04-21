@@ -886,7 +886,7 @@ coded response body would be shorter than 100000 bytes, as would be usually the 
 </t>
 <figure>
 <artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
-GET bae27c36-fa6a-11e4-ae5d-00059a3c7a00 HTTP/1.1
+GET /bae27c36-fa6a-11e4-ae5d-00059a3c7a00 HTTP/1.1
 Host: example.net
 Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
       rel="http://purl.org/NET/linkrel/primary-resource"

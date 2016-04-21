@@ -706,7 +706,7 @@ B.1.  Accessing the Secondary Resource Too Early
    itself.  This information could be provided in yet another Link
    header field:
 
-     GET bae27c36-fa6a-11e4-ae5d-00059a3c7a00 HTTP/1.1
+     GET /bae27c36-fa6a-11e4-ae5d-00059a3c7a00 HTTP/1.1
      Host: example.net
      Link: <http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
            rel="http://purl.org/NET/linkrel/primary-resource"
