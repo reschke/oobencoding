@@ -460,7 +460,6 @@ Vary: Accept-Encoding
 HTTP/1.1 200 OK
 Date: Thu, 14 May 2015 18:52:10 GMT
 Content-Length: ...
-Cache-Control: private
 
 fuag8ThIRIazSHKUqJ5OduR75UgEUuM76J8UFwadEvg</artwork>
 <postamble>(payload body shown in base64 here)</postamble>
@@ -1008,7 +1007,7 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </section>
 <section title="Changes since draft-reschke-http-oob-encoding-05" anchor="changes.since.05">
 <t>
-  None yet.
+  Remove redundant Cache-Control: private from one example response (the response payload is encrypted anyway).
 </t>
 </section>
 </section>

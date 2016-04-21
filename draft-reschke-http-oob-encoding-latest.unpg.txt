@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: October 22, 2016                                       Ericsson
-                                                          April 20, 2016
+Expires: October 23, 2016                                       Ericsson
+                                                          April 21, 2016
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 22, 2016.
+   This Internet-Draft will expire on October 23, 2016.
 
 Copyright Notice
 
@@ -416,7 +416,6 @@ Table of Contents
      HTTP/1.1 200 OK
      Date: Thu, 14 May 2015 18:52:10 GMT
      Content-Length: ...
-     Cache-Control: private
 
      fuag8ThIRIazSHKUqJ5OduR75UgEUuM76J8UFwadEvg
    (payload body shown in base64 here)
@@ -803,7 +802,8 @@ C.5.  Changes since draft-reschke-http-oob-encoding-04
 
 C.6.  Changes since draft-reschke-http-oob-encoding-05
 
-   None yet.
+   Remove redundant Cache-Control: private from one example response
+   (the response payload is encrypted anyway).
 
 Appendix D.  Acknowledgements
 
