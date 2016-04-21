@@ -206,7 +206,7 @@
 </section>
 <section title="Processing Steps" anchor="processing">
 <t>
-  Upon receipt of an out-of-band encoded response, a client first needs to
+  Upon receipt of an 'out-of-band' encoded response, a client first needs to
   obtain the secondary resource's presentation. This is done using
   an HTTP GET request (independantly of the original request method).
 </t>
@@ -248,7 +248,7 @@
   integrity check, etc.), it can choose
   an alternate secondary resource (if specified), try the fallback URI (if
   given), or simply retry the
-  request to the origin server without including "out-of-band" in the
+  request to the origin server without including 'out-of-band' in the
   Accept-Encoding request header field. In the latter case, it can be useful
   to inform the origin server about what problems were encountered
   when trying to access the secondary resource; see <xref target="problem.reporting"/>
@@ -265,10 +265,10 @@
   for the origin server's response.
 </t>
 <t>
-  Use of the "out-of-band" coding is similar to HTTP redirects (<xref target="RFC7231" x:fmt="," x:rel="#status.3xx"/>)
+  Use of the 'out-of-band' coding is similar to HTTP redirects (<xref target="RFC7231" x:fmt="," x:rel="#status.3xx"/>)
   in that it can lead to cycles. Unless with HTTP redirects, the client however
-  is in full control: it does not need to advertise support for the "out-of-band"
-  encoding in requests for secondary resources. Alternatively, it can protect itself
+  is in full control: it does not need to advertise support for the 'out-of-band'
+  coding in requests for secondary resources. Alternatively, it can protect itself
   just like for HTTP redirects -- by limiting the number of indirections it supports.
 </t>
 <t>
@@ -395,7 +395,7 @@ Content-Type: text/plain
 </figure>
 </section>
 
-<section title="Example for an attempt to use out-of-band cross-origin">
+<section title="Example for an attempt to use 'out-of-band' cross-origin">
 <t>
   <xref target="processing"/> requires the client to include an "Origin"
   header field in the request to a secondary server. The example below
@@ -434,7 +434,7 @@ treated the same way.
 <section title="Example involving an encrypted resource">
 <t>
   Given the example HTTP message from <xref target="ENCRYPTENC" x:sec="5.4"/>,
-  a primary resource could use the "out-of-band" encoding to specify just
+  a primary resource could use the 'out-of-band' coding to specify just
   the location of the secondary resource plus the contents of the 
   "Crypto-Key" header field needed to decrypt the payload: 
 </t>
@@ -483,9 +483,9 @@ Content-Type: text/plain
 </figure>
 <x:note>
 <t>
-  <x:h>Note:</x:h> in this case, the ability to undo the "aescgm128" is needed
-  to process the response. If "aescgm128" wasn't listed as acceptable content encoding
-  in the request, the origin server wouldn't be able to use the "out-of-band"
+  <x:h>Note:</x:h> in this case, the ability to undo the 'aescgm128' is needed
+  to process the response. If 'aescgm128' wasn't listed as acceptable content coding
+  in the request, the origin server wouldn't be able to use the 'out-of-band'
   mechanism.
 </t>
 </x:note>
@@ -555,7 +555,7 @@ Content-Range: bytes 100000-234566/234567
 </figure>
 <figure>
 <preamble>
-  However, if the request would have allowed the use of out-of-band encoding:
+  However, if the request would have allowed the use of 'out-of-band' coding:
 </preamble>
 <artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
 GET /test.mp4 HTTP/1.1
@@ -565,7 +565,7 @@ Accept-Encoding: out-of-band
 
 </artwork>
 <postamble>...a server might return an empty payload (if the out-of-band
-encoded response body would be shorter than 100000 bytes, as would be usually the case).</postamble>
+coded response body would be shorter than 100000 bytes, as would be usually the case).</postamble>
 </figure>
 <t>
   Thus, in order to avoid unnecessary network traffic, servers &SHOULD-NOT;
@@ -593,11 +593,11 @@ encoded response body would be shorter than 100000 bytes, as would be usually th
 </section>
 <section title="Content Stealing">
 <t>
-  The Out-Of-Band content coding could be used to circumvent the same-origin
+  The 'out-of-band' content coding could be used to circumvent the same-origin
   policy (<xref target="RFC6454" x:fmt="," x:sec="3"/>) of user agents: an
   attacking site which knows the URI of a secondary resource would use the
-  out-of-band coding to trick the user agent to read the contents of the secondary resource,
-  which then, due to the security properties of out-of-band codings, would be
+  'out-of-band' coding to trick the user agent to read the contents of the secondary resource,
+  which then, due to the security properties of this coding, would be
   handled as if it originated from the origin's resource.
 </t>
 <t>
@@ -900,7 +900,7 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 
 <section title="Resource maps" anchor="resource.maps">
 <t>
-  When out-of-band encoding is used as part of a caching solution, the additional
+  When 'out-of-band' coding is used as part of a caching solution, the additional
   round trips to the origin server can be a significant performance problem;
   in particular, when many small resources need to be loaded (such as 
   scripts, images, or video fragments). In cases like these, it could be 
@@ -910,7 +910,7 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </t>
 <ul>
   <li>
-    as extension in the out-of-band encoding JSON payload, or
+    as extension in the 'out-of-band' coding JSON payload, or
   </li>
   <li>
     as separate resource identified by a "Link" response header field.
@@ -918,8 +918,8 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </ul>
 <t>
   This specification does not define a format, nor a mechanism to transport
-  the map, but it's a given that some specification using "out-of-band"
-  encoding will do.
+  the map, but it's a given that some specification using 'out-of-band'
+  coding will do.
 </t>
 </section>
 
@@ -938,7 +938,7 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   Another benefit might be that it would allow the origin server to only serve the first
   part of a resource itself (reducing time to play of a media resource), while
   delegating the remainder to a cache (however, this might require further adjustments
-  of the out-of-band payload format).
+  of the 'out-of-band' payload format).
 </t>
 </section>
 

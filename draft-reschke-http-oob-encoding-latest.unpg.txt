@@ -80,7 +80,7 @@ Table of Contents
        3.4.3.  Payload Unusable
      3.5.  Examples
        3.5.1.  Basic Example
-       3.5.2.  Example for an attempt to use out-of-band
+       3.5.2.  Example for an attempt to use 'out-of-band'
                cross-origin
        3.5.3.  Example involving an encrypted resource
        3.5.4.  Example For Problem Reporting
@@ -205,9 +205,10 @@ Table of Contents
 
 3.3.  Processing Steps
 
-   Upon receipt of an out-of-band encoded response, a client first needs
-   to obtain the secondary resource's presentation.  This is done using
-   an HTTP GET request (independantly of the original request method).
+   Upon receipt of an 'out-of-band' encoded response, a client first
+   needs to obtain the secondary resource's presentation.  This is done
+   using an HTTP GET request (independantly of the original request
+   method).
 
    In order to prevent any leakage of information, the GET request for
    the secondary resource MUST NOT contain any information provided by
@@ -239,7 +240,7 @@ Table of Contents
    payload failing integrity check, etc.), it can choose an alternate
    secondary resource (if specified), try the fallback URI (if given),
    or simply retry the request to the origin server without including
-   "out-of-band" in the Accept-Encoding request header field.  In the
+   'out-of-band' in the Accept-Encoding request header field.  In the
    latter case, it can be useful to inform the origin server about what
    problems were encountered when trying to access the secondary
    resource; see Section 3.4 for details.
@@ -252,10 +253,10 @@ Table of Contents
    affect the cacheability of the reconstructed response message, which
    is the same as for the origin server's response.
 
-   Use of the "out-of-band" coding is similar to HTTP redirects
+   Use of the 'out-of-band' coding is similar to HTTP redirects
    ([RFC7231], Section 6.4) in that it can lead to cycles.  Unless with
    HTTP redirects, the client however is in full control: it does not
-   need to advertise support for the "out-of-band" encoding in requests
+   need to advertise support for the 'out-of-band' coding in requests
    for secondary resources.  Alternatively, it can protect itself just
    like for HTTP redirects -- by limiting the number of indirections it
    supports.
@@ -362,7 +363,7 @@ Table of Contents
 
      Hello, world.
 
-3.5.2.  Example for an attempt to use out-of-band cross-origin
+3.5.2.  Example for an attempt to use 'out-of-band' cross-origin
 
    Section 3.3 requires the client to include an "Origin" header field
    in the request to a secondary server.  The example below shows how
@@ -395,7 +396,7 @@ Table of Contents
 3.5.3.  Example involving an encrypted resource
 
    Given the example HTTP message from Section 5.4 of [ENCRYPTENC], a
-   primary resource could use the "out-of-band" encoding to specify just
+   primary resource could use the 'out-of-band' coding to specify just
    the location of the secondary resource plus the contents of the
    "Crypto-Key" header field needed to decrypt the payload:
 
@@ -437,10 +438,10 @@ Table of Contents
 
      I am the walrus
 
-      Note: in this case, the ability to undo the "aescgm128" is needed
-      to process the response.  If "aescgm128" wasn't listed as
-      acceptable content encoding in the request, the origin server
-      wouldn't be able to use the "out-of-band" mechanism.
+      Note: in this case, the ability to undo the 'aescgm128' is needed
+      to process the response.  If 'aescgm128' wasn't listed as
+      acceptable content coding in the request, the origin server
+      wouldn't be able to use the 'out-of-band' mechanism.
 
 3.5.4.  Example For Problem Reporting
 
@@ -492,8 +493,8 @@ Table of Contents
 
      (binary data)
 
-   However, if the request would have allowed the use of out-of-band
-   encoding:
+   However, if the request would have allowed the use of 'out-of-band'
+   coding:
 
      GET /test.mp4 HTTP/1.1
      Host: www.example.com
@@ -501,7 +502,7 @@ Table of Contents
      Accept-Encoding: out-of-band
 
 
-   ...a server might return an empty payload (if the out-of-band encoded
+   ...a server might return an empty payload (if the out-of-band coded
    response body would be shorter than 100000 bytes, as would be usually
    the case).
 
@@ -527,12 +528,12 @@ Table of Contents
 
 6.2.  Content Stealing
 
-   The Out-Of-Band content coding could be used to circumvent the same-
-   origin policy ([RFC6454], Section 3) of user agents: an attacking
-   site which knows the URI of a secondary resource would use the out-
-   of-band coding to trick the user agent to read the contents of the
-   secondary resource, which then, due to the security properties of
-   out-of-band codings, would be handled as if it originated from the
+   The 'out-of-band' content coding could be used to circumvent the
+   same-origin policy ([RFC6454], Section 3) of user agents: an
+   attacking site which knows the URI of a secondary resource would use
+   the 'out-of-band' coding to trick the user agent to read the contents
+   of the secondary resource, which then, due to the security properties
+   of this coding, would be handled as if it originated from the
    origin's resource.
 
    This scenario is addressed by the client requirement to include the
@@ -715,7 +716,7 @@ B.1.  Accessing the Secondary Resource Too Early
 
 B.2.  Resource maps
 
-   When out-of-band encoding is used as part of a caching solution, the
+   When 'out-of-band' coding is used as part of a caching solution, the
    additional round trips to the origin server can be a significant
    performance problem; in particular, when many small resources need to
    be loaded (such as scripts, images, or video fragments).  In cases
@@ -724,13 +725,13 @@ B.2.  Resource maps
    for these mapped resources.  Plausible ways to transmit the resource
    map could be:
 
-   o  as extension in the out-of-band encoding JSON payload, or
+   o  as extension in the 'out-of-band' coding JSON payload, or
 
    o  as separate resource identified by a "Link" response header field.
 
    This specification does not define a format, nor a mechanism to
    transport the map, but it's a given that some specification using
-   "out-of-band" encoding will do.
+   'out-of-band' coding will do.
 
 B.3.  Fragmenting
 
@@ -750,7 +751,7 @@ B.3.  Fragmenting
    Another benefit might be that it would allow the origin server to
    only serve the first part of a resource itself (reducing time to play
    of a media resource), while delegating the remainder to a cache
-   (however, this might require further adjustments of the out-of-band
+   (however, this might require further adjustments of the 'out-of-band'
    payload format).
 
 Appendix C.  Change Log (to be removed by RFC Editor before publication)
