@@ -265,6 +265,13 @@
   for the origin server's response.
 </t>
 <t>
+  Use of the "out-of-band" coding is similar to HTTP redirects (<xref target="RFC7231" x:fmt="," x:rel="#status.3xx"/>)
+  in that it can lead to cycles. Unless with HTTP redirects, the client however
+  is in full control: it does not need to advertise support for the "out-of-band"
+  encoding in requests for secondary resources. Alternatively, it can protect itself
+  just like for HTTP redirects -- by limiting the number of indirections it supports.
+</t>
+<t>
   Note that because the server's response depends on the request's Accept-Encoding
   header field, the response usually will need to be declared to vary on that. See
   <xref target="RFC7231" x:fmt="of" x:rel="#header.vary"/> and
@@ -1008,6 +1015,9 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 <section title="Changes since draft-reschke-http-oob-encoding-05" anchor="changes.since.05">
 <t>
   Remove redundant Cache-Control: private from one example response (the response payload is encrypted anyway).
+</t>
+<t>
+  Mention looping.
 </t>
 </section>
 </section>

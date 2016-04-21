@@ -252,6 +252,14 @@ Table of Contents
    affect the cacheability of the reconstructed response message, which
    is the same as for the origin server's response.
 
+   Use of the "out-of-band" coding is similar to HTTP redirects
+   ([RFC7231], Section 6.4) in that it can lead to cycles.  Unless with
+   HTTP redirects, the client however is in full control: it does not
+   need to advertise support for the "out-of-band" encoding in requests
+   for secondary resources.  Alternatively, it can protect itself just
+   like for HTTP redirects -- by limiting the number of indirections it
+   supports.
+
    Note that because the server's response depends on the request's
    Accept-Encoding header field, the response usually will need to be
    declared to vary on that.  See Section 7.1.4 of [RFC7231] and Section
@@ -804,6 +812,8 @@ C.6.  Changes since draft-reschke-http-oob-encoding-05
 
    Remove redundant Cache-Control: private from one example response
    (the response payload is encrypted anyway).
+
+   Mention looping.
 
 Appendix D.  Acknowledgements
 
