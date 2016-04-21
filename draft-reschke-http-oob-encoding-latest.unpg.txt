@@ -175,8 +175,7 @@ Table of Contents
    The name of the content coding is "out-of-band".
 
    The payload format uses JavaScript Object Notation (JSON, [RFC7159]),
-   describing an object describing secondary resources plus OPTIONAL
-   additional metadata:
+   describing an object describing secondary resources:
 
    'URIs'  A REQUIRED string array containing at least one URI reference
       (Section 4.1 of [RFC3986]) of a secondary resource.
@@ -185,13 +184,6 @@ Table of Contents
       fallback resource (see Appendix B.1).  This URI reference, after
       resolution against the URI of the primary resource, MUST identify
       a resource on the same server as the primary resource.
-
-   'metadata'  An OPTIONAL object containing additional members,
-      representing header field values which can not appear as header
-      fields in the response message itself (header fields that occur
-      multiple times need to be combined into a single field value as
-      per Section 3.2.2 of [RFC7230]; header field names are lower-
-      cased).
 
    The payload format uses a JSON array so that the origin server can
    specify multiple secondary resources.  When a client receives a
@@ -230,10 +222,6 @@ Table of Contents
    2.  Replacing/setting any response header fields from the primary
        response except for framing-related information such as Content-
        Length, Transfer-Encoding and Content-Encoding.
-
-   3.  Replacing/setting any header fields with those present as members
-       in the "metadata" object. [[anchor4: Do we have a use case for
-       this?]]
 
    If the client is unable to retrieve the secondary resource's
    representation (host can't be reached, non 2xx response status code,
@@ -391,7 +379,7 @@ Table of Contents
    Note that a request missing the "Origin" header field would be
    treated the same way.
 
-   [[anchor7: Any reason why to *mandate* a specific 4xx code?]]
+   [[anchor6: Any reason why to *mandate* a specific 4xx code?]]
 
 3.5.3.  Example involving an encrypted resource
 
@@ -815,6 +803,8 @@ C.6.  Changes since draft-reschke-http-oob-encoding-05
    (the response payload is encrypted anyway).
 
    Mention looping.
+
+   Remove 'metadata' payload element.
 
 Appendix D.  Acknowledgements
 
