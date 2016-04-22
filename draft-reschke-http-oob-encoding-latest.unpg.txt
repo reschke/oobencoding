@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: October 23, 2016                                       Ericsson
-                                                          April 21, 2016
+Expires: October 24, 2016                                       Ericsson
+                                                          April 22, 2016
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 23, 2016.
+   This Internet-Draft will expire on October 24, 2016.
 
 Copyright Notice
 
@@ -733,6 +733,9 @@ B.3.  Fragmenting
    o  caching different parts of the resource with different
       characteristics (such as only distribute the first minutes of a
       long video), or
+
+   o  fetching specific parts of a resource (similar to byte range
+      requests), or
 
    o  hide information from the secondary server.
 

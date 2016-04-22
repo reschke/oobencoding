@@ -932,6 +932,7 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 <ul>
   <li>distribute load,</li>
   <li>caching different parts of the resource with different characteristics (such as only distribute the first minutes of a long video), or</li>
+  <li>fetching specific parts of a resource (similar to byte range requests), or</li>
   <li>hide information from the secondary server.</li>
 </ul>
 <t>
