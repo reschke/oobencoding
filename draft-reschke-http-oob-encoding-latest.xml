@@ -443,10 +443,10 @@ treated the same way.
 <artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
 HTTP/1.1 200 OK
 Date: Thu, 14 May 2015 18:52:00 GMT
-Content-Encoding: aesgcm128, out-of-band
+Content-Encoding: aesgcm, out-of-band
 Content-Type: text/plain
 Encryption: keyid="a1"; salt="vr0o6Uq3w_KDWeatc27mUg"
-Crypto-Key: keyid="a1"; aesgcm128="csPJEXBYA5U-Tal9EdJi-w"
+Crypto-Key: keyid="a1"; aesgcm="csPJEXBYA5U-Tal9EdJi-w"
 Content-Length: <x:length-of target="exbody4"/>
 Vary: Accept-Encoding
 
@@ -468,7 +468,7 @@ HTTP/1.1 200 OK
 Date: Thu, 14 May 2015 18:52:10 GMT
 Content-Length: ...
 
-fuag8ThIRIazSHKUqJ5OduR75UgEUuM76J8UFwadEvg</artwork>
+VDeU0XxaJkOJDAxPl7h9JD5V8N43RorP7PfpPdZZQuwF</artwork>
 <postamble>(payload body shown in base64 here)</postamble>
 </figure>
 <figure>
@@ -483,8 +483,8 @@ Content-Type: text/plain
 </figure>
 <x:note>
 <t>
-  <x:h>Note:</x:h> in this case, the ability to undo the 'aescgm128' is needed
-  to process the response. If 'aescgm128' wasn't listed as acceptable content coding
+  <x:h>Note:</x:h> in this case, the ability to undo the 'aesgcm' is needed
+  to process the response. If 'aesgcm' wasn't listed as acceptable content coding
   in the request, the origin server wouldn't be able to use the 'out-of-band'
   mechanism.
 </t>
@@ -1022,6 +1022,9 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </t>
 <t>
   Remove 'metadata' payload element.
+</t>
+<t>
+  Align with changes in ENCRYPTENC spec.
 </t>
 </section>
 </section>
