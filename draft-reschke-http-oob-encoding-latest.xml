@@ -926,7 +926,7 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </t>
 </section>
 
-<section title="Fragmenting">
+<section title="Fragmenting" anchor="fragmenting">
 <t>
   It might be interesting to divide the original resource's payload into fragments,
   each of which being mapped to a distinct secondary resource. This would
