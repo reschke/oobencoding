@@ -185,10 +185,12 @@ Table of Contents
       resolution against the URI of the primary resource, MUST identify
       a resource on the same server as the primary resource.
 
-   The payload format uses a JSON array so that the origin server can
-   specify multiple secondary resources.  When a client receives a
-   response containing multiple URIs, it is free to choose which of
-   these to use.
+   The payload format uses an array so that the origin server can
+   specify multiple secondary resources.  The ordering within the array
+   reflects the origin server's preference (if any), with the most
+   preferred secondary resource location being first.  Clients receiving
+   a response containing multiple URIs are free to choose which of these
+   to use.
 
    New specifications can define new OPTIONAL header fields, thus
    clients MUST ignore unknown fields.  Extension specifications will

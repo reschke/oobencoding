@@ -177,7 +177,8 @@
 <dl>
   <dt>'URIs'</dt>
   <dd>
-    A &REQUIRED; string array containing at least one URI reference (<xref target="RFC3986" x:sec="4.1"/>) of a secondary resource.
+    A &REQUIRED; string array containing at least one URI reference (<xref target="RFC3986" x:sec="4.1"/>)
+    of a secondary resource.
   </dd>
   <dt>'fallback'</dt>
   <dd>
@@ -194,9 +195,11 @@
   </dd>-->
 </dl>
 <t>
-  The payload format uses a JSON array so that the origin server can specify
-  multiple secondary resources. When a client receives a response containing
-  multiple URIs, it is free to choose which of these to use.
+  The payload format uses an array so that the origin server can specify
+  multiple secondary resources. The ordering within the array reflects the
+  origin server's preference (if any), with the most preferred secondary
+  resource location being first. Clients receiving a response containing
+  multiple URIs are free to choose which of these to use.
 </t>
 <t>
   New specifications can define new &OPTIONAL; header fields, thus clients
