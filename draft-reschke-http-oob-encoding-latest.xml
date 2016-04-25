@@ -216,7 +216,7 @@
 <t>
   In order to prevent any leakage of information, the GET request for
   the secondary resource &MUST-NOT; contain any information provided by
-  origins other than the secondary server itself, namely HTTP authentication
+  or provided for the secondary server itself, namely HTTP authentication
   credentials (<xref target="RFC7235"/>) and cookies (<xref target="RFC6265"/>).
 </t>
 <t>
@@ -1028,6 +1028,9 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </t>
 <t>
   Align with changes in ENCRYPTENC spec.
+</t>
+<t>
+  Fix incorrect statement about what kind of cookies/credentials can be used in the request to the secondary resource.
 </t>
 </section>
 </section>
