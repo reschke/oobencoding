@@ -171,21 +171,23 @@
 </t>
 <t>
   The payload format uses JavaScript Object Notation (JSON, <xref target="RFC7159"/>),
-  describing an object describing secondary resources<!-- plus &OPTIONAL; additional
+  describing an object describing secondary resources; currently only defining
+  one member<!-- plus &OPTIONAL; additional
   metadata-->:
 </t>
 <dl>
   <dt>'sr'</dt>
   <dd>
     A &REQUIRED; string array containing at least one URI reference (<xref target="RFC3986" x:sec="4.1"/>)
-    of a secondary resource.
+    of a secondary resource (URI references that are relative references are resolved against the URI
+    of the primary resource).
   </dd>
-  <dt>'fallback'</dt>
+<!--  <dt>'fallback'</dt>
   <dd>
     An &OPTIONAL; string containing a URI reference of a fallback resource (see <xref target="fallback"/>).
     This URI reference, after resolution against the URI of the primary resource, &MUST; identify
     a resource on the same server as the primary resource.
-  </dd>
+  </dd>-->
   <!--<dt>'metadata'</dt>
   <dd>
     An &OPTIONAL; object containing additional members, representing header field values
@@ -200,6 +202,14 @@
   origin server's preference (if any), with the most preferred secondary
   resource location being first. Clients receiving a response containing
   multiple URIs are free to choose which of these to use.
+</t>
+<t>
+  In some cases, the origin server might want to specify a "fallback URI"; identifying
+  a secondary resource served by the origin server itself, but otherwise
+  equivalent "regular" secondary resources. Any secondary resource hosted
+  by the origin server can be consired to be a "fallback"; origin servers
+  will usually list them last in the "sr" array so that they only will be
+  used by clients when there is no other choice. 
 </t>
 <t>
   New specifications can define new &OPTIONAL; header fields, thus clients
@@ -352,9 +362,9 @@ Vary: Accept-Encoding
 
 <x:span anchor="exbody" x:lang="">{
   "sr": [
-    "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
-  ],
-  "fallback": "/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
+    "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00",
+    "/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
+  ]
 }
 </x:span></artwork>
 <postamble>
@@ -1033,7 +1043,7 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   Fix incorrect statement about what kind of cookies/credentials can be used in the request to the secondary resource.
 </t>
 <t>
-  Rename "URIs" to "sr" ("secondary resources").
+  Rename "URIs" to "sr" ("secondary resources") and treat the fallback URI like a regular secondary resource.
 </t>
 </section>
 </section>

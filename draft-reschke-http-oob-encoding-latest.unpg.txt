@@ -175,15 +175,13 @@ Table of Contents
    The name of the content coding is "out-of-band".
 
    The payload format uses JavaScript Object Notation (JSON, [RFC7159]),
-   describing an object describing secondary resources:
+   describing an object describing secondary resources; currently only
+   defining one member:
 
    'sr'  A REQUIRED string array containing at least one URI reference
-      (Section 4.1 of [RFC3986]) of a secondary resource.
-
-   'fallback'  An OPTIONAL string containing a URI reference of a
-      fallback resource (see Appendix B.1).  This URI reference, after
-      resolution against the URI of the primary resource, MUST identify
-      a resource on the same server as the primary resource.
+      (Section 4.1 of [RFC3986]) of a secondary resource (URI references
+      that are relative references are resolved against the URI of the
+      primary resource).
 
    The payload format uses an array so that the origin server can
    specify multiple secondary resources.  The ordering within the array
@@ -191,6 +189,14 @@ Table of Contents
    preferred secondary resource location being first.  Clients receiving
    a response containing multiple URIs are free to choose which of these
    to use.
+
+   In some cases, the origin server might want to specify a "fallback
+   URI"; identifying a secondary resource served by the origin server
+   itself, but otherwise equivalent "regular" secondary resources.  Any
+   secondary resource hosted by the origin server can be consired to be
+   a "fallback"; origin servers will usually list them last in the "sr"
+   array so that they only will be used by clients when there is no
+   other choice.
 
    New specifications can define new OPTIONAL header fields, thus
    clients MUST ignore unknown fields.  Extension specifications will
@@ -310,14 +316,14 @@ Table of Contents
      Content-Type: text/plain
      Cache-Control: max-age=10, public
      Content-Encoding: out-of-band
-     Content-Length: 143
+     Content-Length: 133
      Vary: Accept-Encoding
 
      {
        "sr": [
-         "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
-       ],
-       "fallback": "/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
+         "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00",
+         "/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
+       ]
      }
 
    (note that the Content-Type header field describes the media type of
@@ -816,7 +822,8 @@ C.6.  Changes since draft-reschke-http-oob-encoding-05
    Fix incorrect statement about what kind of cookies/credentials can be
    used in the request to the secondary resource.
 
-   Rename "URIs" to "sr" ("secondary resources").
+   Rename "URIs" to "sr" ("secondary resources") and treat the fallback
+   URI like a regular secondary resource.
 
 Appendix D.  Acknowledgements
 
