@@ -175,7 +175,7 @@
   metadata-->:
 </t>
 <dl>
-  <dt>'URIs'</dt>
+  <dt>'sr'</dt>
   <dd>
     A &REQUIRED; string array containing at least one URI reference (<xref target="RFC3986" x:sec="4.1"/>)
     of a secondary resource.
@@ -351,7 +351,7 @@ Content-Length: <x:length-of target="exbody"/>
 Vary: Accept-Encoding
 
 <x:span anchor="exbody" x:lang="">{
-  "URIs": [
+  "sr": [
     "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
   ],
   "fallback": "/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
@@ -454,7 +454,7 @@ Content-Length: <x:length-of target="exbody4"/>
 Vary: Accept-Encoding
 
 <x:span anchor="exbody4" x:lang="">{
-  "URIs": [
+  "sr": [
     "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
   ]
 }
@@ -1031,6 +1031,9 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </t>
 <t>
   Fix incorrect statement about what kind of cookies/credentials can be used in the request to the secondary resource.
+</t>
+<t>
+  Rename "URIs" to "sr" ("secondary resources").
 </t>
 </section>
 </section>

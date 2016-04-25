@@ -177,7 +177,7 @@ Table of Contents
    The payload format uses JavaScript Object Notation (JSON, [RFC7159]),
    describing an object describing secondary resources:
 
-   'URIs'  A REQUIRED string array containing at least one URI reference
+   'sr'  A REQUIRED string array containing at least one URI reference
       (Section 4.1 of [RFC3986]) of a secondary resource.
 
    'fallback'  An OPTIONAL string containing a URI reference of a
@@ -310,11 +310,11 @@ Table of Contents
      Content-Type: text/plain
      Cache-Control: max-age=10, public
      Content-Encoding: out-of-band
-     Content-Length: 145
+     Content-Length: 143
      Vary: Accept-Encoding
 
      {
-       "URIs": [
+       "sr": [
          "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
        ],
        "fallback": "/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
@@ -398,11 +398,11 @@ Table of Contents
      Content-Type: text/plain
      Encryption: keyid="a1"; salt="vr0o6Uq3w_KDWeatc27mUg"
      Crypto-Key: keyid="a1"; aesgcm="csPJEXBYA5U-Tal9EdJi-w"
-     Content-Length: 87
+     Content-Length: 85
      Vary: Accept-Encoding
 
      {
-       "URIs": [
+       "sr": [
          "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00"
        ]
      }
@@ -815,6 +815,8 @@ C.6.  Changes since draft-reschke-http-oob-encoding-05
 
    Fix incorrect statement about what kind of cookies/credentials can be
    used in the request to the secondary resource.
+
+   Rename "URIs" to "sr" ("secondary resources").
 
 Appendix D.  Acknowledgements
 
