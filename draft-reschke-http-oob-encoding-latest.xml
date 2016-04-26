@@ -956,6 +956,16 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </t>
 </section>
 
+<section title="Relation to Content Encryption">
+<t>
+  Right now this specification is orthogonal to <xref target="ENCRYPTENC"/>/<xref target="MICE"/>; that is, it could be
+  used for public content such as software downloads. However, the lack of mandatory encryption
+  affects the security considerations (which currently try to rule attack vectors
+  caused by ambient authority (<xref target="RFC6265" x:fmt="," x:sec="8.2"/>).
+  We need to decide whether we need this level of independance.
+</t>
+</section>
+
 </section>
 
 <section title="Change Log (to be removed by RFC Editor before publication)" anchor="change.log">

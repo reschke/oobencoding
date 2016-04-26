@@ -99,6 +99,7 @@ Table of Contents
      B.1.  Accessing the Secondary Resource Too Early
      B.2.  Resource maps
      B.3.  Fragmenting
+     B.4.  Relation to Content Encryption
    Appendix C.  Change Log (to be removed by RFC Editor before
                 publication)
      C.1.  Changes since draft-reschke-http-oob-encoding-00
@@ -752,6 +753,15 @@ B.3.  Fragmenting
    of a media resource), while delegating the remainder to a cache
    (however, this might require further adjustments of the 'out-of-band'
    payload format).
+
+B.4.  Relation to Content Encryption
+
+   Right now this specification is orthogonal to [ENCRYPTENC]/[MICE];
+   that is, it could be used for public content such as software
+   downloads.  However, the lack of mandatory encryption affects the
+   security considerations (which currently try to rule attack vectors
+   caused by ambient authority ([RFC6265], Section 8.2).  We need to
+   decide whether we need this level of independance.
 
 Appendix C.  Change Log (to be removed by RFC Editor before publication)
 
