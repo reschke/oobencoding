@@ -271,7 +271,8 @@ Table of Contents
    subsequent request to the origin server, detailing the URI of the
    secondary resource and the failure reason.
 
-   The following link extension relations are defined:
+   The following link extension relations are defined: [[linkrel:
+   Missing: "TLS handshake failure"]]
 
 3.4.1.  Server Not Reachable
 

@@ -301,6 +301,7 @@
 </t>
 <t>
   The following link extension relations are defined:
+  <cref anchor="linkrel">Missing: "TLS handshake failure"</cref>
 </t>
 
 <section title="Server Not Reachable" anchor="rel-not-reachable">
