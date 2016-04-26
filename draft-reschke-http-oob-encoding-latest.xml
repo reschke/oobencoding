@@ -967,6 +967,28 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </t>
 </section>
 
+<section title="Reporting">
+<t>
+  This specification already defines hooks through which a client can report
+  failures when accessing secondary resources (see <xref target="problem.reporting"/>).
+</t>
+<t>
+  However, it would be useful if there were also ways to report on statistics such as:
+</t>
+<ul>
+  <li>Success (Cache Hit) rates, and</li>
+  <li>Bandwidth to secondary servers.</li>
+</ul>
+<t>
+  This could be implemented using a new service endpoint and a (JSON?) payload
+  format.
+</t>
+<t>
+  Similarly, a reporting facility for use by the secondary servers
+  could be useful.
+</t>
+</section>
+
 </section>
 
 <section title="Change Log (to be removed by RFC Editor before publication)" anchor="change.log">
@@ -1055,6 +1077,9 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </t>
 <t>
   Rename "URIs" to "sr" ("secondary resources") and treat the fallback URI like a regular secondary resource.
+</t>
+<t>
+  Mention reporting protocol ideas.
 </t>
 </section>
 </section>

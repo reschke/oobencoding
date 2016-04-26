@@ -100,6 +100,7 @@ Table of Contents
      B.2.  Resource maps
      B.3.  Fragmenting
      B.4.  Relation to Content Encryption
+     B.5.  Reporting
    Appendix C.  Change Log (to be removed by RFC Editor before
                 publication)
      C.1.  Changes since draft-reschke-http-oob-encoding-00
@@ -764,6 +765,24 @@ B.4.  Relation to Content Encryption
    caused by ambient authority ([RFC6265], Section 8.2).  We need to
    decide whether we need this level of independance.
 
+B.5.  Reporting
+
+   This specification already defines hooks through which a client can
+   report failures when accessing secondary resources (see Section 3.4).
+
+   However, it would be useful if there were also ways to report on
+   statistics such as:
+
+   o  Success (Cache Hit) rates, and
+
+   o  Bandwidth to secondary servers.
+
+   This could be implemented using a new service endpoint and a (JSON?)
+   payload format.
+
+   Similarly, a reporting facility for use by the secondary servers
+   could be useful.
+
 Appendix C.  Change Log (to be removed by RFC Editor before publication)
 
 C.1.  Changes since draft-reschke-http-oob-encoding-00
@@ -835,6 +854,8 @@ C.6.  Changes since draft-reschke-http-oob-encoding-05
 
    Rename "URIs" to "sr" ("secondary resources") and treat the fallback
    URI like a regular secondary resource.
+
+   Mention reporting protocol ideas.
 
 Appendix D.  Acknowledgements
 
