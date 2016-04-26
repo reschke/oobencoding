@@ -32,7 +32,7 @@ Editorial Note (To be removed by RFC Editor before publication)
    available from <https://github.com/reschke/oobencoding> and
    <http://greenbytes.de/tech/webdav/#draft-reschke-http-oob-encoding>.
 
-   The changes in this draft are summarized in Appendix C.6.
+   The changes in this draft are summarized in Appendix C.7.
 
 Status of This Memo
 
@@ -109,6 +109,7 @@ Table of Contents
      C.4.  Changes since draft-reschke-http-oob-encoding-03
      C.5.  Changes since draft-reschke-http-oob-encoding-04
      C.6.  Changes since draft-reschke-http-oob-encoding-05
+     C.7.  Changes since draft-reschke-http-oob-encoding-06
    Appendix D.  Acknowledgements
 
 1.  Introduction
@@ -856,6 +857,10 @@ C.6.  Changes since draft-reschke-http-oob-encoding-05
    URI like a regular secondary resource.
 
    Mention reporting protocol ideas.
+
+C.7.  Changes since draft-reschke-http-oob-encoding-06
+
+   None yet.
 
 Appendix D.  Acknowledgements
 
