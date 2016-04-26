@@ -225,8 +225,8 @@
 </t>
 <t>
   In order to prevent any leakage of information, the GET request for
-  the secondary resource &MUST-NOT; contain any information provided by
-  or provided for the secondary server itself, namely HTTP authentication
+  the secondary resource &MUST; only contain information provided by
+  the origin server or the secondary server itself, namely HTTP authentication
   credentials (<xref target="RFC7235"/>) and cookies (<xref target="RFC6265"/>).
 </t>
 <t>
