@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: October 28, 2016                                       Ericsson
-                                                          April 26, 2016
+Expires: October 29, 2016                                       Ericsson
+                                                          April 27, 2016
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 28, 2016.
+   This Internet-Draft will expire on October 29, 2016.
 
 Copyright Notice
 
@@ -274,7 +274,8 @@ Table of Contents
    secondary resource and the failure reason.
 
    The following link extension relations are defined: [[linkrel:
-   Missing: "TLS handshake failure"]]
+   Missing: "TLS handshake failure"]] [[purl: purl.org seems to have
+   turned read-only; we may need a different way to mint identifiers]]
 
 3.4.1.  Server Not Reachable
 
@@ -709,7 +710,7 @@ B.1.  Accessing the Secondary Resource Too Early
      GET /bae27c36-fa6a-11e4-ae5d-00059a3c7a00 HTTP/1.1
      Host: example.net
      Link: <http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
-           rel="http://purl.org/NET/linkrel/primary-resource"
+           rel="http://purl.org/NET/linkrel/fallback-resource"
 
 
    (continuing the example from Section 3.5.1)
@@ -860,7 +861,8 @@ C.6.  Changes since draft-reschke-http-oob-encoding-05
 
 C.7.  Changes since draft-reschke-http-oob-encoding-06
 
-   None yet.
+   Changed the link relation name to the fallback resource from
+   "primary" to "fallback".
 
 Appendix D.  Acknowledgements
 

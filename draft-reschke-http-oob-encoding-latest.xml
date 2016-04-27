@@ -302,6 +302,7 @@
 <t>
   The following link extension relations are defined:
   <cref anchor="linkrel">Missing: "TLS handshake failure"</cref>
+  <cref anchor="purl">purl.org seems to have turned read-only; we may need a different way to mint identifiers</cref>
 </t>
 
 <section title="Server Not Reachable" anchor="rel-not-reachable">
@@ -903,7 +904,7 @@ coded response body would be shorter than 100000 bytes, as would be usually the 
 GET /bae27c36-fa6a-11e4-ae5d-00059a3c7a00 HTTP/1.1
 Host: example.net
 Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
-      rel="http://purl.org/NET/linkrel/primary-resource"
+      rel="http://purl.org/NET/linkrel/fallback-resource"
 
 </artwork>
 <postamble>
@@ -1084,7 +1085,7 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 </section>
 <section title="Changes since draft-reschke-http-oob-encoding-06" anchor="changes.since.06">
 <t>
-  None yet.
+  Changed the link relation name to the fallback resource from "primary" to "fallback".
 </t>
 </section>
 </section>
