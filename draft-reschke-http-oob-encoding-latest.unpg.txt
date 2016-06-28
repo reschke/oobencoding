@@ -274,9 +274,14 @@ Table of Contents
    subsequent request to the origin server, detailing the URI of the
    secondary resource and the failure reason.
 
-   The following link extension relations are defined: [[purl: purl.org
-   seems to have turned read-only; we may need a different way to mint
-   identifiers]]
+   The following link extension relations are defined:
+
+   [[purl: purl.org seems to have turned read-only; we may need a
+   different way to mint identifiers]]
+
+   [[erwip: This is a rough proposal for an error reporting mechanism.
+   Is it good enough?  Is it needed at all?  Note that Alt-Svc doesn't
+   have anything like this.]]
 
 3.4.1.  Server Not Reachable
 

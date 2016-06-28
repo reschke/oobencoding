@@ -301,9 +301,14 @@
 </t>
 <t>
   The following link extension relations are defined:
+</t>
+<t>
   <cref anchor="purl">purl.org seems to have turned read-only; we may need a different way to mint identifiers</cref>
 </t>
-
+<t>
+  <cref anchor="erwip">This is a rough proposal for an error reporting mechanism. Is it good enough? Is it needed at all?
+  Note that Alt-Svc doesn't have anything like this.</cref>
+</t>
 <section title="Server Not Reachable" anchor="rel-not-reachable">
 <t>
   Used in case the server was not reachable.
