@@ -207,7 +207,7 @@
   In some cases, the origin server might want to specify a "fallback URI"; identifying
   a secondary resource served by the origin server itself, but otherwise
   equivalent "regular" secondary resources. Any secondary resource hosted
-  by the origin server can be consired to be a "fallback"; origin servers
+  by the origin server can be considered to be a "fallback"; origin servers
   will usually list them last in the "sr" array so that they only will be
   used by clients when there is no other choice. 
 </t>
@@ -221,7 +221,7 @@
 <t>
   Upon receipt of an 'out-of-band' encoded response, a client first needs to
   obtain the secondary resource's presentation. This is done using
-  an HTTP GET request (independantly of the original request method).
+  an HTTP GET request (independently of the original request method).
 </t>
 <t>
   In order to prevent any leakage of information, the GET request for
@@ -329,7 +329,7 @@ http://purl.org/NET/linkrel/resource-not-found</artwork>
 
 <section title="Payload Unusable" anchor="rel-payload-unusable">
 <t>
-  Used in case the the payload could be obtained, but wasn't usable
+  Used in case the payload could be obtained, but wasn't usable
   (for instance, because integrity checks failed).
 </t>
 <figure>
@@ -871,7 +871,7 @@ coded response body would be shorter than 100000 bytes, as would be usually the 
   <li>In redirect messages, representation metadata (<xref target="RFC7231" x:rel="#representation.metadata"/>),
   namely "Content-Type", applies to the response message, not the redirected-to
   resource.</li>
-  <li>The origin-preserving nature of using a content coding woudld be lost.</li>
+  <li>The origin-preserving nature of using a content coding would be lost.</li>
 </ul>
 <t>
   Another alternative would be to implement the indirection on the level
@@ -948,7 +948,7 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   <li>distribute load,</li>
   <li>caching different parts of the resource with different characteristics (such as only distribute the first minutes of a long video), or</li>
   <li>fetching specific parts of a resource (similar to byte range requests), or</li>
-  <li>hide information from the secondary server.</li>
+  <li>hiding information from the secondary server.</li>
 </ul>
 <t>
   Another benefit might be that it would allow the origin server to only serve the first
@@ -964,7 +964,7 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
   used for public content such as software downloads. However, the lack of mandatory encryption
   affects the security considerations (which currently try to rule attack vectors
   caused by ambient authority (<xref target="RFC6265" x:fmt="," x:sec="8.2"/>).
-  We need to decide whether we need this level of independance.
+  We need to decide whether we need this level of independence.
 </t>
 </section>
 
@@ -1045,7 +1045,7 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 <t>
   Reduce information leakage by disallowing ambient authority information
   being sent to the secondary resource. Require "Origin" to be included
-  in request to secondary resource, and require seconday server to check it.
+  in request to secondary resource, and require secondary server to check it.
 </t>
 <t>
   Mention "Origin" + server check on secondary resource as defense to content stealing.

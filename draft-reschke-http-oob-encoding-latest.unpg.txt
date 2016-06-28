@@ -4,8 +4,8 @@
 Network Working Group                                         J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                               S. Loreto
-Expires: October 29, 2016                                       Ericsson
-                                                          April 27, 2016
+Expires: December 30, 2016                                      Ericsson
+                                                           June 28, 2016
 
 
                  'Out-Of-Band' Content Coding for HTTP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 29, 2016.
+   This Internet-Draft will expire on December 30, 2016.
 
 Copyright Notice
 
@@ -196,9 +196,9 @@ Table of Contents
    In some cases, the origin server might want to specify a "fallback
    URI"; identifying a secondary resource served by the origin server
    itself, but otherwise equivalent "regular" secondary resources.  Any
-   secondary resource hosted by the origin server can be consired to be
-   a "fallback"; origin servers will usually list them last in the "sr"
-   array so that they only will be used by clients when there is no
+   secondary resource hosted by the origin server can be considered to
+   be a "fallback"; origin servers will usually list them last in the
+   "sr" array so that they only will be used by clients when there is no
    other choice.
 
    New specifications can define new OPTIONAL header fields, thus
@@ -210,7 +210,7 @@ Table of Contents
 
    Upon receipt of an 'out-of-band' encoded response, a client first
    needs to obtain the secondary resource's presentation.  This is done
-   using an HTTP GET request (independantly of the original request
+   using an HTTP GET request (independently of the original request
    method).
 
    In order to prevent any leakage of information, the GET request for
@@ -296,8 +296,8 @@ Table of Contents
 
 3.4.3.  Payload Unusable
 
-   Used in case the the payload could be obtained, but wasn't usable
-   (for instance, because integrity checks failed).
+   Used in case the payload could be obtained, but wasn't usable (for
+   instance, because integrity checks failed).
 
    Link relation:
 
@@ -679,7 +679,7 @@ Appendix A.  Alternatives, or: why not a new Status Code?
       [RFC7231]), namely "Content-Type", applies to the response
       message, not the redirected-to resource.
 
-   o  The origin-preserving nature of using a content coding woudld be
+   o  The origin-preserving nature of using a content coding would be
       lost.
 
    Another alternative would be to implement the indirection on the
@@ -750,7 +750,7 @@ B.3.  Fragmenting
    o  fetching specific parts of a resource (similar to byte range
       requests), or
 
-   o  hide information from the secondary server.
+   o  hiding information from the secondary server.
 
    Another benefit might be that it would allow the origin server to
    only serve the first part of a resource itself (reducing time to play
@@ -765,7 +765,7 @@ B.4.  Relation to Content Encryption
    downloads.  However, the lack of mandatory encryption affects the
    security considerations (which currently try to rule attack vectors
    caused by ambient authority ([RFC6265], Section 8.2).  We need to
-   decide whether we need this level of independance.
+   decide whether we need this level of independence.
 
 B.5.  Reporting
 
@@ -828,8 +828,8 @@ C.5.  Changes since draft-reschke-http-oob-encoding-04
 
    Reduce information leakage by disallowing ambient authority
    information being sent to the secondary resource.  Require "Origin"
-   to be included in request to secondary resource, and require seconday
-   server to check it.
+   to be included in request to secondary resource, and require
+   secondary server to check it.
 
    Mention "Origin" + server check on secondary resource as defense to
    content stealing.
