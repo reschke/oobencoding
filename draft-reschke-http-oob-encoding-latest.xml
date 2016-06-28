@@ -301,7 +301,6 @@
 </t>
 <t>
   The following link extension relations are defined:
-  <cref anchor="linkrel">Missing: "TLS handshake failure"</cref>
   <cref anchor="purl">purl.org seems to have turned read-only; we may need a different way to mint identifiers</cref>
 </t>
 
@@ -336,6 +335,17 @@ http://purl.org/NET/linkrel/resource-not-found</artwork>
 <preamble>Link relation:</preamble>
 <artwork type="example">
 http://purl.org/NET/linkrel/payload-unusable</artwork>
+</figure>
+</section>
+
+<section title="TLS Handshake Failure" anchor="rel-tls-handshake-failure">
+<t>
+  Used in case of a TLS handshare failure (<xref target="RFC5246"/>).
+</t>
+<figure>
+<preamble>Link relation:</preamble>
+<artwork type="example">
+http://purl.org/NET/linkrel/tls-handshake-failure</artwork>
 </figure>
 </section>
 
@@ -773,6 +783,16 @@ coded response body would be shorter than 100000 bytes, as would be usually the 
   <seriesInfo name='RFC' value='4483' />
 </reference>
 
+<reference anchor="RFC5246">
+  <front>
+    <title>The Transport Layer Security (TLS) Protocol Version 1.2</title>
+    <author initials="T." surname="Dierks" fullname="T. Dierks"/>
+    <author initials="E." surname="Rescorla" fullname="E. Rescorla"/>
+    <date year="2008" month="August"/>
+  </front>
+  <seriesInfo name="RFC" value="5246"/>
+</reference>
+
 <reference anchor="RFC6454">
   <front>
     <title>The Web Origin Concept</title>
@@ -1086,9 +1106,11 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 <section title="Changes since draft-reschke-http-oob-encoding-06" anchor="changes.since.06">
 <t>
   Changed the link relation name to the fallback resource from "primary" to "fallback".
+  Added link relation for reporting TLS handshake failures.
 </t>
 </section>
 </section>
+
 
 <section title="Acknowledgements" numbered="false">
 <t>

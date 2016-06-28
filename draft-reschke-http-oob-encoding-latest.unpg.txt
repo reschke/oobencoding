@@ -78,6 +78,7 @@ Table of Contents
        3.4.1.  Server Not Reachable
        3.4.2.  Resource Not Found
        3.4.3.  Payload Unusable
+       3.4.4.  TLS Handshake Failure
      3.5.  Examples
        3.5.1.  Basic Example
        3.5.2.  Example for an attempt to use 'out-of-band'
@@ -273,9 +274,9 @@ Table of Contents
    subsequent request to the origin server, detailing the URI of the
    secondary resource and the failure reason.
 
-   The following link extension relations are defined: [[linkrel:
-   Missing: "TLS handshake failure"]] [[purl: purl.org seems to have
-   turned read-only; we may need a different way to mint identifiers]]
+   The following link extension relations are defined: [[purl: purl.org
+   seems to have turned read-only; we may need a different way to mint
+   identifiers]]
 
 3.4.1.  Server Not Reachable
 
@@ -302,6 +303,14 @@ Table of Contents
    Link relation:
 
    http://purl.org/NET/linkrel/payload-unusable
+
+3.4.4.  TLS Handshake Failure
+
+   Used in case of a TLS handshare failure ([RFC5246]).
+
+   Link relation:
+
+   http://purl.org/NET/linkrel/tls-handshake-failure
 
 3.5.  Examples
 
@@ -640,6 +649,11 @@ Table of Contents
                  DOI 10.17487/RFC4483, May 2006,
                  <http://www.rfc-editor.org/info/rfc4483>.
 
+   [RFC5246]     Dierks, T. and E. Rescorla, "The Transport Layer
+                 Security (TLS) Protocol Version 1.2", RFC 5246,
+                 DOI 10.17487/RFC5246, August 2008,
+                 <http://www.rfc-editor.org/info/rfc5246>.
+
    [RFC6454]     Barth, A., "The Web Origin Concept", RFC 6454,
                  DOI 10.17487/RFC6454, December 2011,
                  <http://www.rfc-editor.org/info/rfc6454>.
@@ -862,7 +876,8 @@ C.6.  Changes since draft-reschke-http-oob-encoding-05
 C.7.  Changes since draft-reschke-http-oob-encoding-06
 
    Changed the link relation name to the fallback resource from
-   "primary" to "fallback".
+   "primary" to "fallback".  Added link relation for reporting TLS
+   handshake failures.
 
 Appendix D.  Acknowledgements
 
