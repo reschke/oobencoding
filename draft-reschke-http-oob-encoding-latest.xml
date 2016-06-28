@@ -356,7 +356,6 @@ http://purl.org/NET/linkrel/payload-unusable</artwork>
 http://purl.org/NET/linkrel/tls-handshake-failure</artwork>
 </figure>
 </section>
-
 </section>
 
 <section title="Examples">
@@ -552,8 +551,61 @@ Link: &lt;http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 
 </artwork></figure>
 </section>
+
+<section title="Relation to Content Negotiation" anchor="relation.to.content.negotiation">
+<t>
+  Use of the 'out-of-band' encoding is a case of "proactive content negotiation", 
+  as defined in <xref target="RFC7231" x:fmt="of" x:rel="#content.negotiation"/>.
+</t>
+<t>
+  This however does not rule out combining it with other content codings. As an example, the
+  possible iteractions with the 'gzip' content coding (<xref target="RFC7230" x:fmt="," x:rel="#gzip.coding"/>)
+  are described below:
+</t>
+<t>
+  <x:h>Case 1: Primary resource does not support 'gzip' encoding</x:h>
+</t>
+<t>
+  In this case, the response for the primary resource will never include
+  'gzip' in the Content-Encoding header field. The secondary resource
+  however might support it, in which case the client could negotiate
+  compression by including "Accept-Encoding: gzip" in the request to the
+  secondary resource.
+</t>
+<t>
+  <x:h>Case 2: Primary resource does support 'gzip' encoding</x:h>
+</t>
+<t>
+  Here, the origin server would actually use two different secondary resources,
+  one of them being gzip-compressed. For instance &mdash; going back to the first
+  example in <xref target="basic.example"/> &mdash; it might reply with:
+</t>
+<figure>
+<artwork type="message/http; msgtype=&#34;request&#34;" x:indent-with="  ">
+HTTP/1.1 200 OK
+Date: Thu, 14 May 2015 18:52:00 GMT
+Content-Type: text/plain
+Cache-Control: max-age=10, public
+Content-Encoding: gzip, out-of-band
+Content-Length: <x:length-of target="exbodygz"/>
+Vary: Accept-Encoding
+
+<x:span anchor="exbodygz" x:lang="">{
+  "sr": [
+    "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a01",
+    "/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a01"
+  ]
+}
+</x:span></artwork>
+</figure>
+<t>
+  which would mean that the payload for the secondary resource already is
+  gzip-compressed.
+</t>
 </section>
 </section>
+</section>
+
 
 <section title="Content Codings and Range Requests">
 <t>
@@ -1115,6 +1167,9 @@ Link: &lt;http://example.com/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
 <t>
   Changed the link relation name to the fallback resource from "primary" to "fallback".
   Added link relation for reporting TLS handshake failures.
+</t>
+<t>
+  Added an example about the interaction with 'gzip' coding.
 </t>
 </section>
 </section>

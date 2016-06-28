@@ -85,6 +85,7 @@ Table of Contents
                cross-origin
        3.5.3.  Example involving an encrypted resource
        3.5.4.  Example For Problem Reporting
+       3.5.5.  Relation to Content Negotiation
    4.  Content Codings and Range Requests
    5.  Feature Discovery
    6.  Security Considerations
@@ -484,6 +485,47 @@ Table of Contents
      Link: <http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a00>;
            rel="http://purl.org/NET/linkrel/resource-not-found"
 
+
+3.5.5.  Relation to Content Negotiation
+
+   Use of the 'out-of-band' encoding is a case of "proactive content
+   negotiation", as defined in Section 3.4 of [RFC7231].
+
+   This however does not rule out combining it with other content
+   codings.  As an example, the possible iteractions with the 'gzip'
+   content coding ([RFC7230], Section 4.2.3) are described below:
+
+   Case 1: Primary resource does not support 'gzip' encoding
+
+   In this case, the response for the primary resource will never
+   include 'gzip' in the Content-Encoding header field.  The secondary
+   resource however might support it, in which case the client could
+   negotiate compression by including "Accept-Encoding: gzip" in the
+   request to the secondary resource.
+
+   Case 2: Primary resource does support 'gzip' encoding
+
+   Here, the origin server would actually use two different secondary
+   resources, one of them being gzip-compressed.  For instance -- going
+   back to the first example in Section 3.5.1 -- it might reply with:
+
+     HTTP/1.1 200 OK
+     Date: Thu, 14 May 2015 18:52:00 GMT
+     Content-Type: text/plain
+     Cache-Control: max-age=10, public
+     Content-Encoding: gzip, out-of-band
+     Content-Length: 133
+     Vary: Accept-Encoding
+
+     {
+       "sr": [
+         "http://example.net/bae27c36-fa6a-11e4-ae5d-00059a3c7a01",
+         "/c/bae27c36-fa6a-11e4-ae5d-00059a3c7a01"
+       ]
+     }
+
+   which would mean that the payload for the secondary resource already
+   is gzip-compressed.
 
 4.  Content Codings and Range Requests
 
@@ -886,6 +928,8 @@ C.7.  Changes since draft-reschke-http-oob-encoding-06
    Changed the link relation name to the fallback resource from
    "primary" to "fallback".  Added link relation for reporting TLS
    handshake failures.
+
+   Added an example about the interaction with 'gzip' coding.
 
 Appendix D.  Acknowledgements
 
