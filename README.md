@@ -1,2 +1,3 @@
 # oobencoding
-an Internet Draft describing an "out-of-band" content coding
+
+This has moved to https://github.com/EricssonResearch/Blind-Cache-Drafts
