@@ -187,6 +187,9 @@ Table of Contents
       that are relative references are resolved against the URI of the
       primary resource).
 
+   [[pext: This payload might be too simple in that there's no simple
+   way to annotate the secondary resources.]]
+
    The payload format uses an array so that the origin server can
    specify multiple secondary resources.  The ordering within the array
    reflects the origin server's preference (if any), with the most
